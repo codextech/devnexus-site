@@ -113,7 +113,7 @@ const Header = () => {
                             className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
                               pathname === menuItem.path
                                 ? "text-secondary dark:text-secondary"
-                                : "hover:text-secondary dark:hover:text-secondary text-dark dark:text-white/70"
+                                : "text-dark hover:text-secondary dark:text-white/70 dark:hover:text-secondary"
                             }`}
                           >
                             {menuItem.title}
@@ -122,7 +122,7 @@ const Header = () => {
                           <>
                             <p
                               onClick={() => handleSubmenu(index)}
-                              className="group-hover:text-secondary dark:group-hover:text-secondary flex cursor-pointer items-center justify-between py-2 text-base text-dark dark:text-white/70 lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
+                              className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:text-secondary dark:text-white/70 dark:group-hover:text-secondary lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
                             >
                               {menuItem.title}
                               <span className="pl-3">
@@ -145,7 +145,7 @@ const Header = () => {
                                 <Link
                                   href={submenuItem.path}
                                   key={index}
-                                  className="hover:text-secondary text-secondary dark:hover:text-secondary block rounded py-2.5 text-sm dark:text-white/70 lg:px-3"
+                                  className="block rounded py-2.5 text-sm text-secondary hover:text-secondary dark:text-white/70 dark:hover:text-secondary lg:px-3"
                                 >
                                   {submenuItem.title}
                                 </Link>
@@ -165,9 +165,9 @@ const Header = () => {
                 >
                   Book Now
                 </Link>
-                <div>
+                {/* <div>
                   <ThemeToggler />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

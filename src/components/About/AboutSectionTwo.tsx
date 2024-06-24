@@ -27,7 +27,7 @@ const AboutSectionTwo = () => {
           <div className="w-full px-4 lg:w-1/2">
             <div className="max-w-[470px]">
               <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className="mb-4 text-xl font-bold text-primary dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                   Bug free code
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
@@ -36,7 +36,7 @@ const AboutSectionTwo = () => {
                 </p>
               </div>
               <div className="mb-9">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className="mb-4 text-xl font-bold text-primary dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                   Premier support
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
@@ -45,7 +45,7 @@ const AboutSectionTwo = () => {
                 </p>
               </div>
               <div className="mb-1">
-                <h3 className="mb-4 text-xl font-bold text-black dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className="mb-4 text-xl font-bold text-primary dark:text-white sm:text-2xl lg:text-xl xl:text-2xl">
                   Next.js
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
