@@ -24,9 +24,9 @@ const Header = () => {
   };
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
-  });
+  }, []); // Ensure this useEffect has an empty dependency array to avoid potential performance issues.
 
-  // submenu handler
+  // Submenu handler
   const [openIndex, setOpenIndex] = useState(-1);
   const handleSubmenu = (index) => {
     if (openIndex === index) {
@@ -36,7 +36,7 @@ const Header = () => {
     }
   };
 
-  const usePathName = usePathname();
+  const pathname = usePathname();
 
   return (
     <>
@@ -64,7 +64,7 @@ const Header = () => {
                   className="w-full dark:hidden"
                 />
                 <Image
-                  src="/images/logo/DevNexus_Secondary Logo.svg"
+                  src="/images/logo/DevNexus_Primary Logo.svg"
                   alt="logo"
                   width={60}
                   height={10}
@@ -111,9 +111,9 @@ const Header = () => {
                           <Link
                             href={menuItem.path}
                             className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
-                              usePathName === menuItem.path
-                                ? "text-primary dark:text-white"
-                                : "text-dark hover:text-primary dark:text-white/70 dark:hover:text-white"
+                              pathname === menuItem.path
+                                ? "text-secondary dark:text-secondary"
+                                : "hover:text-secondary dark:hover:text-secondary text-dark dark:text-white/70"
                             }`}
                           >
                             {menuItem.title}
@@ -122,7 +122,7 @@ const Header = () => {
                           <>
                             <p
                               onClick={() => handleSubmenu(index)}
-                              className="flex cursor-pointer items-center justify-between py-2 text-base text-dark group-hover:text-primary dark:text-white/70 dark:group-hover:text-white lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
+                              className="group-hover:text-secondary dark:group-hover:text-secondary flex cursor-pointer items-center justify-between py-2 text-base text-dark dark:text-white/70 lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
                             >
                               {menuItem.title}
                               <span className="pl-3">
@@ -145,7 +145,7 @@ const Header = () => {
                                 <Link
                                   href={submenuItem.path}
                                   key={index}
-                                  className="block rounded py-2.5 text-sm text-dark hover:text-primary dark:text-white/70 dark:hover:text-white lg:px-3"
+                                  className="hover:text-secondary text-secondary dark:hover:text-secondary block rounded py-2.5 text-sm dark:text-white/70 lg:px-3"
                                 >
                                   {submenuItem.title}
                                 </Link>
