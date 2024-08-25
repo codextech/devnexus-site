@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-neutral-950 text-neutral-100;
+  }
+
+  .bg-dot-mask {
+    @apply [mask-image:radial-gradient(ellipse_at_center,transparent_80%,black)] sm:[mask-image:radial-gradient(ellipse_at_center,transparent_70%,black)] md:[mask-image:radial-gradient(ellipse_at_center,transparent_60%,black)] lg:[mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)] 2xl:[mask-image:radial-gradient(ellipse_at_center,transparent_40%,black)];
+  }
+  body::-webkit-scrollbar-thumb {
+    @apply bg-neutral-700 hover:bg-neutral-600 rounded-full;
+  }
+}
+
+.navigation-link-hover-animation {
+  position: relative;
+  display: inline-block;
+
+  transition: color 0.2s ease;
+  padding: 1px 3px;
+}
+
+.navigation-link-hover-animation::after,
+.navigation-link-hover-animation::before {
+  content: "";
+  position: absolute;
+  top: calc(100%);
+  width: 0;
+  right: 0;
+  height: 2px;
+}
+
+.navigation-link-hover-animation:hover {
+  color: #aaa;
+}
+.navigation-link-hover-animation:hover::after,
+.navigation-link-hover-animation:hover::before {
+  width: 100%;
+  left: 0;
+}
+
+.navigation-link-hover-animation::before {
+  transition: width 0.2s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
+  background: #048dcd;
+}
+
+/* .navigation-link-hover-animation::after {
+  transition: width 0.2s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
+  background: #02a9f7;
+} */
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 99px;
+}
