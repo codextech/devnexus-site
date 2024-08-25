@@ -23,8 +23,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
-        <title> DevNexus | Software Development Agency </title>
-        <meta name="description" content="Innovative software and web applications that drive growth for your business. Discover our software development services." />
+        <title> Custom Software & Web Applications for Business Growth | DevNexus</title>
+        <meta name="description" content="DevNexus specializes in creating custom software and web applications designed to fuel growth and success for your business. Boost your business with innovative digital solutions." />
       
           <script
           type="application/ld+json"
@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
               "@type": "WebSite",
               "name": "DevNexus",
               "url": "https://www.devnexus.com",
-              "description": "Innovative software and web applications that drive growth for your business."
+              "description": "DevNexus specializes in creating custom software and web applications designed to fuel growth and success for your business. Boost your business with innovative digital solutions."
             }),
           }}
         />
