@@ -5,7 +5,7 @@ import { LampContainer } from "./ui/lamp";
 import { TextGenerateEffect } from "./ui/text-generate-effect";
 
 const Hero = () => {
-  const words = `We build innovative software and web applications that helps and drive growth for your business.`;
+  const words = `We create custom software and web applications designed to fuel growth and success for your business.`;
   return (
     <div>
       <LampContainer className={"min-h-fit h-[80dvh] px-4 md:px-8"}>

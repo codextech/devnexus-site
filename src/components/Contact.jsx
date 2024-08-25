@@ -48,10 +48,10 @@ const Contact = () => {
               <Input id="email" placeholder="example@gmail.com" type="email" />
             </LabelInputContainer>
 
-            <LabelInputContainer>
+            {/* <LabelInputContainer>
               <Label htmlFor="Company Name">Company Name</Label>
               <Input id="Company Name" placeholder="Acme Inc" type="text" />
-            </LabelInputContainer>
+            </LabelInputContainer> */}
 
             <LabelInputContainer>
               <Label htmlFor="message">Message</Label>
@@ -74,7 +74,7 @@ const Contact = () => {
           <div className="bg-gradient-to-r from-transparent via-neutral-700 to-transparent mt-8 mb-5 h-[1px] w-full" />
 
           <div className="flex flx-row flex-wrap justify-center items-center gap-3">
-            <Link
+            {/* <Link
               href={"#"}
               className="w-9 h-9 text-neutral-300 bg-transparent hover:bg-neutral-100/5 inline-flex justify-center items-center border border-neutral-700 rounded-md"
               type="submit"
@@ -82,15 +82,15 @@ const Contact = () => {
               <IconBrandGithub className="h-5 w-5 shrink-0" />
               <span className="sr-only">GitHub</span>
               <BottomGradient />
-            </Link>
+            </Link> */}
 
             <Link
-              href={"#"}
+              href={"https://www.linkedin.com/company/devnexusconsulting"}
               className="w-9 h-9 text-neutral-300 bg-transparent hover:bg-neutral-100/5 inline-flex justify-center items-center border border-neutral-700 rounded-md"
               type="submit"
             >
               <IconBrandLinkedin className="h-6 w-6 shrink-0" />
-              <span className="sr-only">GitHub</span>
+              <span className="sr-only">Linked In</span>
               <BottomGradient />
             </Link>
 
@@ -100,7 +100,7 @@ const Contact = () => {
               type="submit"
             >
               <IconBrandInstagram className="h-6 w-6 shrink-0" />
-              <span className="sr-only">GitHub</span>
+              <span className="sr-only">Instagram</span>
               <BottomGradient />
             </Link>
           </div>

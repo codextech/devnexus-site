@@ -35,7 +35,7 @@ const Portfolio = () => {
         </HoverBorderGradient>
 
         <h1 className="text-center text-2xl font-bold tracking-tighter sm:text-3xl lg:text-4xl 2xl:text-5xl font-web mb-0.5">
-          Our Previous Projects
+          Delivered Projects
         </h1>
 
         <p className="text-center text-base font-medium text-neutral-500">

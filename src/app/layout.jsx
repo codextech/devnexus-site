@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import Navbar from "@/components/Navbar";
 import { NavbarForSmScreens } from "@/components/NavbarForSmScreens";
 import Footer from "@/components/Footer";
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <title> DevNexus | Software Development Agency </title>
+        <meta name="description" content="Innovative software and web applications that drive growth for your business. Discover our software development services." />
+      
+          <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "DevNexus",
+              "url": "https://www.devnexus.com",
+              "description": "Innovative software and web applications that drive growth for your business."
+            }),
+          }}
+        />
+      
+      </Head>
+
       <body className={`${inter.className} ${FontDevWeb.variable} `}>
         <Navbar />
 

@@ -27,7 +27,7 @@ const Services = () => {
       className: "text-neutral-500 dark:text-neutral-500",
     },
     {
-      text: "offer",
+      text: "provide",
       className: "text-neutral-500 dark:text-neutral-500",
     },
     {
@@ -35,7 +35,7 @@ const Services = () => {
       className: "text-neutral-500 dark:text-neutral-500",
     },
     {
-      text: "wide",
+      text: "comprehensive",
       className: "text-neutral-500 dark:text-neutral-500",
     },
     {
@@ -55,7 +55,7 @@ const Services = () => {
       className: "text-neutral-500 dark:text-neutral-500",
     },
     {
-      text: "meet",
+      text: "drive",
       className: "text-neutral-500 dark:text-neutral-500",
     },
     {
@@ -63,7 +63,11 @@ const Services = () => {
       className: "text-neutral-500 dark:text-neutral-500",
     },
     {
-      text: "needs.",
+      text: "business",
+      className: "text-neutral-500 dark:text-neutral-500",
+    },
+    {
+      text: "success.",
       className: "text-primary dark:text-primary",
     },
   ];
@@ -72,14 +76,14 @@ const Services = () => {
     {
       title: "Software Development",
       description:
-        " We develop custom software tailored to your business needs.",
+        "Transform your business with tailor-made software solutions designed to address your unique challenges and goals.",
       icon: <IconTerminal2 className="text-primary h-5 w-5 relative z-50" />,
     },
 
     {
       title: "Web Development",
       description:
-        "We build responsive and efficient websites using the latest technologies.",
+        "Transform your business with tailor-made software solutions designed to address your unique challenges and goals. ",
       icon: (
         <GlobeIcon className="h-5 w-5 shrink-0 text-primary relative z-50" />
       ),
@@ -87,26 +91,26 @@ const Services = () => {
 
     {
       title: "Database Management",
-      description: "We ensure your data is secure and easily accessible.",
+      description: "Elevate your online presence with responsive, high-performance websites built using the latest technologies.",
       icon: <IconDatabase className="text-primary h-5 w-5 relative z-50" />,
     },
 
     {
       title: "Cutting-Edge Technology",
       description:
-        "We leverage the latest web technologies to craft high-performance, responsive websites that elevate your online presence and drive results.",
+        "Stay ahead of the competition by leveraging the latest web technologies.",
       icon: <IconCpu className="text-primary h-5 w-5 relative z-50" />,
     },
     {
-      title: "Consulting",
+      title: "Expert Consulting Services",
       description:
-        "We provide consulting services to help you improve your software and web application development processes.",
+        "Optimize your software and web development processes with our expert consulting services.",
       icon: <IconHeadset className="text-primary h-5 w-5 relative z-50" />,
     },
     {
-      title: "24/7 Customer Support",
+      title: "AI-Powered Customer Support",
       description:
-        "We are available a 100% of the time. Atleast our AI Agents are.",
+        "Experience unparalleled support with our AI-powered customer service agents, available around the clock to assist you.",
       icon: <IconHelp className="text-primary h-5 w-5 relative z-50" />,
     },
   ];

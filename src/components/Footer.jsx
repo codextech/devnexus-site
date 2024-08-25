@@ -28,7 +28,7 @@ const Footer = () => {
   const socialItems = [
     {
       name: "Linked In",
-      href: "/",
+      href: "https://www.linkedin.com/company/devnexusconsulting",
     },
 
     // {
