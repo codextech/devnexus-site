@@ -14,6 +14,7 @@ import {
 } from "@tabler/icons-react";
 import { Textarea } from "./ui/textarea";
 import Link from "next/link";
+import CalendlyEmbed from "./CalendlyEmbed";
 
 const Contact = () => {
   const handleSubmit = (e) => {
@@ -26,7 +27,7 @@ const Contact = () => {
       id="contact"
       className="w-full rounded-md bg-neutral-950 relative py-12 md:py-20 px-5 min-[450px]:px-8 antialiased scroll-m-5"
     >
-      <div className="max-w-lg w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-transparent backdrop-blur-[2px] relative z-10">
+      <div className="max-w-3xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-transparent backdrop-blur-[2px] relative z-10">
         <h2 className="text-3xl text-center font-web text-neutral-200">
           Contact Us
         </h2>
@@ -36,6 +37,11 @@ const Contact = () => {
           Contact us and let us know how we can help you.
         </p>
 
+
+        <div className="mt-6">
+        <CalendlyEmbed  url="https://calendly.com/tanzeel-saleem/meet-greet" />
+        </div>
+{/* 
         <form className="mt-6" onSubmit={handleSubmit}>
           <div className="space-y-6">
             <LabelInputContainer>
@@ -48,10 +54,6 @@ const Contact = () => {
               <Input id="email" placeholder="example@gmail.com" type="email" />
             </LabelInputContainer>
 
-            {/* <LabelInputContainer>
-              <Label htmlFor="Company Name">Company Name</Label>
-              <Input id="Company Name" placeholder="Acme Inc" type="text" />
-            </LabelInputContainer> */}
 
             <LabelInputContainer>
               <Label htmlFor="message">Message</Label>
@@ -74,15 +76,7 @@ const Contact = () => {
           <div className="bg-gradient-to-r from-transparent via-neutral-700 to-transparent mt-8 mb-5 h-[1px] w-full" />
 
           <div className="flex flx-row flex-wrap justify-center items-center gap-3">
-            {/* <Link
-              href={"#"}
-              className="w-9 h-9 text-neutral-300 bg-transparent hover:bg-neutral-100/5 inline-flex justify-center items-center border border-neutral-700 rounded-md"
-              type="submit"
-            >
-              <IconBrandGithub className="h-5 w-5 shrink-0" />
-              <span className="sr-only">GitHub</span>
-              <BottomGradient />
-            </Link> */}
+          
 
             <Link
               href={"https://www.linkedin.com/company/devnexusconsulting"}
@@ -105,20 +99,8 @@ const Contact = () => {
             </Link>
           </div>
 
-          {/* <div className="flex flex-col space-y-4">
-            <button
-              className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-              type="submit"
-            >
-              <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-              <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-                GitHub
-              </span>
-              <BottomGradient />
-            </button>
-            
-          </div> */}
-        </form>
+    
+        </form> */}
       </div>
 
       <BackgroundBeams />

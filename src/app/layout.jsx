@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
             }),
           }}
         />
-
+      {/* <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script> */}
       </Head>
 
       <body className={`${inter.className} ${FontDevWeb.variable} `}>
@@ -73,6 +73,12 @@ export default function RootLayout({ children }) {
         <NavbarForSmScreens />
 
         {children}
+
+        {/* <div className="calendly-inline-widget mt-6" data-url="https://calendly.com/tanzeel-saleem/meet-greet" 
+        style={{
+          minWidth:'320px',
+          height:'700px'
+        }} ></div> */}
 
         <Footer />
       </body>
