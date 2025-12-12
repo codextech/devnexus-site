@@ -50,7 +50,7 @@ const Footer = () => {
 
     {
       name: "Privacy Policy",
-      href: "/",
+      href: "/privacy",
     },
   ];
 
@@ -108,7 +108,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* <div className="flex justify-center space-y-4 flex-col w-full">
+          <div className="flex justify-center space-y-4 flex-col w-full">
             <p className="text-neutral-300 font-bold">Legal</p>
 
             <ul className="list-none space-y-4">
@@ -123,7 +123,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
