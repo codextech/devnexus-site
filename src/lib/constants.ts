@@ -6,7 +6,7 @@ export const SITE = {
   email: "info@devnexus.co",
   social: {
     linkedin: "https://www.linkedin.com/company/devnexusconsulting",
-    // github: "https://github.com/devnexus",
+    github: "",
     x: "https://x.com/devnexus",
   },
 } as const;
