@@ -1,0 +1,65 @@
+---
+title: "AI-Powered Patient Intake System"
+slug: "healthbridge-patient-intake"
+client: "HealthBridge"
+industry: "Healthcare"
+services:
+  - "AI Solutions"
+  - "Web & Mobile Development"
+thumbnail: "/images/case-studies/healthbridge.png"
+duration: "14 weeks"
+teamSize: "4 engineers"
+excerpt: "Reduced patient intake time by 68% across 23 urgent care clinics with AI-powered insurance card extraction."
+metrics:
+  - label: "reduction in intake time"
+    value: "68%"
+  - label: "data extraction accuracy"
+    value: "94%"
+  - label: "annual savings"
+    value: "$340K"
+techStack:
+  - "Next.js"
+  - "Python"
+  - "OpenAI"
+  - "HL7 FHIR"
+  - "PostgreSQL"
+  - "AWS"
+publishedAt: "2025-03-15"
+---
+
+## Overview
+
+HealthBridge, a network of 23 urgent care clinics, needed to reduce patient intake time and eliminate paper forms. DevNexus built an AI-powered intake system that extracts insurance information from photos and pre-fills patient records — cutting intake time from 12 minutes to 3.8 minutes.
+
+## The Challenge
+
+Patients were filling out the same paper forms at every visit. Front desk staff spent 40% of their time on data entry. Insurance verification was manual and error-prone, causing billing delays that averaged 14 days per claim.
+
+The existing EHR system (Epic) had no self-service intake option. Every patient interaction started with a clipboard and a pen.
+
+## Our Approach
+
+1. **Field research:** We shadowed front desk staff at 3 locations to map the actual intake flow — not what was documented, but what actually happened.
+2. **Mobile-first web app:** We designed a mobile-first web app (no app store friction) for patient self-service that worked on any smartphone.
+3. **OCR + LLM pipeline:** We built a computer vision pipeline that extracts data from insurance card photos with 94% accuracy, then uses an LLM to validate and structure the data.
+4. **EHR integration:** We integrated with Epic via HL7 FHIR APIs, so patient records update in real-time without manual data entry.
+
+## The Solution
+
+The final system is a Progressive Web App that patients access via a QR code in the waiting room. They photograph their insurance card and ID, confirm the extracted data, and their record is updated in Epic before they see the doctor.
+
+For edge cases where the AI extraction confidence is below 85%, the system flags the record for front desk review — but this happens for less than 6% of submissions.
+
+## Results
+
+- **Intake time:** Dropped from 12 minutes to 3.8 minutes (68% reduction)
+- **Staff reallocation:** 40% of data-entry time redeployed to patient care
+- **Insurance verification errors:** Dropped 71%
+- **Annual savings:** $340K in administrative labor across 23 locations
+- **Patient satisfaction:** NPS increased by 18 points
+
+## Client Testimonial
+
+> "Our front desk staff went from data entry clerks to patient advocates. DevNexus didn't just build software — they changed how our clinics operate."
+>
+> — Dr. Sarah Chen, COO, HealthBridge

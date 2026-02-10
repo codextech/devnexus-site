@@ -1,0 +1,65 @@
+---
+title: "Agentic AI for Freight Dispatch"
+slug: "logitrack-freight-dispatch"
+client: "LogiTrack"
+industry: "Logistics"
+services:
+  - "Agentic AI Workflows"
+  - "Voice AI Agents"
+thumbnail: "/images/case-studies/logitrack.png"
+duration: "18 weeks"
+teamSize: "5 engineers"
+excerpt: "3.2x increase in loads dispatched per dispatcher with autonomous AI agents and voice check calls."
+metrics:
+  - label: "increase in loads/dispatcher"
+    value: "3.2x"
+  - label: "reduction in carrier rates"
+    value: "22%"
+  - label: "check calls automated"
+    value: "91%"
+techStack:
+  - "LangGraph"
+  - "Vapi"
+  - "Node.js"
+  - "Python"
+  - "PostgreSQL"
+  - "Twilio"
+publishedAt: "2025-06-01"
+---
+
+## Overview
+
+LogiTrack, a mid-market freight brokerage processing 400+ loads per day, needed to automate dispatcher workflows. DevNexus built an agentic AI system that autonomously matches loads to carriers, negotiates rates, and handles check calls via voice AI — increasing dispatcher throughput by 3.2x.
+
+## The Challenge
+
+Dispatchers manually matched loads to carriers using spreadsheets and phone calls. Each load required 6-8 phone calls to find the right carrier at the right price. Check calls (status updates from drivers en route) consumed 30% of dispatcher time with zero strategic value.
+
+LogiTrack was growing faster than they could hire. Training a new dispatcher took 6 months, and the labor market for experienced dispatchers was extremely competitive.
+
+## Our Approach
+
+1. **Load-carrier matching engine:** We built a matching engine using historical performance data (on-time rates, damage claims, rate history) and real-time carrier availability from their TMS.
+2. **Multi-agent system:** We designed three specialized agents — one for rate negotiation, one for documentation and compliance, and one for check calls — coordinated by an orchestration layer.
+3. **Voice AI for check calls:** We deployed a voice AI agent (built on Vapi) that calls carriers for status updates, handles natural conversation including delays and exceptions, and logs results directly into their TMS.
+4. **Human-in-the-loop:** Approval gates for loads above $10K, new carriers, and any flagged exceptions. Dispatchers review and approve rather than execute.
+
+## The Solution
+
+The system works alongside dispatchers, not instead of them. When a new load comes in, the matching agent recommends the top 3 carriers with predicted rates and on-time probabilities. The negotiation agent handles the outbound communication. Check calls happen automatically every 4 hours via voice AI.
+
+Dispatchers now spend their time on exception handling, relationship building, and high-value strategic decisions — not repetitive phone calls.
+
+## Results
+
+- **Dispatcher throughput:** From 15 loads/day to 48 loads/day per dispatcher (3.2x)
+- **Carrier rates:** AI-negotiated rates saved 22% on average vs. manual negotiation
+- **Check calls:** 91% fully automated, with human escalation for exceptions
+- **Dispatcher time:** 30% of time freed from check calls, redeployed to growth
+- **Hiring needs:** Avoided hiring 20 additional dispatchers ($1.6M annual savings)
+
+## Client Testimonial
+
+> "We thought we needed to hire 20 more dispatchers. DevNexus gave us an AI team that never sleeps."
+>
+> — Marcus Rivera, VP Operations, LogiTrack
