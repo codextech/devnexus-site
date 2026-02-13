@@ -4,20 +4,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+const N8N_FORM_URL = "https://n8n.devnexus.co/form/fc143550-d752-41f2-8e4c-f810d28ffb1b";
+
 const serviceOptions = [
   "Web & Mobile Development",
   "AI Solutions",
   "Agentic AI Workflows",
   "Voice AI Agents",
   "Jira Apps & Integrations",
-  "Not sure yet",
-];
-
-const budgetOptions = [
-  "Under $25K",
-  "$25K - $50K",
-  "$50K - $100K",
-  "$100K+",
   "Not sure yet",
 ];
 
@@ -35,14 +29,24 @@ export function ContactForm() {
     e.preventDefault();
     setStatus("loading");
 
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      Name: (formData.get("name") as string) ?? "",
+      Email: (formData.get("email") as string) ?? "",
+      "Company Name": (formData.get("company") as string) ?? "",
+      "Business Contact Number": (formData.get("phone") as string) ?? "",
+      "Tell us about your project": (formData.get("message") as string) ?? "",
+      "Service interested in": (formData.get("service") as string) ?? "",
+      submittedAt: new Date().toISOString(),
+    };
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(N8N_FORM_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
@@ -102,33 +106,48 @@ export function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="company" className="block text-sm font-medium text-dark-300 mb-2">
-            Company
+            Company Name *
           </label>
           <input
             type="text"
             id="company"
             name="company"
+            required
             className={inputClasses}
             placeholder="Your company"
           />
         </div>
         <div>
-          <label htmlFor="service" className="block text-sm font-medium text-dark-300 mb-2">
-            Service interested in
+          <label htmlFor="phone" className="block text-sm font-medium text-dark-300 mb-2">
+            Business Contact Number *
           </label>
-          <select
-            id="service"
-            name="service"
-            className={cn(inputClasses, "appearance-none")}
-          >
-            <option value="">Select a service</option>
-            {serviceOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </select>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            className={inputClasses}
+            placeholder="e.g. 03249429698"
+          />
         </div>
+      </div>
+
+      <div>
+        <label htmlFor="service" className="block text-sm font-medium text-dark-300 mb-2">
+          Service interested in
+        </label>
+        <select
+          id="service"
+          name="service"
+          className={cn(inputClasses, "appearance-none")}
+        >
+          <option value="">Select a service</option>
+          {serviceOptions.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div>

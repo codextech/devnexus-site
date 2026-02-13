@@ -104,7 +104,7 @@ export default function ContactPage() {
                   Skip the form and schedule a 30-minute discovery call.
                 </p>
                 <a
-                  href="#"
+                  href="https://calendly.com/tanzeel-saleem/meet-greet"
                   className="text-sm font-medium text-brand-blue hover:text-brand-blue-hover transition-colors"
                 >
                   Schedule on Calendly &rarr;
