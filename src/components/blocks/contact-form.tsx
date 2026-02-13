@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const N8N_FORM_URL = "https://n8n.devnexus.co/form/fc143550-d752-41f2-8e4c-f810d28ffb1b";
+const N8N_FORM_URL = "https://n8n.devnexus.co/webhook/5598b86a-9fdd-4f42-b7a6-40909fab7a7a";
 
 const serviceOptions = [
   "Web & Mobile Development",
