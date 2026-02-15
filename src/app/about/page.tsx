@@ -13,7 +13,7 @@ import { AboutValues } from "@/components/sections/about-values";
 export const metadata: Metadata = createMetadata({
   title: "About Us",
   description:
-    "DevNexus is an expert-led software agency specializing in JavaScript, AI, and Atlassian solutions. Learn about our team, values, and approach.",
+    "DevNexus is an expert-led software agency specializing in Python, JavaScript, AI, and Atlassian solutions. Learn about our team, values, and approach.",
   path: "/about",
 });
 

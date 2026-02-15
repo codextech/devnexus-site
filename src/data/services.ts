@@ -6,7 +6,7 @@ export const services: ServiceData[] = [
     name: "Web & Mobile Development",
     headline: "Web & Mobile Applications Built to Ship",
     tagline:
-      "From SaaS dashboards to consumer mobile apps — we build JavaScript products that perform under real-world load.",
+      "From SaaS dashboards to consumer mobile apps — we build Python and JavaScript products that perform under real-world load.",
     problem:
       "Your team has a validated idea but not the engineering capacity to build it right the first time. Missed deadlines, scaling issues, and technical debt pile up when the foundation is wrong.",
     deliverables: [
@@ -69,9 +69,10 @@ export const services: ServiceData[] = [
     ],
     cta: "Start Your Project",
     relatedCaseStudy: "nexaform-jira-test-management",
-    metaTitle: "Web & Mobile Development | Next.js & React Native | DevNexus",
+    metaTitle:
+      "Web & Mobile Development | Next.js, React Native & Python APIs | DevNexus",
     metaDescription:
-      "Production-grade web and mobile applications built with Next.js, React, and React Native. Expert engineers, transparent process, two-week sprint cycles.",
+      "Production-grade web and mobile applications built with Next.js, React, React Native, and Python backends. Expert engineers, transparent process, two-week sprint cycles.",
   },
   {
     slug: "ai-solutions",

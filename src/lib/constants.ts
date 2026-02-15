@@ -1,8 +1,8 @@
 export const SITE = {
   name: "DevNexus",
-  url: "https://devnexus.co",
+  url: "https://www.devnexus.co",
   description:
-    "DevNexus builds production-grade web apps, AI solutions, voice agents, and Jira integrations. Battle-tested engineers. Transparent process. Real results.",
+    "DevNexus builds production-grade Python and JavaScript products, AI solutions, voice agents, and Jira integrations. Battle-tested engineers. Transparent process. Real results.",
   email: "info@devnexus.co",
   social: {
     linkedin: "https://www.linkedin.com/company/devnexusconsulting",
