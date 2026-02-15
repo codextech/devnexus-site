@@ -17,6 +17,7 @@ export const metadata: Metadata = createMetadata({
   keywords: [
     "AI solutions company",
     "custom AI development",
+    "Python AI development services",
     "RAG pipeline development",
     "LLM integration services",
     "AI automation services",

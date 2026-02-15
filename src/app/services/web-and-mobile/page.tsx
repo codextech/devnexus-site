@@ -19,6 +19,8 @@ export const metadata: Metadata = createMetadata({
     "mobile app development company",
     "Next.js development services",
     "React Native app development",
+    "Node backend development",
+    "Python backend development",
     "full stack product development",
     "MVP to production engineering",
   ],
@@ -84,7 +86,7 @@ export default function WebAndMobilePage() {
           {
             title: "Full-Stack API and Platform Engineering",
             description:
-              "We design scalable backends, secure auth flows, and data models that support product growth from MVP stage through enterprise usage.",
+              "We design scalable backends with Node.js and Python, secure auth flows, and data models that support product growth from MVP stage through enterprise usage.",
           },
           {
             title: "Product Iteration and Delivery",

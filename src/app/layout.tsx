@@ -23,13 +23,13 @@ const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE.name} | Software Agency for JavaScript, AI & Atlassian Solutions`,
+    default: `${SITE.name} | Software Agency for Python, JavaScript, AI & Atlassian Solutions`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   metadataBase: new URL(SITE.url),
   openGraph: {
-    title: `${SITE.name} | Software Agency for JavaScript, AI & Atlassian Solutions`,
+    title: `${SITE.name} | Software Agency for Python, JavaScript, AI & Atlassian Solutions`,
     description: SITE.description,
     url: SITE.url,
     siteName: SITE.name,
