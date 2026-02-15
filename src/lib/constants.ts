@@ -7,7 +7,8 @@ export const SITE = {
   social: {
     linkedin: "https://www.linkedin.com/company/devnexusconsulting",
     github: "",
-    x: "https://x.com/devnexus",
+    x: "https://x.com/devnexus_co",
+    instagram: "https://www.instagram.com/devnexus_co",
   },
 } as const;
 

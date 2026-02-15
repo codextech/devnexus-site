@@ -91,7 +91,7 @@ export default function ContactPage() {
                     Location
                   </h3>
                   <p className="mt-1 text-sm text-dark-400">
-                    Remote-first team, worldwide delivery
+                    244 E PIA, Lahore, Pakistan
                   </p>
                 </div>
               </div>
