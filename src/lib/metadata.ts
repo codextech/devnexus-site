@@ -6,6 +6,7 @@ type PageMetadataOptions = {
   description: string;
   path: string;
   image?: string;
+  keywords?: string[];
 };
 
 export function createMetadata({
@@ -13,6 +14,7 @@ export function createMetadata({
   description,
   path,
   image,
+  keywords,
 }: PageMetadataOptions): Metadata {
   const url = `${SITE.url}${path}`;
   const ogImage = image || "/og/home.png";
@@ -36,5 +38,6 @@ export function createMetadata({
     alternates: {
       canonical: url,
     },
+    keywords,
   };
 }
