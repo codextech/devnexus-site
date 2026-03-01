@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${frontmatter.title} | Case Study`,
       description: frontmatter.excerpt,
       path: `/work/${slug}`,
-      image: `https://www.devnexus.co/og?title=${encodeURIComponent(frontmatter.title)}&type=case-study`,
+      // No OG image for case studies
     });
   } catch {
     return {};

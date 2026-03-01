@@ -47,6 +47,25 @@ const featuredStudies: CaseStudyMeta[] = [
     techStack: ["Atlassian Forge", "React", "Node.js"],
     publishedAt: "2025-08-20",
   },
+  {
+    title: "Autonomous Voice AI Outreach Agent",
+    slug: "vapi-voice-ai-outreach-agent",
+    client: "DevNexus Internal",
+    industry: "AI / Sales Automation",
+    services: ["Voice AI Agents", "Agentic AI Workflows"],
+    thumbnail: "/images/case-studies/vapi-outreach.png",
+    duration: "6 weeks",
+    teamSize: "3 engineers",
+    excerpt:
+      "Built a fully autonomous voice AI agent that conducts outbound research calls, qualifies leads, and handles end-to-end outreach without human intervention.",
+    metrics: [
+      { label: "outreach calls per day", value: "200+" },
+      { label: "qualification accuracy", value: "91%" },
+      { label: "time saved vs manual outreach", value: "85%" },
+    ],
+    techStack: ["Vapi", "OpenAI GPT-4o", "Python", "FastAPI"],
+    publishedAt: "2026-01-20",
+  },
 ];
 
 export function CaseStudiesSection() {
