@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     description: SITE.description,
     url: SITE.url,
     siteName: SITE.name,
-    images: [{ url: "/og/home.png", width: 1200, height: 630 }],
+    images: [{ url: `${SITE.url}/og?title=DevNexus&type=page`, width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {

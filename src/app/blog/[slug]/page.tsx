@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: frontmatter.title,
       description: frontmatter.excerpt,
       path: `/blog/${slug}`,
+      image: `https://www.devnexus.co/og?title=${encodeURIComponent(frontmatter.title)}&type=blog`,
     });
   } catch {
     return {};

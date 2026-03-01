@@ -17,7 +17,8 @@ export function createMetadata({
   keywords,
 }: PageMetadataOptions): Metadata {
   const url = `${SITE.url}${path}`;
-  const ogImage = image || "/og/home.png";
+  // Auto-generate OG image from title if no custom image provided
+  const ogImage = image || `${SITE.url}/og?title=${encodeURIComponent(title)}`;
 
   return {
     title,
@@ -27,7 +28,7 @@ export function createMetadata({
       description,
       url,
       siteName: SITE.name,
-      images: [{ url: ogImage, width: 1200, height: 630 }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
       type: "website",
     },
     twitter: {
