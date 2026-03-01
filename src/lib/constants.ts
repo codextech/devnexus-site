@@ -16,7 +16,7 @@ export const NAV_ITEMS = [
   { label: "Services", href: "/services" },
   { label: "Work", href: "/work" },
   { label: "About", href: "/about" },
-  // { label: "Blog", href: "/blog" },
+  { label: "Blog", href: "/blog" },
 ] as const;
 
 export const FOOTER_LINKS = {

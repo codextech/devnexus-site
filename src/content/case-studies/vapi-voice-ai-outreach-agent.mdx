@@ -1,0 +1,139 @@
+---
+title: "AI-Powered Voice Research & Outreach Agent"
+slug: "vapi-voice-ai-outreach-agent"
+client: "DevNexus Internal"
+industry: "AI / Sales Automation"
+services:
+  - "Voice AI Agents"
+  - "Agentic AI Workflows"
+thumbnail: "/images/case-studies/vapi-outreach.png"
+duration: "6 weeks"
+teamSize: "3 engineers"
+excerpt: "Built a fully autonomous voice AI agent that conducts outbound research calls, qualifies leads, and schedules follow-ups — handling end-to-end outreach without human intervention."
+metrics:
+  - label: "outreach calls per day"
+    value: "200+"
+  - label: "qualification accuracy"
+    value: "91%"
+  - label: "time saved vs manual outreach"
+    value: "85%"
+techStack:
+  - "VAPI"
+  - "OpenAI GPT-4o"
+  - "Twilio"
+  - "Python"
+  - "FastAPI"
+  - "PostgreSQL"
+  - "LangChain"
+publishedAt: "2026-01-20"
+---
+
+## The Challenge
+
+Sales outreach at scale has a fundamental problem: humans are expensive, inconsistent, and don't scale linearly. Traditional dialers and scripted IVR systems are rigid — they can't handle unexpected responses, pivot conversations, or genuinely research a prospect before calling.
+
+The goal: build a voice AI agent that could conduct natural, intelligent outbound calls — researching prospects in real time, qualifying them against defined criteria, and scheduling follow-ups — entirely without human involvement.
+
+## The Solution
+
+We built a multi-stage agentic system using [VAPI](https://vapi.ai) as the voice infrastructure layer, with a custom orchestration backend that handles the research, decision-making, and CRM integration.
+
+### Architecture Overview
+
+The system operates in three phases:
+
+**Phase 1: Pre-Call Research**
+Before each call, a research agent gathers information about the prospect:
+- Company data from public sources
+- Recent news and announcements
+- LinkedIn signals
+- Previous interaction history from CRM
+
+This context is injected into the voice agent's system prompt, giving it genuine knowledge of who it's calling and why.
+
+**Phase 2: The Voice Conversation (VAPI)**
+The voice agent runs on VAPI's infrastructure with GPT-4o as the reasoning model. Key capabilities:
+
+- **Natural turn-taking** — VAPI's end-of-turn detection handles conversational pauses naturally, eliminating the robotic "I'm still thinking..." delays common in voice AI
+- **Dynamic script adaptation** — The agent doesn't follow a fixed script. It interprets responses and adjusts its approach in real time
+- **Objection handling** — Trained on hundreds of real objection patterns with context-appropriate responses
+- **Qualification logic** — The agent scores leads against BANT criteria (Budget, Authority, Need, Timeline) during the conversation
+
+**Phase 3: Post-Call Automation**
+After each call, the orchestration layer:
+- Transcribes and summarizes the conversation
+- Updates the CRM with qualification data
+- Triggers follow-up sequences (email, calendar invites) for qualified leads
+- Flags uncertain cases for human review
+
+### Technical Implementation
+
+The VAPI configuration uses a custom `server-url` webhook that gives us full control over the agent's behavior mid-call. This allows the orchestration layer to inject real-time context as the conversation develops.
+
+```python
+# Simplified call orchestration
+async def initiate_outreach_call(prospect_id: str):
+    # Phase 1: Research
+    prospect = await db.get_prospect(prospect_id)
+    research = await research_agent.run(prospect)
+
+    # Build dynamic system prompt with research context
+    system_prompt = build_voice_prompt(prospect, research)
+
+    # Phase 2: Initiate VAPI call
+    call = await vapi_client.calls.create(
+        assistant={
+            "model": {"provider": "openai", "model": "gpt-4o"},
+            "voice": {"provider": "11labs", "voiceId": AGENT_VOICE_ID},
+            "firstMessage": f"Hi {prospect.first_name}, this is Alex from DevNexus...",
+            "systemPrompt": system_prompt,
+            "endCallMessage": "Thanks for your time. Have a great day!",
+        },
+        phoneNumberId=TWILIO_PHONE_ID,
+        customer={"number": prospect.phone}
+    )
+
+    # Phase 3: Register webhook for post-call processing
+    await register_call_handler(call.id, prospect_id)
+```
+
+### The Qualification Engine
+
+The voice agent extracts structured data during the conversation using VAPI's function-calling feature. When the agent detects a signal (e.g., the prospect mentions budget, timeline, or decision authority), it silently calls a `record_qualification_signal` function that logs the data to our backend.
+
+By the end of a 4-5 minute conversation, we have structured qualification data without asking the prospect to fill out a form.
+
+## Results
+
+After 6 weeks of development and 4 weeks of live operation:
+
+- **200+ calls per day** handled autonomously across a team that previously managed 30-40 manually
+- **91% qualification accuracy** — validated against human review of 500 random calls
+- **85% reduction in outreach time** — from initial contact to CRM update
+- **3x increase in qualified pipeline** within the first month of deployment
+
+The agent handles the full qualification conversation in 4-7 minutes. Edge cases (angry prospects, requests to speak to a human, complex objections) are handled gracefully — the agent transfers to a human and provides a full context summary.
+
+## What We Learned
+
+**1. Latency is everything in voice AI.** A 3-second pause kills the illusion of a natural conversation. VAPI's infrastructure kept our average response latency under 800ms, which made the agent feel genuinely conversational.
+
+**2. Prompting for voice is different from prompting for text.** Voice responses need to be shorter, use natural spoken language patterns, and avoid lists and formatting that work in text but sound unnatural when spoken.
+
+**3. Human escalation paths matter more than the AI itself.** The 5% of calls that need human involvement must be handled perfectly. We built a seamless warm transfer that gives the human agent full context before they say hello.
+
+**4. Start with a narrow, well-defined qualification script.** The agent works best within defined parameters. We spent 2 weeks narrowing the scope before writing a line of code.
+
+## The Stack
+
+- **VAPI** — Voice infrastructure, call management, turn detection
+- **GPT-4o** — Reasoning model for conversation logic
+- **ElevenLabs** — Voice synthesis (via VAPI integration)
+- **Twilio** — Phone number provisioning and PSTN connectivity
+- **FastAPI** — Orchestration backend and VAPI webhook handler
+- **LangChain** — Research agent orchestration
+- **PostgreSQL** — Call history, qualification data, prospect records
+
+---
+
+Want to build a voice AI agent for your business? [Talk to our team](/contact) — we've shipped this in production and know where the hard problems are.

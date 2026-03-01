@@ -39,7 +39,7 @@ export default function HomePage() {
 
       <EcosystemSection />
 
-      {/* <CaseStudiesSection /> */}
+      <CaseStudiesSection />
 
       <ProcessSection />
 
