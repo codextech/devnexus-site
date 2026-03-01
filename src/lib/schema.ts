@@ -101,3 +101,37 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
     })),
   };
 }
+
+export function professionalServiceSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: SITE.name,
+    url: SITE.url,
+    logo: `${SITE.url}/images/logo.svg`,
+    email: SITE.email,
+    description:
+      "DevNexus is an AI-first software development agency specializing in Next.js web apps, agentic AI workflows, voice AI agents, and Jira app development.",
+    sameAs: [SITE.social.linkedin, SITE.social.x],
+    areaServed: "Worldwide",
+    serviceType: [
+      "Web Application Development",
+      "Mobile App Development",
+      "AI Solutions Development",
+      "Agentic AI Workflow Development",
+      "Voice AI Agent Development",
+      "Jira App Development",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Software Development Services",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web & Mobile Development" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Solutions" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Agentic AI Workflows" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Voice AI Agents" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Jira Apps & Integrations" } },
+      ],
+    },
+  };
+}

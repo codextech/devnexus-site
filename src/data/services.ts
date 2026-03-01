@@ -54,25 +54,40 @@ export const services: ServiceData[] = [
       {
         question: "What frameworks do you use?",
         answer:
-          "We standardize on Next.js for web and React Native for mobile. Both are production-proven and backed by large ecosystems.",
+          "We standardize on Next.js for web and React Native for mobile. Both are production-proven, SEO-friendly, and backed by large ecosystems — which means faster onboarding and lower long-term maintenance costs.",
+      },
+      {
+        question: "How long does it take to build a web application?",
+        answer:
+          "A focused MVP takes 6-10 weeks from kickoff to launch. Full-featured SaaS products typically run 12-20 weeks. We scope tightly before starting so there are no surprises.",
+      },
+      {
+        question: "How much does custom web development cost?",
+        answer:
+          "MVP projects start around $15,000-$30,000. Full-scale SaaS products range from $40,000-$120,000+ depending on complexity. We provide detailed fixed-scope estimates before any commitment.",
       },
       {
         question: "Can you work with our existing codebase?",
         answer:
-          "Yes. We audit your codebase, identify issues, and either refactor or rebuild depending on what saves you more in the long run.",
+          "Yes. We audit your codebase, identify issues, and either refactor or rebuild depending on what saves you more in the long run. We never push rebuilds when a targeted fix is the right answer.",
       },
       {
         question: "How do you handle project management?",
         answer:
-          "Two-week sprints with a working demo at the end of each cycle. You see progress every 10 business days.",
+          "Two-week sprints with a working demo at the end of each cycle. You see progress every 10 business days — no black boxes, no surprises at launch.",
+      },
+      {
+        question: "Do you optimize for Core Web Vitals and SEO?",
+        answer:
+          "Yes — every project we ship is optimized for Lighthouse performance, Core Web Vitals, and technical SEO. Next.js gives us a strong foundation with SSR, image optimization, and structured data.",
       },
     ],
     cta: "Start Your Project",
     relatedCaseStudy: "agilepulse-jira-apps",
     metaTitle:
-      "Web & Mobile Development | Next.js, React Native & Python APIs | DevNexus",
+      "Web & Mobile App Development Agency | Next.js & React Native | DevNexus",
     metaDescription:
-      "Production-grade web and mobile applications built with Next.js, React, React Native, and Python backends. Expert engineers, transparent process, two-week sprint cycles.",
+      "Custom web and mobile app development with Next.js, React Native, and Python. Fixed-scope projects, two-week sprints, and Core Web Vitals optimization. Based in Pakistan, serving global startups.",
   },
   {
     slug: "ai-solutions",
@@ -127,24 +142,39 @@ export const services: ServiceData[] = [
       {
         question: "Do we need our own data to get started?",
         answer:
-          "Not necessarily. We help you identify what data you have, clean it, and determine what AI approach gives you the fastest ROI.",
+          "Not necessarily. We help you identify what data you have, clean it, and determine what AI approach gives you the fastest ROI. Many projects start with publicly available data or small curated datasets.",
+      },
+      {
+        question: "How much does custom AI development cost?",
+        answer:
+          "Proof-of-concept projects start around $10,000-$25,000. Production AI systems typically range from $30,000-$100,000+ depending on model complexity, data volume, and integration depth.",
+      },
+      {
+        question: "How long does it take to implement an AI solution?",
+        answer:
+          "We deliver a working prototype in 2-3 weeks to validate the approach. A production-ready system takes 6-16 weeks depending on scope, data preparation, and integration requirements.",
       },
       {
         question: "How do you handle data privacy?",
         answer:
-          "We can deploy models privately on your infrastructure or use SOC 2-compliant cloud providers. Your data never leaves your control.",
+          "We can deploy models privately on your infrastructure or use SOC 2-compliant cloud providers. Your data never leaves your control — we design for compliance from day one.",
       },
       {
         question: "What is RAG and do I need it?",
         answer:
-          "RAG lets AI answer questions using your specific documents instead of generic training data. If your team spends time searching internal docs, you likely need it.",
+          "RAG (Retrieval-Augmented Generation) lets AI answer questions using your specific documents instead of generic training data. If your team spends time searching internal docs, SOPs, or knowledge bases — you need it.",
+      },
+      {
+        question: "Can you integrate AI into our existing software?",
+        answer:
+          "Yes. We build AI layers that plug into your existing stack via APIs. You don't need to rebuild your product — we add intelligence on top of what you already have.",
       },
     ],
     cta: "Discuss Your AI Strategy",
     relatedCaseStudy: "tophealth-patient-intake",
-    metaTitle: "AI Solutions | RAG, Automation & Analytics | DevNexus",
+    metaTitle: "Custom AI Development Company | RAG, LLM & Automation | DevNexus",
     metaDescription:
-      "Custom AI solutions including RAG pipelines, LLM integration, automated workflows, and analytics dashboards. Production-ready AI that fits your business.",
+      "Custom AI development: RAG pipelines, LLM integration, document intelligence, and workflow automation. Production-ready AI that fits your stack — from prototype to deployment.",
   },
   {
     slug: "agentic-ai",
@@ -195,27 +225,42 @@ export const services: ServiceData[] = [
     ],
     faqs: [
       {
-        question: "How is this different from a chatbot?",
+        question: "How is agentic AI different from a chatbot?",
         answer:
-          "Chatbots respond. Agents act. Our agents can call APIs, update databases, send emails, and coordinate multi-step processes autonomously.",
+          "Chatbots respond to questions. Agents take action. Our agentic AI systems can call APIs, update databases, send emails, route tasks, and coordinate multi-step processes — all without a human in every loop.",
+      },
+      {
+        question: "How much does agentic AI development cost?",
+        answer:
+          "Simple single-agent automations start around $15,000-$30,000. Complex multi-agent orchestration systems with integrations and safety guardrails range from $40,000-$150,000+.",
+      },
+      {
+        question: "How long does it take to build an AI agent?",
+        answer:
+          "A focused single-agent workflow takes 4-8 weeks. Multi-agent systems with multiple integrations typically take 10-20 weeks, depending on the complexity of your processes and data.",
       },
       {
         question: "What about safety and control?",
         answer:
-          "Every agent has defined boundaries, approval gates for high-risk actions, and full audit logging. You stay in control.",
+          "Every agent has defined tool boundaries, approval gates for high-risk actions, rate limiting, and full audit logging. We design human-in-the-loop escalation for any action that shouldn't be fully autonomous.",
       },
       {
         question: "Can agents work with our existing tools?",
         answer:
-          "Yes. We build agents that integrate with your CRM, ERP, ticketing system, or any tool with an API.",
+          "Yes. We build agents that integrate with your CRM, ERP, Slack, ticketing system, or any platform with an API. We've connected agents to Salesforce, HubSpot, Jira, Notion, and custom internal systems.",
+      },
+      {
+        question: "What industries use agentic AI workflows?",
+        answer:
+          "Healthcare (patient intake, triage), financial services (document processing, compliance), SaaS (customer onboarding, support), e-commerce (order management), and any business with repetitive multi-step processes.",
       },
     ],
     cta: "Build Your AI Agents",
     relatedCaseStudy: "vapi-voice-ai-outreach-agent",
     metaTitle:
-      "Agentic AI Workflows | Autonomous Agent Development | DevNexus",
+      "Agentic AI Development Company | Autonomous Workflow Agents | DevNexus",
     metaDescription:
-      "Custom agentic AI systems that execute multi-step workflows autonomously. Multi-agent orchestration, tool integration, and human-in-the-loop design.",
+      "Build autonomous AI agents that execute multi-step workflows, call APIs, and make decisions — without a human in every loop. Multi-agent orchestration built for production.",
   },
   {
     slug: "voice-ai",
@@ -266,26 +311,41 @@ export const services: ServiceData[] = [
     ],
     faqs: [
       {
+        question: "How much does a voice AI agent cost?",
+        answer:
+          "A focused inbound voice agent (single use case) starts at $12,000-$25,000. Full deployments with CRM integration, multi-scenario handling, and analytics dashboards range from $30,000-$80,000+.",
+      },
+      {
+        question: "How long does it take to build and deploy a voice AI agent?",
+        answer:
+          "A focused voice agent goes from scoping to live calls in 4-8 weeks. Complex deployments with multiple call flows, integrations, and multi-language support take 8-16 weeks.",
+      },
+      {
+        question: "What is the difference between IVR and voice AI?",
+        answer:
+          "Traditional IVR is rigid — press 1 for sales, press 2 for support. Voice AI understands natural speech, handles open-ended conversations, takes action in real time, and improves with usage. It's a fundamentally different experience.",
+      },
+      {
         question: "Do callers know they are talking to AI?",
         answer:
-          "We design agents that are transparent when required and natural-sounding always. Disclosure depends on your industry and compliance requirements.",
+          "We design agents that are transparent when required and natural-sounding always. Disclosure requirements vary by industry and jurisdiction — we design for compliance from day one.",
       },
       {
         question: "Can the voice agent transfer to a human?",
         answer:
-          "Absolutely. Smart escalation is built in. The agent transfers with full context so the human never starts from scratch.",
+          "Yes, smart escalation is built in. The agent transfers with full context — call summary, intent, and sentiment — so the human never starts from scratch.",
       },
       {
-        question: "What languages are supported?",
+        question: "Can voice AI agents make outbound calls?",
         answer:
-          "English natively, with support for Spanish, French, German, and others depending on the voice model.",
+          "Yes. We build outbound voice agents for lead qualification, appointment reminders, payment follow-up, and survey collection at scale.",
       },
     ],
     cta: "Launch Your Voice Agent",
     relatedCaseStudy: "vapi-voice-ai-outreach-agent",
-    metaTitle: "Voice AI Agents | Phone AI for Sales & Support | DevNexus",
+    metaTitle: "Voice AI Agent Development | Phone AI for Sales & Support | DevNexus",
     metaDescription:
-      "AI-powered voice agents that handle phone calls 24/7. Lead qualification, appointment booking, and customer support — automated with natural conversation.",
+      "Custom voice AI agents that handle inbound and outbound calls 24/7. Lead qualification, appointment booking, and support automation — built on Vapi, ElevenLabs, and Twilio.",
   },
   {
     slug: "jira-apps",
@@ -335,27 +395,42 @@ export const services: ServiceData[] = [
     ],
     faqs: [
       {
+        question: "How long does Atlassian Marketplace certification take?",
+        answer:
+          "Atlassian's certification review typically takes 4-8 weeks after submission. We prepare your app to pass first review — our AgilePulse apps achieved Marketplace certification on the first submission.",
+      },
+      {
+        question: "What is the difference between Forge and Connect for Jira apps?",
+        answer:
+          "Forge is Atlassian's modern, serverless platform with tighter security and better Marketplace visibility. Connect is the older, self-hosted approach. We build on Forge for all new apps and migrate existing Connect apps when it makes sense.",
+      },
+      {
+        question: "How much does a Jira app cost to build?",
+        answer:
+          "A focused Jira integration or automation takes $8,000-$20,000. A full Forge app built for Marketplace listing typically costs $20,000-$60,000+ depending on feature scope and integration complexity.",
+      },
+      {
         question: "Can you build for both Cloud and Data Center?",
         answer:
-          "Yes. We build for Jira Cloud using Forge and for Data Center when on-premise is required.",
+          "Yes. We build for Jira Cloud using Forge and for Data Center when on-premise is required. We scope the right platform based on your customer base.",
       },
       {
         question: "Will our app be listed on the Atlassian Marketplace?",
         answer:
-          "If that is your goal, yes. We handle the full lifecycle from development through Marketplace certification and listing.",
+          "If that is your goal, yes. We handle the full lifecycle — development, security review, Marketplace submission, certification, and listing optimization.",
       },
       {
-        question: "How long does a typical Jira app take to build?",
+        question: "Can you build private Jira apps for internal use only?",
         answer:
-          "A focused integration takes 4-8 weeks. A full Marketplace app is typically 8-16 weeks depending on complexity.",
+          "Absolutely. Private Forge apps don't require Marketplace certification and can be deployed directly to your Jira instance. This is the fastest path for internal workflow automation.",
       },
     ],
     cta: "Get Your Jira App Built",
     relatedCaseStudy: "agilepulse-jira-apps",
     metaTitle:
-      "Jira Apps & Integrations | Atlassian Forge Developer | DevNexus",
+      "Jira App Development Company | Atlassian Forge & Marketplace | DevNexus",
     metaDescription:
-      "Custom Jira apps and Atlassian integrations. Forge development, Marketplace certification, and workflow automation for Jira Cloud and Data Center.",
+      "Custom Jira apps built on Atlassian Forge — Marketplace-certified, Cloud and Data Center ready. Workflow automation, integrations, and private apps for your team.",
   },
 ];
 
