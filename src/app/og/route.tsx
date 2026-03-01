@@ -182,9 +182,9 @@ export async function GET(req: NextRequest) {
 
             <div
               style={{
-                color: "rgba(255,255,255,0.4)",
+                color: "rgba(255,255,255,0.85)",
                 fontSize: "18px",
-                fontWeight: 400,
+                fontWeight: 500,
                 letterSpacing: "0.02em",
               }}
             >
