@@ -141,7 +141,7 @@ export const services: ServiceData[] = [
       },
     ],
     cta: "Discuss Your AI Strategy",
-    relatedCaseStudy: "healthbridge-patient-intake",
+    relatedCaseStudy: "tophealth-patient-intake",
     metaTitle: "AI Solutions | RAG, Automation & Analytics | DevNexus",
     metaDescription:
       "Custom AI solutions including RAG pipelines, LLM integration, automated workflows, and analytics dashboards. Production-ready AI that fits your business.",

@@ -11,11 +11,11 @@ import type { CaseStudyMeta } from "@/types/content";
 const featuredStudies: CaseStudyMeta[] = [
   {
     title: "AI-Powered Patient Intake System",
-    slug: "healthbridge-patient-intake",
-    client: "HealthBridge",
+    slug: "tophealth-patient-intake",
+    client: "TopHealth AI",
     industry: "Healthcare",
     services: ["AI Solutions", "Web & Mobile Development"],
-    thumbnail: "/images/case-studies/healthbridge.png",
+    thumbnail: "/images/case-studies/tophealth.png",
     duration: "14 weeks",
     teamSize: "4 engineers",
     excerpt:
