@@ -4,17 +4,41 @@ import { CTABanner } from "@/components/blocks/cta-banner";
 import { Container } from "@/components/ui/container";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { createMetadata } from "@/lib/metadata";
+import { breadcrumbSchema } from "@/lib/schema";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = createMetadata({
-  title: "Services | DevNexus",
+  title: "Software Development Services | Web, Mobile, AI & Jira | DevNexus",
   description:
     "Web & mobile development, AI solutions, agentic workflows, voice AI agents, and Jira integrations. Five practice areas, one team.",
   path: "/services",
+  keywords: [
+    "software development services",
+    "AI development agency",
+    "web and mobile development company",
+    "agentic AI workflows",
+    "Jira app development",
+    "voice AI development",
+    "custom software development",
+    "Next.js React development agency",
+  ],
 });
 
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", url: SITE.url },
+              { name: "Services", url: `${SITE.url}/services` },
+            ])
+          ),
+        }}
+      />
+
       <Hero
         eyebrow="Our Services"
         title="What We Build"

@@ -11,10 +11,20 @@ import { SITE } from "@/lib/constants";
 import { AboutValues } from "@/components/sections/about-values";
 
 export const metadata: Metadata = createMetadata({
-  title: "About Us",
+  title: "About DevNexus | Expert Software & AI Development Agency",
   description:
     "DevNexus is an expert-led software agency specializing in Python, JavaScript, AI, and Atlassian solutions. Learn about our team, values, and approach.",
   path: "/about",
+  keywords: [
+    "software development agency",
+    "AI development company",
+    "expert software engineers",
+    "Python JavaScript agency",
+    "web development team",
+    "Atlassian development agency",
+    "software agency about",
+    "DevNexus team",
+  ],
 });
 
 export default function AboutPage() {

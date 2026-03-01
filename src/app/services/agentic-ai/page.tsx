@@ -13,6 +13,16 @@ export const metadata: Metadata = createMetadata({
   title: service.metaTitle,
   description: service.metaDescription,
   path: "/services/agentic-ai",
+  keywords: [
+    "agentic AI development",
+    "AI agent workflows",
+    "multi-agent systems development",
+    "LangChain development agency",
+    "autonomous AI agents",
+    "AI workflow automation company",
+    "custom AI agent development",
+    "AI orchestration services",
+  ],
 });
 
 export default function AgenticAIPage() {
@@ -59,10 +69,7 @@ export default function AgenticAIPage() {
 
       <ServicePageContent service={service} />
 
-      <CTABanner
-        title="Ready to Automate Your Workflows?"
-        ctaLabel={service.cta}
-      />
+      <CTABanner title="Ready to Deploy AI Agents?" ctaLabel={service.cta} />
     </>
   );
 }

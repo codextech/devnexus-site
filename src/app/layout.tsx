@@ -23,13 +23,25 @@ const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE.name} | Software Agency for Python, JavaScript, AI & Atlassian Solutions`,
+    default: `${SITE.name} | Web, Mobile & AI Software Development Agency`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   metadataBase: new URL(SITE.url),
+  keywords: [
+    "software development agency",
+    "AI development company",
+    "web development agency",
+    "mobile app development",
+    "Next.js development",
+    "agentic AI workflows",
+    "voice AI agents",
+    "Jira app development",
+    "Python JavaScript agency",
+    "custom software development",
+  ],
   openGraph: {
-    title: `${SITE.name} | Software Agency for Python, JavaScript, AI & Atlassian Solutions`,
+    title: `${SITE.name} | Web, Mobile & AI Software Development Agency`,
     description: SITE.description,
     url: SITE.url,
     siteName: SITE.name,
@@ -38,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} | Software Development Agency`,
+    title: `${SITE.name} | Web, Mobile & AI Development Agency`,
     description: SITE.description,
   },
   robots: {

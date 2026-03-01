@@ -13,6 +13,16 @@ export const metadata: Metadata = createMetadata({
   title: service.metaTitle,
   description: service.metaDescription,
   path: "/services/jira-apps",
+  keywords: [
+    "Jira app development company",
+    "Atlassian Marketplace app development",
+    "custom Jira plugin development",
+    "Jira integration development",
+    "Atlassian Forge development",
+    "Jira Connect app development",
+    "Confluence app development",
+    "Atlassian developer agency",
+  ],
 });
 
 export default function JiraAppsPage() {
@@ -59,10 +69,7 @@ export default function JiraAppsPage() {
 
       <ServicePageContent service={service} />
 
-      <CTABanner
-        title="Ready to Supercharge Your Jira?"
-        ctaLabel={service.cta}
-      />
+      <CTABanner title="Need a Custom Jira App?" ctaLabel={service.cta} />
     </>
   );
 }

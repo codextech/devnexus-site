@@ -13,6 +13,16 @@ export const metadata: Metadata = createMetadata({
   title: service.metaTitle,
   description: service.metaDescription,
   path: "/services/voice-ai",
+  keywords: [
+    "voice AI agent development",
+    "conversational AI development company",
+    "IVR AI replacement",
+    "voice bot development services",
+    "ElevenLabs integration agency",
+    "Twilio voice AI development",
+    "custom voice agent development",
+    "AI phone agent development",
+  ],
 });
 
 export default function VoiceAIPage() {
@@ -59,10 +69,7 @@ export default function VoiceAIPage() {
 
       <ServicePageContent service={service} />
 
-      <CTABanner
-        title="Ready to Launch Your Voice Agent?"
-        ctaLabel={service.cta}
-      />
+      <CTABanner title="Ready to Build a Voice AI Agent?" ctaLabel={service.cta} />
     </>
   );
 }
