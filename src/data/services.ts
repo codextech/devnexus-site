@@ -68,7 +68,7 @@ export const services: ServiceData[] = [
       },
     ],
     cta: "Start Your Project",
-    relatedCaseStudy: "nexaform-jira-test-management",
+    relatedCaseStudy: "agilepulse-jira-apps",
     metaTitle:
       "Web & Mobile Development | Next.js, React Native & Python APIs | DevNexus",
     metaDescription:
@@ -211,7 +211,7 @@ export const services: ServiceData[] = [
       },
     ],
     cta: "Build Your AI Agents",
-    relatedCaseStudy: "logitrack-freight-dispatch",
+    relatedCaseStudy: "vapi-voice-ai-outreach-agent",
     metaTitle:
       "Agentic AI Workflows | Autonomous Agent Development | DevNexus",
     metaDescription:
@@ -282,7 +282,7 @@ export const services: ServiceData[] = [
       },
     ],
     cta: "Launch Your Voice Agent",
-    relatedCaseStudy: "logitrack-freight-dispatch",
+    relatedCaseStudy: "vapi-voice-ai-outreach-agent",
     metaTitle: "Voice AI Agents | Phone AI for Sales & Support | DevNexus",
     metaDescription:
       "AI-powered voice agents that handle phone calls 24/7. Lead qualification, appointment booking, and customer support — automated with natural conversation.",
@@ -351,7 +351,7 @@ export const services: ServiceData[] = [
       },
     ],
     cta: "Get Your Jira App Built",
-    relatedCaseStudy: "nexaform-jira-test-management",
+    relatedCaseStudy: "agilepulse-jira-apps",
     metaTitle:
       "Jira Apps & Integrations | Atlassian Forge Developer | DevNexus",
     metaDescription:
