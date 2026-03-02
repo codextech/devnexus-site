@@ -204,6 +204,145 @@ html {
   animation: scroll-indicator 2s ease-in-out infinite;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   LIGHT THEME OVERRIDES  —  active when <html class="light">
+   Two-pronged: CSS variable override (for Tailwind built-in
+   colors) + !important class overrides (for @theme inline
+   palette colors that are baked in as literal values).
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Theme-aware logo swap ── */
+.logo-dark-mode  { opacity: 1; transition: opacity 0.3s ease; }
+.logo-light-mode { opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+
+html.light .logo-dark-mode  { opacity: 0 !important; pointer-events: none; }
+html.light .logo-light-mode { opacity: 1 !important; pointer-events: auto; }
+
+/* ── Root tokens + Tailwind built-in CSS variable overrides ── */
+/* Tailwind v4 defines --color-white / --color-black in :root.
+   Overriding them here affects ALL text-white / bg-white utilities. */
+html.light {
+  --color-background: #f8fafc;
+  --color-foreground: #0f172a;
+  /* Tailwind built-in white → dark ink in light mode */
+  --color-white: #0f172a;
+}
+
+html.light body {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* ── CTA banner & brand-blue buttons — restore white ── */
+/* These sections always sit on a blue background; white text must stay. */
+html.light section:has([class*="from-brand-blue"]) { --color-white: #ffffff; }
+html.light .bg-brand-blue { --color-white: #ffffff; color: #ffffff !important; }
+
+/* ── Background colour overrides ── */
+/* (@theme inline bakes these as literal values, so we need !important) */
+html.light .bg-dark-950      { background-color: #ffffff !important; }
+html.light .bg-dark-900      { background-color: #f8fafc !important; }
+html.light .bg-dark-800      { background-color: #f1f5f9 !important; }
+html.light .bg-dark-700      { background-color: #e2e8f0 !important; }
+html.light .bg-dark-600      { background-color: #cbd5e1 !important; }
+html.light .bg-dark-500      { background-color: #94a3b8 !important; }
+
+/* opacity variants */
+html.light .bg-dark-950\/80  { background-color: rgba(255,255,255,0.85) !important; }
+html.light .bg-dark-900\/95  { background-color: rgba(248,250,252,0.97) !important; }
+html.light .bg-dark-900\/98  { background-color: rgba(248,250,252,0.99) !important; }
+/* Logo bar & process section overlays */
+html.light .bg-dark-900\/50  { background-color: rgba(241,245,249,0.5) !important; }
+html.light .bg-dark-900\/30  { background-color: rgba(226,232,240,0.3) !important; }
+
+/* ── Text colour overrides ── */
+/* Belt-and-suspenders alongside the CSS variable override above */
+html.light .text-white                    { color: #0f172a !important; }
+html.light [class*="text-white\/"]        { color: rgba(15,23,42,0.75) !important; }
+html.light h1, html.light h2,
+html.light h3, html.light h4              { color: #0f172a !important; }
+
+/* Restore white on the brand-gradient CTA section */
+html.light section:has([class*="from-brand-blue"]) h1,
+html.light section:has([class*="from-brand-blue"]) h2,
+html.light section:has([class*="from-brand-blue"]) h3,
+html.light section:has([class*="from-brand-blue"]) h4    { color: #ffffff !important; }
+html.light section:has([class*="from-brand-blue"]) .text-white           { color: #ffffff !important; }
+html.light section:has([class*="from-brand-blue"]) [class*="text-white\/"] { color: rgba(255,255,255,0.8) !important; }
+
+/* Muted palette (dark-xxx is @theme inline — literal values) */
+html.light .text-dark-100 { color: #1e293b !important; }
+html.light .text-dark-200 { color: #334155 !important; }
+html.light .text-dark-300 { color: #475569 !important; }
+html.light .text-dark-400 { color: #64748b !important; }
+html.light .text-dark-500 { color: #94a3b8 !important; }
+html.light .text-dark-600 { color: #cbd5e1 !important; }
+
+/* ── Nav / dropdown hovers ── */
+html.light .hover\:text-white:hover              { color: #0f172a !important; }
+html.light .group:hover .group-hover\:text-white { color: #0f172a !important; }
+
+/* ── Border overrides ── */
+html.light .border-white\/5   { border-color: rgba(0,0,0,0.07) !important; }
+html.light .border-white\/10  { border-color: rgba(0,0,0,0.10) !important; }
+html.light .border-y.border-white\/5 { border-color: rgba(0,0,0,0.07) !important; }
+html.light .border-dark-600   { border-color: #e2e8f0 !important; }
+html.light .border-dark-500   { border-color: #cbd5e1 !important; }
+
+/* ── Hover / static white-alpha backgrounds ── */
+html.light .hover\:bg-white\/5:hover { background-color: rgba(0,0,0,0.05) !important; }
+/* Feature pills, dropdown item hovers */
+html.light .bg-white\/5  { background-color: rgba(0,0,0,0.04) !important; }
+html.light .bg-white\/10 { background-color: rgba(0,0,0,0.07) !important; }
+
+/* ── Logo-bar shimmer gradient ── */
+/* In dark mode: via-white/10 = subtle white shimmer.
+   In light mode: replace with a near-invisible dark shimmer. */
+html.light .via-white\/10 { --tw-gradient-via: rgba(0,0,0,0.03) !important; }
+
+/* ── Gradient FROM overrides (section fade-outs) ── */
+html.light .from-dark-950 { --tw-gradient-from: #ffffff; }
+html.light .from-dark-900 { --tw-gradient-from: #f8fafc; }
+
+/* ── Custom CSS class overrides ── */
+
+/* Glass card → light frosted panel */
+html.light .glass-card {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.07) !important;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+}
+html.light .glass-card:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(2, 169, 247, 0.25) !important;
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Grid background → subtle dark lines */
+html.light .grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px) !important;
+  background-size: 64px 64px;
+}
+
+/* White gradient text → dark gradient */
+html.light .gradient-text-white {
+  background: linear-gradient(135deg, #0f172a 0%, #475569 100%) !important;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section radial gradients — slightly soften for light bg */
+html.light .section-gradient {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(2, 169, 247, 0.07) 0%, transparent 60%) !important;
+}
+html.light .section-gradient-bottom {
+  background: radial-gradient(ellipse 80% 50% at 50% 120%, rgba(2, 169, 247, 0.05) 0%, transparent 60%) !important;
+}
+
+/* ── Ecosystem orbital rings ── */
 /* ── Ecosystem orbital animations ── */
 @keyframes orbit-cw {
   from { transform: rotate(0deg); }

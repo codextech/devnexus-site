@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Header } from "@/components/blocks/header";
 import { Footer } from "@/components/blocks/footer";
+import { ThemeProvider } from "@/lib/theme-context";
 import { SITE } from "@/lib/constants";
 import { organizationSchema } from "@/lib/schema";
 import "./globals.css";
@@ -73,10 +74,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Prevent flash of wrong theme — runs synchronously before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('devnexus-theme');if(t==='light')document.documentElement.classList.add('light');}catch(e){}})();`,
+          }}
+        />
         {gtmId ? (
           <Script id="gtm-script" strategy="afterInteractive">
             {`
@@ -120,9 +127,11 @@ export default function RootLayout({
             __html: JSON.stringify(organizationSchema()),
           }}
         />
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

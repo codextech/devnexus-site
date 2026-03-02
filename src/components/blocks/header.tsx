@@ -7,6 +7,7 @@ import { Menu, X, ChevronDown, Globe, BrainCircuit, Bot, Phone, Puzzle, ArrowRig
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const serviceDropdownItems = [
   {
@@ -92,11 +93,20 @@ export function Header() {
       <Container>
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" className="relative h-12 w-50 flex-shrink-0">
+            {/* White logo — dark mode */}
             <Image
               src="/images/logo-word.svg"
               alt="DevNexus"
               fill
-              className="object-contain object-left"
+              className="object-contain object-left logo-dark-mode"
+              priority
+            />
+            {/* Dark logo — light mode */}
+            <Image
+              src="/images/DevNexus-dark-logo.png"
+              alt="DevNexus"
+              fill
+              className="object-contain object-left logo-light-mode"
               priority
             />
           </Link>
@@ -192,21 +202,25 @@ export function Header() {
               Contact
             </Link>
 
-            <div className="ml-4">
+            <div className="ml-2 flex items-center gap-2">
+              <ThemeToggle />
               <Button href="/contact" size="sm">
                 Book a Call
               </Button>
             </div>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 text-dark-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: theme toggle + hamburger */}
+          <div className="lg:hidden flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              className="p-2 text-dark-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            >
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </Container>
 

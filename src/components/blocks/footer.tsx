@@ -12,11 +12,19 @@ export function Footer() {
             {/* Brand */}
             <div className="md:col-span-1">
               <Link href="/" className="relative inline-block h-10 w-50">
+                {/* White logo — dark mode */}
                 <Image
                   src="/images/logo-word.svg"
                   alt="DevNexus"
                   fill
-                  className="object-contain object-left"
+                  className="object-contain object-left logo-dark-mode"
+                />
+                {/* Dark logo — light mode */}
+                <Image
+                  src="/images/DevNexus-dark-logo.png"
+                  alt="DevNexus"
+                  fill
+                  className="object-contain object-left logo-light-mode"
                 />
               </Link>
               <p className="mt-1 text-sm text-dark-500 leading-relaxed">
