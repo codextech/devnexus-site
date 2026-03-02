@@ -1,10 +1,102 @@
 "use client";
 
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+/* ── AI typewriter title ── */
+
+type Segment = { text: string; isHighlight: boolean };
+
+function buildSegments(title: string, hw?: string): Segment[] {
+  if (!hw) return [{ text: title, isHighlight: false }];
+  const i = title.indexOf(hw);
+  if (i === -1) return [{ text: title, isHighlight: false }];
+  const s: Segment[] = [];
+  if (i > 0) s.push({ text: title.slice(0, i), isHighlight: false });
+  s.push({ text: hw, isHighlight: true });
+  const a = title.slice(i + hw.length);
+  if (a) s.push({ text: a, isHighlight: false });
+  return s;
+}
+
+function TypewriterTitle({
+  title,
+  highlightWord,
+  startDelay = 0.7,
+}: {
+  title: string;
+  highlightWord?: string;
+  startDelay?: number;
+}) {
+  const [cursorDone, setCursorDone] = useState(false);
+  const segments = useMemo(
+    () => buildSegments(title, highlightWord),
+    [title, highlightWord]
+  );
+
+  const charDelays = useMemo(() => {
+    let t = startDelay;
+    return title.split("").map((c) => {
+      const pause = c === "." ? 0.1 : c === " " ? 0.02 : 0;
+      t += 0.02 + Math.random() * 0.015 + pause;
+      return t;
+    });
+  }, [title, startDelay]);
+
+  const typingEnd = charDelays[charDelays.length - 1] + 0.35;
+
+  useEffect(() => {
+    const id = setTimeout(() => setCursorDone(true), typingEnd * 1000 + 1200);
+    return () => clearTimeout(id);
+  }, [typingEnd]);
+
+  let idx = 0;
+
+  return (
+    <>
+      {segments.map((seg, si) => {
+        if (seg.isHighlight) {
+          const delay = charDelays[idx];
+          idx += seg.text.length;
+          return (
+            <span
+              key={si}
+              className="gradient-text hero-char"
+              style={{ animationDelay: `${delay.toFixed(3)}s` }}
+            >
+              {seg.text}
+            </span>
+          );
+        }
+        const chars = seg.text.split("").map((char) => {
+          const delay = charDelays[idx];
+          idx++;
+          return (
+            <span
+              key={idx}
+              className="hero-char"
+              style={{ animationDelay: `${delay.toFixed(3)}s` }}
+            >
+              {char}
+            </span>
+          );
+        });
+        return <Fragment key={si}>{chars}</Fragment>;
+      })}
+      <motion.span
+        className="hero-cursor"
+        animate={cursorDone ? { opacity: 0 } : undefined}
+        transition={cursorDone ? { duration: 0.4 } : undefined}
+      />
+    </>
+  );
+}
+
+/* ── Hero ── */
 
 type HeroProps = {
   eyebrow?: string;
@@ -194,7 +286,11 @@ export function Hero({
                 : "text-3xl md:text-4xl lg:text-5xl"
             )}
           >
-            {renderTitle()}
+            {isHomepage ? (
+              <TypewriterTitle title={title} highlightWord={highlightWord} />
+            ) : (
+              renderTitle()
+            )}
           </h1>
 
           <motion.p

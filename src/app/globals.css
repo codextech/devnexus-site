@@ -721,6 +721,33 @@ html.light select option {
 .hero-proof-text     { color: #64748b; }
 .hero-bottom-fade    { background: linear-gradient(to top, #030508, transparent); }
 
+/* AI typewriter */
+.hero-char {
+  display: inline;
+  opacity: 0;
+  animation: hero-char-in 0.3s ease forwards;
+}
+
+@keyframes hero-char-in {
+  to { opacity: 1; }
+}
+
+.hero-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: #02A9F7;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  border-radius: 1px;
+  animation: hero-cursor-blink 0.6s step-end infinite;
+}
+
+@keyframes hero-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .hero-eyebrow {
   background: rgba(2, 169, 247, 0.08);
   border: 1px solid rgba(2, 169, 247, 0.15);
@@ -782,6 +809,10 @@ html.light .hero-title-text     { color: #0f172a !important; }
 html.light .hero-subtitle-text  { color: #475569 !important; }
 html.light .hero-proof-text     { color: #475569 !important; }
 html.light .hero-bottom-fade    { background: linear-gradient(to top, #f8fafc, transparent) !important; }
+
+html.light .hero-cursor {
+  background: #0284c7 !important;
+}
 
 html.light .hero-eyebrow {
   background: rgba(2, 169, 247, 0.06) !important;
