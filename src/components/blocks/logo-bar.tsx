@@ -194,7 +194,7 @@ export function LogoBar() {
                       src={logo.src}
                       alt={logo.alt}
                       fill
-                      className="object-contain"
+                      className="object-contain logo-bar-image"
                     />
                   </a>
                 </div>

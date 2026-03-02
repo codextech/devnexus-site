@@ -511,3 +511,53 @@ html.light select option {
   background-color: #ffffff;
   color: #0f172a;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   HERO — Dark theme (default)
+   ═══════════════════════════════════════════════════════════ */
+
+.hero-bg          { background-color: var(--color-dark-950); }
+.hero-bg-page     { background-color: var(--color-dark-900); }
+.hero-glow-primary   { background: rgba(2, 169, 247, 0.05); }
+.hero-glow-secondary { background: rgba(6, 182, 212, 0.04); }
+.hero-title-text     { color: #ffffff; }
+.hero-subtitle-text  { color: #94a3b8; }
+.hero-proof-text     { color: #64748b; }
+.hero-bottom-fade    { background: linear-gradient(to top, var(--color-dark-950), transparent); }
+
+.hero-eyebrow {
+  background: rgba(2, 169, 247, 0.08);
+  border: 1px solid rgba(2, 169, 247, 0.15);
+  color: #02A9F7;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO — Light theme
+   ═══════════════════════════════════════════════════════════ */
+
+html.light .hero-bg          { background-color: #f8fafc !important; }
+html.light .hero-bg-page     { background-color: #f1f5f9 !important; }
+html.light .hero-glow-primary   { background: rgba(2, 169, 247, 0.06) !important; }
+html.light .hero-glow-secondary { background: rgba(6, 182, 212, 0.05) !important; }
+html.light .hero-title-text     { color: #0f172a !important; }
+html.light .hero-subtitle-text  { color: #475569 !important; }
+html.light .hero-proof-text     { color: #475569 !important; }
+html.light .hero-bottom-fade    { background: linear-gradient(to top, #f8fafc, transparent) !important; }
+
+html.light .hero-eyebrow {
+  background: rgba(2, 169, 247, 0.06) !important;
+  border: 1px solid rgba(2, 169, 247, 0.18) !important;
+  color: #0284c7 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LOGO BAR — Light theme: invert white logos so they show
+   ═══════════════════════════════════════════════════════════ */
+
+html.light .logo-bar-image {
+  filter: invert(1) grayscale(1);
+}
+
+html.light .grayscale-0 .logo-bar-image {
+  filter: invert(1);
+}
