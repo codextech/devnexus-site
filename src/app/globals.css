@@ -518,8 +518,18 @@ html.light select option {
 
 .hero-bg          { background-color: var(--color-dark-950); }
 .hero-bg-page     { background-color: var(--color-dark-900); }
-.hero-glow-primary   { background: rgba(2, 169, 247, 0.05); }
-.hero-glow-secondary { background: rgba(6, 182, 212, 0.04); }
+.hero-orb-blue {
+  background: radial-gradient(circle, rgba(2, 169, 247, 0.18) 0%, transparent 70%);
+  filter: blur(80px);
+}
+.hero-orb-cyan {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.14) 0%, transparent 70%);
+  filter: blur(90px);
+}
+.hero-orb-purple {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.10) 0%, transparent 70%);
+  filter: blur(80px);
+}
 .hero-title-text     { color: #ffffff; }
 .hero-subtitle-text  { color: #94a3b8; }
 .hero-proof-text     { color: #64748b; }
@@ -537,8 +547,15 @@ html.light select option {
 
 html.light .hero-bg          { background-color: #f8fafc !important; }
 html.light .hero-bg-page     { background-color: #f1f5f9 !important; }
-html.light .hero-glow-primary   { background: rgba(2, 169, 247, 0.06) !important; }
-html.light .hero-glow-secondary { background: rgba(6, 182, 212, 0.05) !important; }
+html.light .hero-orb-blue {
+  background: radial-gradient(circle, rgba(2, 169, 247, 0.12) 0%, transparent 70%) !important;
+}
+html.light .hero-orb-cyan {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.10) 0%, transparent 70%) !important;
+}
+html.light .hero-orb-purple {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.07) 0%, transparent 70%) !important;
+}
 html.light .hero-title-text     { color: #0f172a !important; }
 html.light .hero-subtitle-text  { color: #475569 !important; }
 html.light .hero-proof-text     { color: #475569 !important; }
@@ -561,3 +578,44 @@ html.light .logo-bar-image {
 html.light .grayscale-0 .logo-bar-image {
   filter: invert(1);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   PROCESS SECTION — Dark theme (default)
+   ═══════════════════════════════════════════════════════════ */
+
+.process-icon-ring {
+  background: rgba(2, 169, 247, 0.06);
+  border: 1px solid rgba(2, 169, 247, 0.15);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.process-icon-ring:hover {
+  background: rgba(2, 169, 247, 0.12);
+  border-color: rgba(2, 169, 247, 0.3);
+}
+
+.process-connector {
+  background: linear-gradient(90deg, rgba(2, 169, 247, 0.2), rgba(6, 182, 212, 0.12));
+}
+
+.process-title-text { color: #ffffff; }
+.process-body-text  { color: #94a3b8; }
+
+/* ═══════════════════════════════════════════════════════════
+   PROCESS SECTION — Light theme
+   ═══════════════════════════════════════════════════════════ */
+
+html.light .process-icon-ring {
+  background: rgba(2, 169, 247, 0.05) !important;
+  border: 1px solid rgba(2, 169, 247, 0.14) !important;
+}
+html.light .process-icon-ring:hover {
+  background: rgba(2, 169, 247, 0.1) !important;
+  border-color: rgba(2, 169, 247, 0.28) !important;
+}
+
+html.light .process-connector {
+  background: linear-gradient(90deg, rgba(2, 169, 247, 0.15), rgba(6, 182, 212, 0.1)) !important;
+}
+
+html.light .process-title-text { color: #0f172a !important; }
+html.light .process-body-text  { color: #475569 !important; }

@@ -179,7 +179,7 @@ export function LogoBar() {
                   }}
                   className={`relative h-8 md:h-10 w-28 md:w-36 shrink-0 transition-all duration-300 ${
                     isActive
-                      ? "opacity-100 grayscale-0 scale-105"
+                      ? "opacity-100 scale-105"
                       : "opacity-45 grayscale"
                   }`}
                 >

@@ -56,29 +56,46 @@ export function Hero({
     >
       {isHomepage && (
         <>
-          <div className="absolute inset-0 grid-bg" />
+          {/* Subtle grid underlay */}
+          <div className="absolute inset-0 grid-bg opacity-40" />
 
-          <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1000px] h-[700px] hero-glow-primary rounded-full blur-[140px]" />
-          <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[500px] hero-glow-secondary rounded-full blur-[120px]" />
+          {/* Aurora mesh — slow-drifting gradient orbs that blend */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              className="absolute w-[700px] h-[700px] rounded-full hero-orb-blue"
+              animate={{
+                x: ["-10%", "5%", "-10%"],
+                y: ["-15%", "5%", "-15%"],
+                scale: [1, 1.15, 1],
+              }}
+              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+              style={{ top: "-20%", left: "10%" }}
+            />
+            <motion.div
+              className="absolute w-[600px] h-[600px] rounded-full hero-orb-cyan"
+              animate={{
+                x: ["5%", "-8%", "5%"],
+                y: ["0%", "-12%", "0%"],
+                scale: [1.1, 0.95, 1.1],
+              }}
+              transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+              style={{ top: "10%", right: "-5%" }}
+            />
+            <motion.div
+              className="absolute w-[500px] h-[500px] rounded-full hero-orb-purple"
+              animate={{
+                x: ["0%", "10%", "0%"],
+                y: ["5%", "-8%", "5%"],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+              style={{ bottom: "-10%", left: "30%" }}
+            />
+          </div>
 
-          <motion.div
-            className="absolute top-28 left-[12%] w-2 h-2 rounded-full bg-brand-blue/40"
-            animate={{ y: [0, -30, 0], opacity: [0.3, 0.7, 0.3] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute top-44 right-[18%] w-1.5 h-1.5 rounded-full bg-brand-cyan/50"
-            animate={{ y: [0, -20, 0], opacity: [0.2, 0.6, 0.2] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-          />
-          <motion.div
-            className="absolute bottom-36 left-[22%] w-1 h-1 rounded-full bg-brand-blue/30"
-            animate={{ y: [0, -25, 0], opacity: [0.15, 0.5, 0.15] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          />
-
-          <div className="absolute top-1/2 left-0 w-px h-40 bg-gradient-to-b from-transparent via-brand-blue/15 to-transparent" />
-          <div className="absolute top-1/3 right-0 w-px h-56 bg-gradient-to-b from-transparent via-brand-cyan/10 to-transparent" />
+          {/* Fine accent lines at edges */}
+          <div className="absolute top-1/2 left-0 w-px h-48 bg-gradient-to-b from-transparent via-brand-blue/10 to-transparent" />
+          <div className="absolute top-1/3 right-0 w-px h-64 bg-gradient-to-b from-transparent via-brand-cyan/8 to-transparent" />
         </>
       )}
 
