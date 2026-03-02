@@ -872,3 +872,201 @@ html.light .process-connector {
 
 html.light .process-title-text { color: #0f172a !important; }
 html.light .process-body-text  { color: #475569 !important; }
+
+/* ═══════════════════════════════════════════════════════════
+   BENTO SECTION — Dark theme (default)
+   ═══════════════════════════════════════════════════════════ */
+
+.bento-img-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(2, 6, 23, 0.92) 0%,
+    rgba(2, 6, 23, 0.3) 50%,
+    transparent 100%
+  );
+}
+
+/* Eyebrow label — brand blue in both themes */
+.bento-card-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #02a9f7;
+  margin-bottom: 0.375rem;
+}
+
+/* Same but for glass/gradient cards (no bottom margin override needed) */
+.bento-card-label-alt {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #02a9f7;
+}
+
+/* Image card titles — always white (sitting on dark photo overlay) */
+.bento-card-image-title {
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.bento-card-image-body {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.55;
+}
+
+/* ── AI card ── */
+.bento-ai-card {
+  background: linear-gradient(145deg, #0d1a2e 0%, #0c1622 50%, #071018 100%);
+  border: 1px solid rgba(2, 169, 247, 0.12);
+}
+
+.bento-ai-grid {
+  background-image:
+    linear-gradient(rgba(2, 169, 247, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2, 169, 247, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.bento-ai-icon-ring {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: rgba(2, 169, 247, 0.08);
+  border: 1px solid rgba(2, 169, 247, 0.18);
+}
+
+.bento-ai-title {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+  .bento-ai-title { font-size: 1.625rem; }
+}
+
+.bento-ai-body {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.bento-ai-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #7dd3fc;
+  background: rgba(2, 169, 247, 0.1);
+  border: 1px solid rgba(2, 169, 247, 0.18);
+  border-radius: 9999px;
+}
+
+/* ── Stats card ── */
+.bento-stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .bento-stat-value { font-size: 2rem; }
+}
+
+.bento-stat-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+.bento-stats-body {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.bento-stats-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ── Speed card ── */
+.bento-speed-card {
+  background: linear-gradient(145deg, rgba(2, 169, 247, 0.07) 0%, rgba(6, 182, 212, 0.03) 100%);
+  border: 1px solid rgba(2, 169, 247, 0.1);
+}
+
+.bento-speed-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+}
+
+.bento-speed-body {
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  line-height: 1.55;
+}
+
+.bento-speed-item {
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BENTO SECTION — Light theme
+   ═══════════════════════════════════════════════════════════ */
+
+/* Image card overlays stay dark — text on photos is always white */
+html.light .bento-card-image-title { color: #ffffff !important; }
+html.light .bento-card-image-body  { color: rgba(255, 255, 255, 0.65) !important; }
+
+/* AI card — light blue tint in light mode */
+html.light .bento-ai-card {
+  background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 50%, #e0f2fe 100%) !important;
+  border: 1px solid rgba(2, 169, 247, 0.15) !important;
+}
+
+html.light .bento-ai-grid {
+  background-image:
+    linear-gradient(rgba(2, 132, 199, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(2, 132, 199, 0.06) 1px, transparent 1px) !important;
+}
+
+html.light .bento-ai-title { color: #0f172a !important; }
+html.light .bento-ai-body  { color: #475569 !important; }
+
+html.light .bento-ai-tag {
+  color: #0284c7 !important;
+  background: rgba(2, 169, 247, 0.08) !important;
+  border-color: rgba(2, 169, 247, 0.2) !important;
+}
+
+html.light .bento-stat-value   { color: #0f172a !important; }
+html.light .bento-stat-label   { color: #64748b !important; }
+html.light .bento-stats-body   { color: #475569 !important; }
+
+html.light .bento-stats-divider {
+  border-top-color: rgba(0, 0, 0, 0.07) !important;
+}
+
+html.light .bento-speed-card {
+  background: linear-gradient(145deg, rgba(2, 169, 247, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%) !important;
+  border-color: rgba(2, 169, 247, 0.12) !important;
+}
+
+html.light .bento-speed-title { color: #0f172a !important; }
+html.light .bento-speed-body  { color: #475569 !important; }
+html.light .bento-speed-item  { color: #64748b !important; }
