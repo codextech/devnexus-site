@@ -80,7 +80,7 @@ export default function BlogPage() {
                   <p className="text-xs text-dark-500 font-[family-name:var(--font-geist-mono)]">
                     {post.publishedAt} &middot; {post.readTime}
                   </p>
-                  <h2 className="mt-2 text-lg font-semibold text-white group-hover:text-brand-blue transition-colors">
+                  <h2 className="mt-2 text-lg font-semibold group-hover:text-brand-blue transition-colors">
                     {post.title}
                   </h2>
                   <p className="mt-2 text-sm text-dark-400 leading-relaxed">

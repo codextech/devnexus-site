@@ -33,7 +33,7 @@ export function ServiceCard({
         <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center mb-5 group-hover:bg-brand-blue/20 transition-colors">
           <Icon className="w-6 h-6 text-brand-blue" />
         </div>
-        <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
+        <h3 className="text-lg font-semibold mb-2">{title}</h3>
         <p className="text-sm text-dark-400 leading-relaxed mb-4">
           {description}
         </p>

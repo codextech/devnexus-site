@@ -4,6 +4,7 @@ export const SITE = {
   description:
     "DevNexus is a full-service software development company. We build web apps, mobile apps, AI solutions, agentic workflows, voice AI agents, and Jira integrations — in JavaScript, Node.js, and Python.",
   email: "info@devnexus.co",
+  phone: "+923249429698",
   social: {
     linkedin: "https://www.linkedin.com/company/devnexusconsulting",
     github: "",

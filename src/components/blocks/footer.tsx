@@ -76,7 +76,8 @@ export function Footer() {
               <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-dark-400 mb-5">
                 Get In Touch
               </h4>
-              <p className="text-sm text-dark-400">{SITE.email}</p>
+              <p className="text-sm text-dark-400">{SITE.phone}</p>
+              <p className="text-sm text-dark-400 mt-1">{SITE.email}</p>
               <div className="flex gap-4 mt-5">
                 <a
                   href={SITE.social.linkedin}
