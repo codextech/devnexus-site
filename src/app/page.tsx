@@ -1,8 +1,10 @@
 import { Hero } from "@/components/blocks/hero";
 import { LogoBar } from "@/components/blocks/logo-bar";
 import { ServicesSection } from "@/components/sections/home-services";
+import { VisualBentoSection } from "@/components/sections/home-visual-bento";
 import { EcosystemSection } from "@/components/sections/home-ecosystem";
 import { CaseStudiesSection } from "@/components/sections/home-case-studies";
+import { SuccessStorySection } from "@/components/sections/home-success-story";
 import { ProcessSection } from "@/components/sections/home-process";
 import { WhySection } from "@/components/sections/home-why";
 import { CTABanner } from "@/components/blocks/cta-banner";
@@ -70,13 +72,17 @@ export default function HomePage() {
 
       <ServicesSection />
 
+      <VisualBentoSection />
+
       <ProcessSection />
+
+      <SuccessStorySection />
 
       <EcosystemSection />
 
       <CaseStudiesSection />
 
-      <WhySection />
+      {/* <WhySection /> */}
 
       <CTABanner />
     </>
