@@ -12,11 +12,19 @@ export function Footer() {
             {/* Brand */}
             <div className="md:col-span-1">
               <Link href="/" className="relative inline-block h-10 w-50">
+                {/* White logo — dark mode */}
                 <Image
                   src="/images/logo-word.svg"
                   alt="DevNexus"
                   fill
-                  className="object-contain object-left"
+                  className="object-contain object-left logo-dark-mode"
+                />
+                {/* Dark logo — light mode */}
+                <Image
+                  src="/images/DevNexus-dark-logo.png"
+                  alt="DevNexus"
+                  fill
+                  className="object-contain object-left logo-light-mode"
                 />
               </Link>
               <p className="mt-1 text-sm text-dark-500 leading-relaxed">
@@ -68,7 +76,8 @@ export function Footer() {
               <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-dark-400 mb-5">
                 Get In Touch
               </h4>
-              <p className="text-sm text-dark-400">{SITE.email}</p>
+              <p className="text-sm text-dark-400">{SITE.phone}</p>
+              <p className="text-sm text-dark-400 mt-1">{SITE.email}</p>
               <div className="flex gap-4 mt-5">
                 <a
                   href={SITE.social.linkedin}

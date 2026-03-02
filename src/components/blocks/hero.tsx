@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,7 +15,6 @@ type HeroProps = {
   variant?: "homepage" | "page";
   className?: string;
   highlightWord?: string;
-  /** Renders a tagline strip below CTAs on homepage */
   socialProof?: string[];
 };
 
@@ -32,7 +31,6 @@ export function Hero({
 }: HeroProps) {
   const isHomepage = variant === "homepage";
 
-  // Split title to highlight a word
   const renderTitle = () => {
     if (!highlightWord) return title;
     const parts = title.split(highlightWord);
@@ -51,54 +49,115 @@ export function Hero({
       className={cn(
         "relative overflow-hidden",
         isHomepage
-          ? "bg-dark-950 pt-32 pb-24 md:pt-44 md:pb-36 min-h-[92vh] flex items-center"
-          : "bg-dark-900 pt-32 pb-16 md:pt-40 md:pb-20 border-b border-white/5",
+          ? "hero-bg pt-36 pb-28 md:pt-48 md:pb-40 min-h-[94vh] flex items-center"
+          : "hero-bg-page pt-32 pb-16 md:pt-40 md:pb-20 border-b border-white/5",
         className
       )}
     >
-      {/* Background effects for homepage */}
       {isHomepage && (
         <>
-          {/* Grid pattern */}
-          <div className="absolute inset-0 grid-bg" />
+          {/* Deep space gradient base */}
+          <div className="absolute inset-0 hero-cosmos" />
 
-          {/* Radial gradient glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-brand-blue/5 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 right-0 w-[500px] h-[400px] bg-brand-cyan/5 rounded-full blur-[100px]" />
+          {/* Star field */}
+          <div className="absolute inset-0 hero-stars" />
 
-          {/* Animated orbs */}
+          {/* Central radial pulse */}
           <motion.div
-            className="absolute top-32 left-[15%] w-2 h-2 rounded-full bg-brand-blue/40"
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.4, 0.8, 0.4],
-            }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute top-48 right-[20%] w-1.5 h-1.5 rounded-full bg-brand-cyan/50"
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.7, 0.3],
-            }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-          <motion.div
-            className="absolute bottom-40 left-[25%] w-1 h-1 rounded-full bg-brand-blue/30"
-            animate={{
-              y: [0, -25, 0],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full hero-radial-pulse"
+            animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          {/* Decorative line elements */}
-          <div className="absolute top-1/2 left-0 w-px h-32 bg-gradient-to-b from-transparent via-brand-blue/20 to-transparent" />
-          <div className="absolute top-1/3 right-0 w-px h-48 bg-gradient-to-b from-transparent via-brand-cyan/10 to-transparent" />
+          {/* Aurora mesh — slow-drifting gradient orbs */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              className="absolute w-[700px] h-[700px] rounded-full hero-orb-blue"
+              animate={{
+                x: ["-10%", "5%", "-10%"],
+                y: ["-15%", "5%", "-15%"],
+                scale: [1, 1.15, 1],
+              }}
+              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+              style={{ top: "-20%", left: "10%" }}
+            />
+            <motion.div
+              className="absolute w-[600px] h-[600px] rounded-full hero-orb-cyan"
+              animate={{
+                x: ["5%", "-8%", "5%"],
+                y: ["0%", "-12%", "0%"],
+                scale: [1.1, 0.95, 1.1],
+              }}
+              transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+              style={{ top: "10%", right: "-5%" }}
+            />
+            <motion.div
+              className="absolute w-[500px] h-[500px] rounded-full hero-orb-purple"
+              animate={{
+                x: ["0%", "10%", "0%"],
+                y: ["5%", "-8%", "5%"],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+              style={{ bottom: "-10%", left: "30%" }}
+            />
+            {/* Extra indigo accent orb */}
+            <motion.div
+              className="absolute w-[400px] h-[400px] rounded-full hero-orb-indigo"
+              animate={{
+                x: ["-5%", "8%", "-5%"],
+                y: ["0%", "10%", "0%"],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+              style={{ top: "30%", left: "55%" }}
+            />
+          </div>
+
+          {/* Animated horizontal light beam */}
+          <motion.div
+            className="absolute top-[38%] left-0 right-0 h-px hero-beam"
+            animate={{ opacity: [0, 0.5, 0], scaleX: [0.3, 1, 0.3] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          <motion.div
+            className="absolute top-[62%] left-0 right-0 h-px hero-beam"
+            animate={{ opacity: [0, 0.3, 0], scaleX: [0.4, 1, 0.4] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          />
+
+          {/* Floating particles */}
+          {[
+            { x: "12%", y: "22%", dur: 14, del: 0, size: 3 },
+            { x: "78%", y: "18%", dur: 18, del: 2, size: 2 },
+            { x: "25%", y: "72%", dur: 16, del: 4, size: 2.5 },
+            { x: "85%", y: "65%", dur: 20, del: 1, size: 2 },
+            { x: "50%", y: "30%", dur: 15, del: 3, size: 3.5 },
+            { x: "65%", y: "80%", dur: 17, del: 5, size: 2 },
+          ].map((p, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full hero-particle"
+              style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0.2, 0.7, 0.2],
+              }}
+              transition={{
+                duration: p.dur,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: p.del,
+              }}
+            />
+          ))}
+
+          {/* Corner accent lines */}
+          <div className="absolute top-1/2 left-0 w-px h-48 bg-gradient-to-b from-transparent via-brand-blue/10 to-transparent" />
+          <div className="absolute top-1/3 right-0 w-px h-64 bg-gradient-to-b from-transparent via-brand-cyan/8 to-transparent" />
         </>
       )}
 
-      {/* Page variant subtle gradient */}
       {!isHomepage && (
         <div className="absolute inset-0 section-gradient" />
       )}
@@ -107,22 +166,21 @@ export function Hero({
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className={cn(
             "max-w-4xl",
             isHomepage ? "mx-auto text-center" : "text-left"
           )}
         >
-          {/* Eyebrow badge */}
           {eyebrow && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.5 }}
-              className={cn("mb-6", isHomepage && "flex justify-center")}
+              className={cn("mb-8", isHomepage && "flex justify-center")}
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium tracking-wide uppercase bg-brand-blue/10 text-brand-blue border border-brand-blue/20">
-                <Sparkles className="w-3.5 h-3.5" />
+              <span className="hero-eyebrow inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-semibold tracking-widest uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-blue animate-pulse" />
                 {eyebrow}
               </span>
             </motion.div>
@@ -130,10 +188,10 @@ export function Hero({
 
           <h1
             className={cn(
-              "font-bold tracking-tight leading-[1.08]",
+              "font-bold tracking-tight leading-[1.05] hero-title-text",
               isHomepage
-                ? "text-4xl md:text-5xl lg:text-7xl text-white"
-                : "text-3xl md:text-4xl lg:text-5xl text-white"
+                ? "text-[2.5rem] md:text-6xl lg:text-[5rem]"
+                : "text-3xl md:text-4xl lg:text-5xl"
             )}
           >
             {renderTitle()}
@@ -142,12 +200,12 @@ export function Hero({
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.25, duration: 0.5 }}
+            transition={{ delay: 0.25, duration: 0.6 }}
             className={cn(
-              "mt-6 leading-relaxed",
+              "mt-7 leading-relaxed hero-subtitle-text",
               isHomepage
-                ? "text-lg md:text-xl text-dark-300 mx-auto max-w-2xl"
-                : "text-base md:text-lg text-dark-300 max-w-2xl"
+                ? "text-lg md:text-xl mx-auto max-w-2xl"
+                : "text-base md:text-lg max-w-2xl"
             )}
           >
             {subtitle}
@@ -158,7 +216,7 @@ export function Hero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
             className={cn(
-              "mt-10 flex flex-col sm:flex-row gap-4",
+              "mt-12 flex flex-col sm:flex-row gap-4",
               isHomepage ? "justify-center" : "justify-start"
             )}
           >
@@ -182,32 +240,22 @@ export function Hero({
             )}
           </motion.div>
 
-          {/* Social proof strip for homepage */}
           {isHomepage && socialProof && socialProof.length > 0 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.65, duration: 0.6 }}
-              className="mt-16 md:mt-20"
+              transition={{ delay: 0.7, duration: 0.7 }}
+              className="mt-20 md:mt-24"
             >
-              {/* Divider line */}
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-dark-600" />
-                <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-dark-500">
-                  Why teams choose us
-                </span>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-dark-600" />
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2">
-                {socialProof.map((item, i) => (
-                  <span key={item} className="flex items-center gap-2">
-                    <span className="text-sm md:text-base text-dark-400 font-medium">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-x-8 gap-y-4">
+                {socialProof.map((item) => (
+                  <span key={item} className="flex items-center gap-2.5">
+                    <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand-blue/10">
+                      <Check className="w-3 h-3 text-brand-blue" strokeWidth={3} />
+                    </span>
+                    <span className="text-sm hero-proof-text font-medium">
                       {item}
                     </span>
-                    {i < socialProof.length - 1 && (
-                      <span className="text-dark-600 mx-1">·</span>
-                    )}
                   </span>
                 ))}
               </div>
@@ -216,9 +264,8 @@ export function Hero({
         </motion.div>
       </Container>
 
-      {/* Bottom gradient fade for homepage */}
       {isHomepage && (
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-950 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-36 hero-bottom-fade" />
       )}
     </section>
   );

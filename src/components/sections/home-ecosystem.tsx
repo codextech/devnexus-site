@@ -32,27 +32,20 @@ const aiNodes = [
   { icon: Package, label: "AI Automation" },
 ];
 
-/* ── Positions: evenly distribute nodes around a circle ── */
-function nodeStyle(index: number, total: number, radius: number) {
-  const angle = (360 / total) * index - 90; // start from top
-  const rad = (angle * Math.PI) / 180;
-  return {
-    left: `calc(50% + ${Math.cos(rad) * radius}px)`,
-    top: `calc(50% + ${Math.sin(rad) * radius}px)`,
-    transform: "translate(-50%, -50%)",
-  } as React.CSSProperties;
-}
 
 export function EcosystemSection() {
   const innerR = 130; // tech ring radius (px)
   const outerR = 225; // AI ring radius (px)
 
   return (
-    <section className="py-20 md:py-32 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-dark-950" />
-      <div className="absolute inset-0 grid-bg" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-brand-blue/[0.03] rounded-full blur-[150px]" />
+    <section className="py-20 md:py-32 relative overflow-hidden ecosystem-section">
+      {/* Universe background layers */}
+      <div className="absolute inset-0 ecosystem-bg" />
+      <div className="absolute inset-0 ecosystem-stars" />
+      {/* Nebula orbs */}
+      <div className="absolute top-[20%] left-[15%] w-[500px] h-[500px] rounded-full bg-brand-blue/[0.04] blur-[120px] ecosystem-nebula" />
+      <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] rounded-full bg-brand-cyan/[0.03] blur-[100px] ecosystem-nebula" />
+      <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/[0.02] blur-[150px] ecosystem-nebula" />
 
       <Container className="relative z-10">
         <SectionHeading
@@ -67,16 +60,36 @@ export function EcosystemSection() {
           className="mt-16 md:mt-24 relative mx-auto"
           style={{ height: 540, maxWidth: 640 }}
         >
-          {/* ── SVG under-layer: rings + glow pulses ── */}
+          {/* ── SVG under-layer: rings, pulses & orbit dots ── */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none"
             viewBox="0 0 640 540"
             fill="none"
           >
-            {/* Inner ring (tech) */}
-            <circle cx="320" cy="270" r={innerR} stroke="rgba(2,169,247,0.12)" strokeWidth="1" strokeDasharray="6 6" />
-            {/* Outer ring (AI) */}
-            <circle cx="320" cy="270" r={outerR} stroke="rgba(6,182,212,0.10)" strokeWidth="1" strokeDasharray="4 8" />
+            <defs>
+              <filter id="orbit-glow">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              {/* Clockwise path for inner ring */}
+              <path
+                id="inner-orbit"
+                d={`M 320 ${270 - innerR} A ${innerR} ${innerR} 0 0 1 320 ${270 + innerR} A ${innerR} ${innerR} 0 0 1 320 ${270 - innerR}`}
+              />
+              {/* Counter-clockwise path for outer ring */}
+              <path
+                id="outer-orbit"
+                d={`M 320 ${270 - outerR} A ${outerR} ${outerR} 0 0 0 320 ${270 + outerR} A ${outerR} ${outerR} 0 0 0 320 ${270 - outerR}`}
+              />
+            </defs>
+
+            {/* Inner ring track */}
+            <circle cx="320" cy="270" r={innerR} className="orbit-track-inner" strokeWidth="1" strokeDasharray="6 6" />
+            {/* Outer ring track */}
+            <circle cx="320" cy="270" r={outerR} className="orbit-track-outer" strokeWidth="1" strokeDasharray="4 8" />
 
             {/* Pulse rings from center */}
             {[1, 2, 3].map((i) => (
@@ -86,38 +99,29 @@ export function EcosystemSection() {
               </circle>
             ))}
 
-            {/* Connecting spokes: center → inner ring nodes */}
-            {techNodes.map((_, i) => {
-              const angle = ((360 / techNodes.length) * i - 90) * (Math.PI / 180);
-              return (
-                <line
-                  key={`spoke-${i}`}
-                  x1="320"
-                  y1="270"
-                  x2={320 + Math.cos(angle) * innerR}
-                  y2={270 + Math.sin(angle) * innerR}
-                  stroke="rgba(2,169,247,0.06)"
-                  strokeWidth="1"
-                />
-              );
-            })}
+            {/* Orbiting dots — inner ring (clockwise, matches CSS 40s) */}
+            <circle r="3.5" fill="rgba(2,169,247,0.7)" filter="url(#orbit-glow)">
+              <animateMotion dur="40s" repeatCount="indefinite">
+                <mpath href="#inner-orbit" />
+              </animateMotion>
+            </circle>
+            <circle r="2.5" fill="rgba(2,169,247,0.35)" filter="url(#orbit-glow)">
+              <animateMotion dur="40s" begin="-20s" repeatCount="indefinite">
+                <mpath href="#inner-orbit" />
+              </animateMotion>
+            </circle>
 
-            {/* Connecting arcs: inner → outer (subtle) */}
-            {aiNodes.map((_, i) => {
-              const aOuter = ((360 / aiNodes.length) * i - 90) * (Math.PI / 180);
-              const aInner = ((360 / techNodes.length) * (i % techNodes.length) - 90) * (Math.PI / 180);
-              return (
-                <line
-                  key={`arc-${i}`}
-                  x1={320 + Math.cos(aInner) * innerR}
-                  y1={270 + Math.sin(aInner) * innerR}
-                  x2={320 + Math.cos(aOuter) * outerR}
-                  y2={270 + Math.sin(aOuter) * outerR}
-                  stroke="rgba(6,182,212,0.04)"
-                  strokeWidth="1"
-                />
-              );
-            })}
+            {/* Orbiting dots — outer ring (counter-clockwise, matches CSS 55s) */}
+            <circle r="3.5" fill="rgba(6,182,212,0.7)" filter="url(#orbit-glow)">
+              <animateMotion dur="55s" repeatCount="indefinite">
+                <mpath href="#outer-orbit" />
+              </animateMotion>
+            </circle>
+            <circle r="2.5" fill="rgba(6,182,212,0.35)" filter="url(#orbit-glow)">
+              <animateMotion dur="55s" begin="-27.5s" repeatCount="indefinite">
+                <mpath href="#outer-orbit" />
+              </animateMotion>
+            </circle>
           </svg>
 
           {/* ── Rotating inner ring (Technology) ── */}
@@ -136,20 +140,22 @@ export function EcosystemSection() {
               return (
                 <div
                   key={node.label}
-                  className="absolute orbit-node-inner"
+                  className="absolute"
                   style={{
                     left: `calc(50% + ${Math.cos(rad) * innerR}px)`,
                     top: `calc(50% + ${Math.sin(rad) * innerR}px)`,
                     transform: "translate(-50%, -50%)",
                   }}
                 >
-                  <div className="flex flex-col items-center gap-1">
-                    <div className="w-11 h-11 md:w-13 md:h-13 rounded-xl bg-brand-blue/15 backdrop-blur-sm border border-brand-blue/20 flex items-center justify-center shadow-lg shadow-brand-blue/10 hover:bg-brand-blue/25 hover:scale-110 transition-all duration-300">
-                      <node.icon className="w-5 h-5 md:w-6 md:h-6 text-brand-blue" />
+                  <div className="orbit-node-inner">
+                    <div className="flex flex-col items-center gap-1">
+                      <div className="w-11 h-11 md:w-13 md:h-13 rounded-xl orbit-node-card-inner flex items-center justify-center hover:scale-110 transition-all duration-300">
+                        <node.icon className="w-5 h-5 md:w-6 md:h-6 text-brand-blue" />
+                      </div>
+                      <span className="text-[10px] md:text-[11px] font-medium orbit-label-text whitespace-nowrap">
+                        {node.label}
+                      </span>
                     </div>
-                    <span className="text-[10px] md:text-[11px] font-medium text-dark-500 whitespace-nowrap">
-                      {node.label}
-                    </span>
                   </div>
                 </div>
               );
@@ -172,20 +178,22 @@ export function EcosystemSection() {
               return (
                 <div
                   key={node.label}
-                  className="absolute orbit-node-outer"
+                  className="absolute"
                   style={{
                     left: `calc(50% + ${Math.cos(rad) * outerR}px)`,
                     top: `calc(50% + ${Math.sin(rad) * outerR}px)`,
                     transform: "translate(-50%, -50%)",
                   }}
                 >
-                  <div className="flex flex-col items-center gap-1">
-                    <div className="w-11 h-11 md:w-13 md:h-13 rounded-xl bg-brand-cyan/12 backdrop-blur-sm border border-brand-cyan/15 flex items-center justify-center shadow-lg shadow-brand-cyan/10 hover:bg-brand-cyan/20 hover:scale-110 transition-all duration-300">
-                      <node.icon className="w-5 h-5 md:w-6 md:h-6 text-brand-cyan" />
+                  <div className="orbit-node-outer">
+                    <div className="flex flex-col items-center gap-1">
+                      <div className="w-11 h-11 md:w-13 md:h-13 rounded-xl orbit-node-card-outer flex items-center justify-center hover:scale-110 transition-all duration-300">
+                        <node.icon className="w-5 h-5 md:w-6 md:h-6 text-brand-cyan" />
+                      </div>
+                      <span className="text-[10px] md:text-[11px] font-medium orbit-label-text whitespace-nowrap">
+                        {node.label}
+                      </span>
                     </div>
-                    <span className="text-[10px] md:text-[11px] font-medium text-dark-500 whitespace-nowrap">
-                      {node.label}
-                    </span>
                   </div>
                 </div>
               );
@@ -200,18 +208,18 @@ export function EcosystemSection() {
               className="relative"
             >
               {/* Multi-layer glow */}
-              <div className="absolute -inset-6 bg-brand-blue/15 rounded-full blur-2xl" />
-              <div className="absolute -inset-3 bg-brand-cyan/10 rounded-full blur-lg" />
+              <div className="absolute -inset-4 bg-brand-blue/15 rounded-full blur-xl" />
+              <div className="absolute -inset-2 bg-brand-cyan/10 rounded-full blur-md" />
 
-              <div className="relative w-22 h-22 md:w-26 md:h-26 rounded-full bg-gradient-to-br from-brand-blue via-brand-blue to-brand-cyan flex items-center justify-center shadow-2xl shadow-brand-blue/30 border-2 border-white/20">
-                <Users className="w-10 h-10 md:w-12 md:h-12 text-white" />
+              <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-brand-blue via-brand-blue to-brand-cyan flex items-center justify-center shadow-2xl shadow-brand-blue/30 border-2 border-white/20">
+                <Users className="w-7 h-7 md:w-9 md:h-9 text-white" />
               </div>
 
-              <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
-                <span className="text-sm md:text-base font-bold text-white whitespace-nowrap tracking-tight">
+              <div className="absolute -bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5">
+                <span className="text-xs md:text-sm font-bold whitespace-nowrap tracking-tight ecosystem-hub-text">
                   Your Customers
                 </span>
-                <span className="text-[11px] md:text-xs font-medium gradient-text whitespace-nowrap">
+                <span className="text-[9px] md:text-[10px] font-medium gradient-text whitespace-nowrap">
                   at the center of everything
                 </span>
               </div>
@@ -221,13 +229,13 @@ export function EcosystemSection() {
           {/* ── Ring labels ── */}
           <div className="absolute top-[6%] left-1/2 -translate-x-1/2 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-cyan" />
-            <span className="text-[10px] font-semibold tracking-wide uppercase text-dark-500">
+            <span className="text-[10px] font-semibold tracking-wide uppercase orbit-label-text">
               AI &amp; Intelligence Layer
             </span>
           </div>
           <div className="absolute top-[18%] left-1/2 -translate-x-1/2 flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-blue" />
-            <span className="text-[10px] font-semibold tracking-wide uppercase text-dark-500">
+            <span className="text-[10px] font-semibold tracking-wide uppercase orbit-label-text">
               Technology Layer
             </span>
           </div>
@@ -251,8 +259,8 @@ export function EcosystemSection() {
             </div>
             <span className="text-dark-600 text-lg">=</span>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-blue/10 to-brand-cyan/10 border border-white/10">
-              <Package className="w-3.5 h-3.5 text-white" />
-              <span className="text-xs font-medium text-white">Products That Win</span>
+              <Package className="w-3.5 h-3.5" />
+              <span className="text-xs font-medium">Products That Win</span>
             </div>
           </div>
 
