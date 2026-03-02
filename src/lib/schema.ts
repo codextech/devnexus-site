@@ -135,3 +135,16 @@ export function professionalServiceSchema() {
     },
   };
 }
+
+export function itemListSchema(items: { name: string; url: string; position: number }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item) => ({
+      "@type": "ListItem",
+      position: item.position,
+      name: item.name,
+      url: item.url,
+    })),
+  };
+}

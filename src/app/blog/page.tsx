@@ -4,6 +4,8 @@ import { CTABanner } from "@/components/blocks/cta-banner";
 import { Container } from "@/components/ui/container";
 import { createMetadata } from "@/lib/metadata";
 import { getAllBlogPosts } from "@/lib/content";
+import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = createMetadata({
   title: "Blog | Insights on Software, AI & Engineering",
@@ -17,6 +19,34 @@ export default function BlogPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", url: SITE.url },
+              { name: "Blog", url: `${SITE.url}/blog` },
+            ])
+          ),
+        }}
+      />
+      {posts.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              itemListSchema(
+                posts.map((post, i) => ({
+                  position: i + 1,
+                  name: post.title,
+                  url: `${SITE.url}/blog/${post.slug}`,
+                }))
+              )
+            ),
+          }}
+        />
+      )}
+
       <Hero
         eyebrow="Blog"
         title="Insights & Ideas"
