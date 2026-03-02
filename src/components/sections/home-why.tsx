@@ -30,7 +30,7 @@ const differentiators = [
 export function WhySection() {
   return (
     <section className="py-20 md:py-32 relative">
-      <div className="absolute inset-0 section-gradient" />
+      <div className="absolute inset-0 bg-dark-900/30" />
 
       <Container className="relative z-10">
         <SectionHeading

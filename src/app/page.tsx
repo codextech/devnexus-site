@@ -70,11 +70,11 @@ export default function HomePage() {
 
       <ServicesSection />
 
+      <ProcessSection />
+
       <EcosystemSection />
 
       <CaseStudiesSection />
-
-      <ProcessSection />
 
       <WhySection />
 
