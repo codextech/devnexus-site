@@ -15,14 +15,16 @@ export const metadata: Metadata = createMetadata({
   description: service.metaDescription,
   path: "/services/web-and-mobile",
   keywords: [
-    "web application development agency",
+    "full stack software development agency",
+    "web application development company",
     "mobile app development company",
-    "Next.js development services",
+    "Node.js development agency",
+    "Python web development company",
+    "JavaScript software development",
     "React Native app development",
-    "Node backend development",
-    "Python backend development",
     "full stack product development",
-    "MVP to production engineering",
+    "SaaS development company",
+    "MVP development agency",
   ],
 });
 

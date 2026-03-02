@@ -2,7 +2,7 @@ export const SITE = {
   name: "DevNexus",
   url: "https://www.devnexus.co",
   description:
-    "DevNexus builds production-grade Python and JavaScript products, AI solutions, voice agents, and Jira integrations. Battle-tested engineers. Transparent process. Real results.",
+    "DevNexus is a full-service software development company. We build web apps, mobile apps, AI solutions, agentic workflows, voice AI agents, and Jira integrations — in JavaScript, Node.js, and Python.",
   email: "info@devnexus.co",
   social: {
     linkedin: "https://www.linkedin.com/company/devnexusconsulting",

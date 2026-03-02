@@ -11,21 +11,21 @@ import type { Metadata } from "next";
 import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
-  title: "AI Software Development Agency | Web, Mobile & AI | DevNexus",
+  title: "Full-Service Software Development Company | Web, Mobile & AI | DevNexus",
   description:
-    "DevNexus is an AI-first software development agency. We build Next.js web apps, React Native mobile apps, agentic AI workflows, voice AI agents, and Jira integrations — for funded startups and enterprises.",
+    "DevNexus is a full-service software development company specializing in JavaScript, Node.js, Python, AI solutions, and mobile apps. From web platforms to agentic AI workflows — we build software that scales.",
   path: "/",
   keywords: [
+    "full-service software development company",
+    "custom software development agency",
+    "web and mobile development company",
     "AI software development agency",
-    "web development agency",
-    "Next.js development agency",
+    "Node.js development company",
+    "Python development agency",
+    "JavaScript development company",
     "agentic AI development",
     "voice AI agent development",
     "Jira app development company",
-    "custom software development Pakistan",
-    "React Native mobile app development",
-    "LLM integration agency",
-    "AI automation company",
   ],
 });
 

@@ -4,9 +4,9 @@ export const services: ServiceData[] = [
   {
     slug: "web-and-mobile",
     name: "Web & Mobile Development",
-    headline: "Web & Mobile Applications Built to Ship",
+    headline: "Software Built to Ship — Web, Mobile & APIs",
     tagline:
-      "From SaaS dashboards to consumer mobile apps — we build Python and JavaScript products that perform under real-world load.",
+      "From SaaS platforms to consumer mobile apps — we build JavaScript and Python products that perform at scale. Node.js, Next.js, React Native, and Python backends.",
     problem:
       "Your team has a validated idea but not the engineering capacity to build it right the first time. Missed deadlines, scaling issues, and technical debt pile up when the foundation is wrong.",
     deliverables: [
@@ -54,7 +54,7 @@ export const services: ServiceData[] = [
       {
         question: "What frameworks do you use?",
         answer:
-          "We standardize on Next.js for web and React Native for mobile. Both are production-proven, SEO-friendly, and backed by large ecosystems — which means faster onboarding and lower long-term maintenance costs.",
+          "We build with Next.js and Node.js for web, React Native for mobile, and Python for data-intensive backends. We choose the right tool for your product — not the trendiest one.",
       },
       {
         question: "How long does it take to build a web application?",
@@ -85,9 +85,9 @@ export const services: ServiceData[] = [
     cta: "Start Your Project",
     relatedCaseStudy: "agilepulse-jira-apps",
     metaTitle:
-      "Web & Mobile App Development Agency | Next.js & React Native | DevNexus",
+      "Full-Stack Software Development Agency | Web, Mobile & APIs | DevNexus",
     metaDescription:
-      "Custom web and mobile app development with Next.js, React Native, and Python. Fixed-scope projects, two-week sprints, and Core Web Vitals optimization. Based in Pakistan, serving global startups.",
+      "Full-service software development agency. We build web apps, mobile apps, and APIs in JavaScript, Node.js, Python, and React Native — from MVP to enterprise scale.",
   },
   {
     slug: "ai-solutions",
