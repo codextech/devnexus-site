@@ -208,7 +208,7 @@ export function EcosystemSection() {
               </div>
 
               <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
-                <span className="text-sm md:text-base font-bold text-white whitespace-nowrap tracking-tight">
+                <span className="text-sm md:text-base font-bold whitespace-nowrap tracking-tight">
                   Your Customers
                 </span>
                 <span className="text-[11px] md:text-xs font-medium gradient-text whitespace-nowrap">
@@ -251,8 +251,8 @@ export function EcosystemSection() {
             </div>
             <span className="text-dark-600 text-lg">=</span>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-blue/10 to-brand-cyan/10 border border-white/10">
-              <Package className="w-3.5 h-3.5 text-white" />
-              <span className="text-xs font-medium text-white">Products That Win</span>
+              <Package className="w-3.5 h-3.5" />
+              <span className="text-xs font-medium">Products That Win</span>
             </div>
           </div>
 

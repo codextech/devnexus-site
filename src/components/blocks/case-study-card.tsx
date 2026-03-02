@@ -18,17 +18,10 @@ export function CaseStudyCard({ study }: CaseStudyCardProps) {
         href={`/work/${study.slug}`}
         className="group block rounded-2xl overflow-hidden glass-card transition-all duration-300 hover:scale-[1.02]"
       >
-        {/* Thumbnail placeholder */}
-        <div className="aspect-[16/10] bg-gradient-to-br from-brand-navy to-dark-800 flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-brand-blue/5 group-hover:bg-brand-blue/10 transition-colors" />
-          <span className="text-dark-500 text-sm font-medium relative z-10">
-            {study.client}
-          </span>
-        </div>
 
         <div className="p-6">
           <Badge variant="blue">{study.industry}</Badge>
-          <h3 className="mt-3 text-lg font-semibold text-white group-hover:text-brand-blue transition-colors">
+          <h3 className="mt-3 text-lg font-semibold group-hover:text-brand-blue transition-colors">
             {study.title}
           </h3>
           {study.metrics[0] && (

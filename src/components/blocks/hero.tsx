@@ -132,8 +132,8 @@ export function Hero({
             className={cn(
               "font-bold tracking-tight leading-[1.08]",
               isHomepage
-                ? "text-4xl md:text-5xl lg:text-7xl text-white"
-                : "text-3xl md:text-4xl lg:text-5xl text-white"
+                ? "text-4xl md:text-5xl lg:text-7xl"
+                : "text-3xl md:text-4xl lg:text-5xl"
             )}
           >
             {renderTitle()}
