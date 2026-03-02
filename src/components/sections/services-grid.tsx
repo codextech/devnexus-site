@@ -12,6 +12,7 @@ const allServices = [
     description:
       "Production-grade apps in React, Next.js, and React Native that your users actually want to use.",
     href: "/services/web-and-mobile",
+    accent: "blue" as const,
   },
   {
     icon: BrainCircuit,
@@ -19,6 +20,7 @@ const allServices = [
     description:
       "Custom automation, RAG pipelines, and analytics dashboards that turn your data into decisions.",
     href: "/services/ai-solutions",
+    accent: "cyan" as const,
   },
   {
     icon: Bot,
@@ -26,6 +28,7 @@ const allServices = [
     description:
       "Autonomous AI agents that handle multi-step processes so your team can focus on strategy.",
     href: "/services/agentic-ai",
+    accent: "violet" as const,
   },
   {
     icon: Phone,
@@ -33,6 +36,7 @@ const allServices = [
     description:
       "Conversational voice interfaces that replace hold music with instant resolution.",
     href: "/services/voice-ai",
+    accent: "emerald" as const,
   },
   {
     icon: Puzzle,
@@ -40,6 +44,7 @@ const allServices = [
     description:
       "Atlassian Marketplace apps and custom integrations that make your workflows disappear.",
     href: "/services/jira-apps",
+    accent: "amber" as const,
   },
 ];
 
@@ -47,7 +52,7 @@ export function ServicesGrid() {
   return (
     <motion.div
       {...staggerContainer}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
     >
       {allServices.map((service) => (
         <ServiceCard key={service.href} {...service} />

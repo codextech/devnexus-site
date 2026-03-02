@@ -56,10 +56,20 @@ export function Hero({
     >
       {isHomepage && (
         <>
-          {/* Subtle grid underlay */}
-          <div className="absolute inset-0 grid-bg opacity-40" />
+          {/* Deep space gradient base */}
+          <div className="absolute inset-0 hero-cosmos" />
 
-          {/* Aurora mesh — slow-drifting gradient orbs that blend */}
+          {/* Star field */}
+          <div className="absolute inset-0 hero-stars" />
+
+          {/* Central radial pulse */}
+          <motion.div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full hero-radial-pulse"
+            animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          {/* Aurora mesh — slow-drifting gradient orbs */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div
               className="absolute w-[700px] h-[700px] rounded-full hero-orb-blue"
@@ -91,9 +101,58 @@ export function Hero({
               transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 4 }}
               style={{ bottom: "-10%", left: "30%" }}
             />
+            {/* Extra indigo accent orb */}
+            <motion.div
+              className="absolute w-[400px] h-[400px] rounded-full hero-orb-indigo"
+              animate={{
+                x: ["-5%", "8%", "-5%"],
+                y: ["0%", "10%", "0%"],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 6 }}
+              style={{ top: "30%", left: "55%" }}
+            />
           </div>
 
-          {/* Fine accent lines at edges */}
+          {/* Animated horizontal light beam */}
+          <motion.div
+            className="absolute top-[38%] left-0 right-0 h-px hero-beam"
+            animate={{ opacity: [0, 0.5, 0], scaleX: [0.3, 1, 0.3] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          />
+          <motion.div
+            className="absolute top-[62%] left-0 right-0 h-px hero-beam"
+            animate={{ opacity: [0, 0.3, 0], scaleX: [0.4, 1, 0.4] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+          />
+
+          {/* Floating particles */}
+          {[
+            { x: "12%", y: "22%", dur: 14, del: 0, size: 3 },
+            { x: "78%", y: "18%", dur: 18, del: 2, size: 2 },
+            { x: "25%", y: "72%", dur: 16, del: 4, size: 2.5 },
+            { x: "85%", y: "65%", dur: 20, del: 1, size: 2 },
+            { x: "50%", y: "30%", dur: 15, del: 3, size: 3.5 },
+            { x: "65%", y: "80%", dur: 17, del: 5, size: 2 },
+          ].map((p, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full hero-particle"
+              style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0.2, 0.7, 0.2],
+              }}
+              transition={{
+                duration: p.dur,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: p.del,
+              }}
+            />
+          ))}
+
+          {/* Corner accent lines */}
           <div className="absolute top-1/2 left-0 w-px h-48 bg-gradient-to-b from-transparent via-brand-blue/10 to-transparent" />
           <div className="absolute top-1/3 right-0 w-px h-64 bg-gradient-to-b from-transparent via-brand-cyan/8 to-transparent" />
         </>
