@@ -15,13 +15,21 @@ export const metadata: Metadata = createMetadata({
   description: service.metaDescription,
   path: "/services/ai-solutions",
   keywords: [
-    "AI solutions company",
-    "custom AI development",
+    "RAG pipeline development company",
+    "LangChain development services",
+    "LlamaIndex development agency",
+    "custom LLM integration services",
+    "retrieval augmented generation development",
     "Python AI development services",
-    "RAG pipeline development",
-    "LLM integration services",
-    "AI automation services",
-    "AI analytics dashboards",
+    "LLM integration for business",
+    "custom AI agent development",
+    "OpenAI integration services",
+    "Anthropic Claude integration",
+    "AI automation development company",
+    "document intelligence development",
+    "vector search development",
+    "pgvector development services",
+    "AI workflow automation agency",
   ],
 });
 
@@ -69,32 +77,34 @@ export default function AISolutionsPage() {
 
       <ServicePageContent service={service} />
       <PillarContentSection
-        title="AI Solutions Services for Automation, RAG, and Analytics"
-        intro="DevNexus builds production AI systems that connect to your business workflows, data sources, and customer journeys. This pillar page covers the core capabilities teams need when adopting AI safely and profitably."
+        title="RAG Pipelines, LLM Integration & AI Automation Services"
+        intro="DevNexus builds production AI systems using Python, LangChain, LlamaIndex, and LangGraph — connected to your real data sources, not just demos. We work with product teams and enterprises who need AI that delivers measurable outcomes: faster workflows, lower manual effort, and decisions backed by real data."
         topicClusters={[
           {
-            title: "RAG and Knowledge Assistants",
+            title: "RAG Pipeline Development with LangChain & LlamaIndex",
             description:
-              "We build retrieval-augmented generation systems that combine vector search, prompt orchestration, and guardrails so teams can query internal knowledge with reliable answers.",
+              "We design and build retrieval-augmented generation (RAG) systems that let your teams query internal documents, knowledge bases, and structured data with reliable, grounded answers. Our RAG pipelines use pgvector, Pinecone, or Weaviate for vector search — combined with LangChain or LlamaIndex for orchestration, chunking strategies, and reranking. We include evaluation pipelines from the start so you can measure answer quality, not just ship and hope.",
           },
           {
-            title: "Workflow Automation with AI",
+            title: "LLM Integration with OpenAI, Anthropic & AWS Bedrock",
             description:
-              "From document processing to triage and routing, we design automations that reduce manual effort and connect to your CRM, ticketing, and ERP systems.",
+              "We integrate GPT-4, Claude, Mistral, and AWS Bedrock models into your existing products and workflows via clean, maintainable Python APIs. Integration includes prompt engineering, structured output parsing, fallback logic, rate limiting, and cost tracking. We build evaluation harnesses that measure hallucination rate, latency, and task-specific performance — so you can upgrade models without breaking production.",
           },
           {
-            title: "LLM Integration and Evaluation",
+            title: "AI Workflow Automation and Document Intelligence",
             description:
-              "We integrate OpenAI, Anthropic, and Bedrock models with robust evaluation pipelines so you can measure response quality, hallucination risk, and business impact.",
+              "We design AI-powered automations that process documents, extract structured data, classify content, and route work to the right systems or people. Built with Python, FastAPI, and n8n — connected to your CRM, ticketing system, or ERP via REST APIs. Common use cases: automated patient intake processing, invoice extraction, contract review triage, and support ticket classification.",
           },
           {
-            title: "AI Dashboards and Decision Support",
+            title: "AI Analytics and Decision Support Systems",
             description:
-              "We deliver AI-enabled analytics products that surface trends, recommend actions, and help teams move faster with confidence.",
+              "We build AI-enabled analytics products that surface anomalies, predict outcomes, and recommend next-best actions — delivered as dashboards or embedded directly into your SaaS product. Built on Python data pipelines, PostgreSQL, and Next.js frontend — with model monitoring that alerts when prediction quality degrades in production.",
           },
         ]}
         relatedLinks={[
           { href: "/work", label: "See AI Case Studies" },
+          { href: "/blog/how-to-build-agentic-ai-workflows", label: "How to Build Agentic AI Workflows" },
+          { href: "/blog/ai-agents-replacing-web-dev-workflows-2026", label: "AI Agents in Dev Workflows (2026)" },
           { href: "/services/agentic-ai", label: "Explore Agentic AI Workflows" },
           { href: "/services/voice-ai", label: "Explore Voice AI Agents" },
           { href: "/contact", label: "Talk to an AI Engineer" },

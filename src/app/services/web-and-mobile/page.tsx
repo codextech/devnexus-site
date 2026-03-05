@@ -15,16 +15,18 @@ export const metadata: Metadata = createMetadata({
   description: service.metaDescription,
   path: "/services/web-and-mobile",
   keywords: [
-    "full stack software development agency",
-    "web application development company",
-    "mobile app development company",
-    "Node.js development agency",
-    "Python web development company",
-    "JavaScript software development",
-    "React Native app development",
-    "full stack product development",
-    "SaaS development company",
-    "MVP development agency",
+    "Next.js development agency",
+    "React Native app development company",
+    "Node.js API development services",
+    "full stack web application development",
+    "SaaS MVP development agency",
+    "TypeScript web development company",
+    "Next.js SaaS development",
+    "React Native cross-platform app development",
+    "Node.js backend development services",
+    "web and mobile app development agency",
+    "Next.js development company for startups",
+    "custom web application development",
   ],
 });
 
@@ -72,33 +74,35 @@ export default function WebAndMobilePage() {
 
       <ServicePageContent service={service} />
       <PillarContentSection
-        title="Web and Mobile Development Services Built for Scale"
-        intro="This pillar page explains how DevNexus designs, builds, and scales modern web and mobile products. We focus on product velocity, long-term maintainability, and measurable performance."
+        title="Next.js, React Native & Node.js Development Services"
+        intro="DevNexus builds production web and mobile applications using Next.js, React Native, Node.js, and TypeScript. We work with startups and product teams who need to ship fast without accumulating technical debt — from focused MVPs to scaled SaaS platforms."
         topicClusters={[
           {
             title: "Next.js Web Application Development",
             description:
-              "We build performant web applications with clean architecture, strong SEO foundations, and Core Web Vitals optimization for fast user experiences.",
+              "We build full-stack web applications with Next.js App Router, TypeScript, and PostgreSQL. Every project ships with server-side rendering, optimized Core Web Vitals, structured data markup, and CI/CD pipelines configured from day one. SaaS platforms, admin dashboards, and customer-facing products — we build for performance and maintainability.",
           },
           {
-            title: "React Native Mobile App Development",
+            title: "React Native Cross-Platform App Development",
             description:
-              "Our team ships cross-platform iOS and Android apps with reliable API integrations, offline-ready experiences, and production monitoring.",
+              "Our team ships production iOS and Android apps using React Native and Expo — a single codebase that performs natively on both platforms. We handle API integrations, push notifications, offline data sync, and App Store / Play Store submissions. Ideal for startups that need a polished mobile app without the cost of two separate teams.",
           },
           {
-            title: "Full-Stack API and Platform Engineering",
+            title: "Node.js API and Backend Engineering",
             description:
-              "We design scalable backends with Node.js and Python, secure auth flows, and data models that support product growth from MVP stage through enterprise usage.",
+              "We design and build REST and GraphQL APIs with Node.js, Express, and Fastify — backed by PostgreSQL, Redis, and cloud infrastructure on AWS or Vercel. Our backends are built to scale: rate limiting, queue-based processing, multi-tenant data isolation, and auth flows using JWTs and OAuth 2.0.",
           },
           {
-            title: "Product Iteration and Delivery",
+            title: "MVP Development for Startups",
             description:
-              "Sprint-based delivery with clear roadmaps, QA gates, and deployment automation keeps your team shipping features without losing quality.",
+              "We scope, design, and ship focused MVPs in 6-10 weeks. Our process starts with a one-week discovery sprint to lock requirements, then two-week build sprints with working demos you can test each cycle. No black-box development — you see progress every 10 business days and hold us accountable to scope.",
           },
         ]}
         relatedLinks={[
           { href: "/work", label: "See Web and Mobile Case Studies" },
+          { href: "/blog/next-js-vs-remix-2025", label: "Next.js vs Remix: Which to Choose?" },
           { href: "/services/ai-solutions", label: "Add AI to Your Product" },
+          { href: "/services/agentic-ai", label: "Explore Agentic AI Workflows" },
           { href: "/services/jira-apps", label: "Need Jira Integration?" },
           { href: "/contact", label: "Discuss Your App Build" },
         ]}

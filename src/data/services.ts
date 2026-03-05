@@ -85,9 +85,9 @@ export const services: ServiceData[] = [
     cta: "Start Your Project",
     relatedCaseStudy: "agilepulse-jira-apps",
     metaTitle:
-      "Full-Stack Software Development Agency | Web, Mobile & APIs | DevNexus",
+      "Next.js & React Native Development Agency | Web and Mobile Apps | DevNexus",
     metaDescription:
-      "Full-service software development agency. We build web apps, mobile apps, and APIs in JavaScript, Node.js, Python, and React Native — from MVP to enterprise scale.",
+      "Next.js web app and React Native mobile development agency. We build full-stack products with Node.js, TypeScript, and PostgreSQL — from startup MVP to production-scale SaaS.",
   },
   {
     slug: "ai-solutions",
@@ -172,9 +172,9 @@ export const services: ServiceData[] = [
     ],
     cta: "Discuss Your AI Strategy",
     relatedCaseStudy: "tophealth-patient-intake",
-    metaTitle: "Custom AI Development Company | RAG, LLM & Automation | DevNexus",
+    metaTitle: "RAG Pipeline & LLM Integration Development | Custom AI Solutions | DevNexus",
     metaDescription:
-      "Custom AI development: RAG pipelines, LLM integration, document intelligence, and workflow automation. Production-ready AI that fits your stack — from prototype to deployment.",
+      "RAG pipeline development with LangChain and LlamaIndex. LLM integration for OpenAI, Anthropic, and AWS Bedrock. Custom AI automation and document intelligence — production-ready, not just demos.",
   },
   {
     slug: "agentic-ai",
