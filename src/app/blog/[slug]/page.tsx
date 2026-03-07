@@ -86,9 +86,37 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="mt-4 text-base md:text-lg text-dark-400">
               {frontmatter.excerpt}
             </p>
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
+              <div className="mt-6 flex flex-wrap gap-2">
+                {frontmatter.tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 text-xs font-medium rounded-full bg-brand-blue/10 text-brand-blue border border-brand-blue/20"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </Container>
       </section>
+
+      {frontmatter.image && (
+        <div className="border-b border-white/5 bg-dark-950">
+          <Container>
+            <div className="max-w-3xl mx-auto -mt-0 py-8">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={frontmatter.image}
+                alt={frontmatter.title}
+                className="w-full rounded-xl border border-white/8 object-cover"
+                style={{ maxHeight: "420px" }}
+              />
+            </div>
+          </Container>
+        </div>
+      )}
 
       <section className="py-16 md:py-24">
         <Container>

@@ -9,145 +9,178 @@ tags: ["Jira", "Atlassian", "Forge", "Connect", "Marketplace", "App Development"
 image: "/images/blog/jira-forge-vs-connect.png"
 ---
 
-If you're building a Jira Marketplace app in 2025, the first architectural decision is which Atlassian platform to use: **Forge** (Atlassian's hosted runtime) or **Connect** (the webhook-based integration model). Both can build powerful Jira extensions, but they're fundamentally different in how they run, where they run, and what they let you do.
+We've shipped Jira Marketplace apps on both Forge and Connect. And every time someone asks us which platform to pick, the honest answer is: *it depends on what your app actually needs to do.*
 
-Having shipped Jira apps on both platforms, here's what we've learned.
+This isn't a "Forge is always better" post. It's the comparison we wish existed when we were making that decision ourselves — covering real tradeoffs, not just the marketing copy on Atlassian's docs.
 
-## The Fundamental Difference
+<div class="my-8 p-5 rounded-xl border border-brand-blue/20 bg-brand-blue/5">
+  <p class="text-sm font-semibold text-brand-blue uppercase tracking-widest mb-2">TL;DR</p>
+  <p class="text-dark-200 leading-relaxed">Start with Forge for new apps — better DX, no infrastructure, simpler security. Switch to Connect only when you hit a hard wall: SQL databases, long-running processes, or Data Center support.</p>
+</div>
 
-**Atlassian Connect** is the older model. Your app runs on *your* infrastructure. Atlassian sends webhook events to your server, and your app calls the Atlassian REST API using JWT authentication. You own the hosting, the database, the scaling, and the security.
+## The Core Difference
 
-**Atlassian Forge** is Atlassian's FaaS (Functions-as-a-Service) runtime. Your app code runs inside Atlassian's infrastructure. No servers to manage, no webhook endpoints to expose, no JWT to handle. Forge handles auth, hosting, and execution.
+The platforms differ at a fundamental level, not just in features:
 
-The tradeoff: Forge trades flexibility for simplicity. Connect trades simplicity for power.
+**Atlassian Connect** is the older model. Your app lives on *your* infrastructure — your servers, your database, your hosting bill. Atlassian sends webhook events to your endpoints, and your code calls back through the Atlassian REST API using JWT authentication. You own everything.
 
-## Architecture Comparison
+**Atlassian Forge** flips this. Your code runs *inside* Atlassian's infrastructure as serverless functions. No public endpoints, no JWT validation, no servers to maintain. Atlassian invokes your functions directly and handles auth, storage, and tenant management for you.
 
-### Connect Architecture
+The mental model: **Connect is a web app that integrates with Jira. Forge is code that runs inside Jira.**
 
-```
-User in Jira Browser
-       ↓
-  Jira Cloud (iframe)
-       ↓
-  Your App Server (AWS / GCP / any host)
-       ↓
-  Your Database
-       ↓ (REST API calls back)
-  Jira REST API
-```
+## How the Architectures Actually Work
 
-Your app is a web application that Jira loads in an iframe. You handle sessions, storage, and all external integrations yourself.
+Here's what each flow looks like at runtime:
 
-### Forge Architecture
+<div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="rounded-xl border border-white/8 bg-dark-800/60 p-5">
+    <p class="text-xs font-semibold text-dark-500 uppercase tracking-widest mb-3">Connect Flow</p>
+    <div class="space-y-2 font-mono text-sm text-dark-300">
+      <div class="flex items-center gap-2"><span class="text-brand-blue">1.</span> User opens Jira panel</div>
+      <div class="flex items-center gap-2 pl-4"><span class="text-dark-500">→</span> Jira loads iframe from your server</div>
+      <div class="flex items-center gap-2"><span class="text-brand-blue">2.</span> Your server validates JWT token</div>
+      <div class="flex items-center gap-2"><span class="text-brand-blue">3.</span> Your DB query runs</div>
+      <div class="flex items-center gap-2"><span class="text-brand-blue">4.</span> Your server calls Jira REST API</div>
+      <div class="flex items-center gap-2"><span class="text-brand-blue">5.</span> Response rendered in iframe</div>
+    </div>
+    <p class="mt-4 text-xs text-dark-500">You manage: hosting, JWT, DB, SSL, scaling</p>
+  </div>
+  <div class="rounded-xl border border-white/8 bg-dark-800/60 p-5">
+    <p class="text-xs font-semibold text-brand-blue/70 uppercase tracking-widest mb-3">Forge Flow</p>
+    <div class="space-y-2 font-mono text-sm text-dark-300">
+      <div class="flex items-center gap-2"><span class="text-brand-blue">1.</span> User opens Jira panel</div>
+      <div class="flex items-center gap-2 pl-4"><span class="text-dark-500">→</span> Forge runtime invokes your function</div>
+      <div class="flex items-center gap-2"><span class="text-brand-blue">2.</span> Auth handled automatically</div>
+      <div class="flex items-center gap-2"><span class="text-brand-blue">3.</span> Storage API query runs</div>
+      <div class="flex items-center gap-2"><span class="text-brand-blue">4.</span> Jira API called via SDK (no REST auth)</div>
+      <div class="flex items-center gap-2"><span class="text-brand-blue">5.</span> UI rendered natively</div>
+    </div>
+    <p class="mt-4 text-xs text-dark-500">Atlassian manages: everything above</p>
+  </div>
+</div>
 
-```
-User in Jira Browser
-       ↓
-  Jira Cloud
-       ↓
-  Forge Runtime (Atlassian-hosted FaaS)
-       ↓ (built-in)
-  Forge Storage API
-       ↓ (SDK call, no REST auth needed)
-  Jira API
-```
+## Security: Where Connect Apps Go Wrong
 
-Your Forge app is a collection of functions. Atlassian invokes them on events. You use the Forge Storage API for persistence (key-value store, encrypted secrets) and call Jira APIs through the SDK without managing auth.
+This is the section we wish someone had written for us earlier.
 
-## Security Model
+Connect apps require you to implement JWT validation on every incoming request. Get it wrong and you have an unauthenticated endpoint that anyone can call. This happens more than you'd think — security researchers find misconfigured Connect apps in the Atlassian Marketplace every year.
 
-**Connect** requires you to handle security yourself:
-- JWT token validation on every incoming request
-- Secure storage of tenant installation data
-- Managing SSL certificates
-- Protecting your API endpoints from unauthorized access
+With Forge, there are no public endpoints. Period. Atlassian invokes your functions internally. There's nothing to expose, nothing to misconfigure. Secrets live in the Forge Secrets API, not in your `.env` file that someone might commit to GitHub.
 
-This is where Connect apps go wrong. Every year, security researchers find Connect apps with misconfigured JWT validation.
+<div class="my-8 p-5 rounded-xl border border-amber-500/20 bg-amber-500/5">
+  <p class="text-sm font-semibold text-amber-400 mb-2">⚠️ Connect security checklist</p>
+  <ul class="space-y-1 text-sm text-dark-300">
+    <li>- JWT token validation on every endpoint (not just the main one)</li>
+    <li>- Secure tenant installation data storage</li>
+    <li>- SSL certificates and renewal automation</li>
+    <li>- Rate limiting and IP allowlisting where possible</li>
+    <li>- Penetration testing before Marketplace submission</li>
+  </ul>
+</div>
 
-**Forge** handles security at the platform level:
-- No public endpoints (your code never exposes HTTP)
-- Atlassian validates all function invocations
-- Built-in secret management (Forge Secrets API)
-- No JWT to implement
+## Storage Capabilities
 
-For most Marketplace apps, Forge's security model is a significant advantage.
-
-## Storage
+The storage story is where you'll feel the most platform-level constraint:
 
 | Capability | Forge | Connect |
 |------------|-------|---------|
-| Key-value storage | ✅ Built-in Storage API | ❌ Must provision own DB |
-| SQL databases | ❌ Not available | ✅ Any database you want |
-| File storage | ❌ Not available | ✅ Any object store |
+| Key-value store | ✅ Built-in (free) | ❌ Must provision |
+| SQL / relational DB | ❌ Not available | ✅ Any database |
+| File / object storage | ❌ Not available | ✅ S3, GCS, etc. |
 | Full-text search | ❌ Not available | ✅ Elasticsearch, etc. |
-| Storage limit | 1MB per entity | Unlimited |
-| Cost | Included | You pay |
+| Per-entity size limit | 1MB | Unlimited |
+| Encrypted secrets | ✅ Forge Secrets API | ⚠️ You manage |
 
-If your app needs a relational database, complex queries, or large data storage, Forge's built-in storage won't be enough. Connect gives you full control.
+For most Jira apps — storing config, workflow state, user preferences — Forge Storage is plenty. Where it breaks down: apps with complex relational data (reporting, analytics), large file handling, or anything that needs to JOIN across datasets.
 
-## Performance and Limits
+## Runtime Limits That Actually Matter
 
-Forge functions have execution limits that Connect doesn't have:
+Forge functions run in a sandboxed environment with hard limits. These aren't theoretical — they'll hit you in production:
 
 | Limit | Forge | Connect |
 |-------|-------|---------|
-| Function timeout | 25 seconds | None (your server) |
-| Memory | 512MB | Whatever you provision |
-| Response size | 5MB | Unlimited |
-| External HTTP calls | Allowed (with manifest declaration) | Unrestricted |
-| Execution environment | JavaScript/TypeScript only | Any language |
+| Function timeout | 25 seconds | Your server limits |
+| Memory per function | 512MB | Whatever you provision |
+| Response size | 5MB | Effectively unlimited |
+| Language support | JavaScript / TypeScript only | Any language |
+| External HTTP calls | Allowed (manifest-declared) | Unrestricted |
 
-For CPU-intensive operations, long-running processes, or non-JavaScript languages, these limits matter.
+The 25-second timeout is the one that catches teams off-guard. If your function does any of the following, you'll hit it:
 
-## Developer Experience
+- Calls a slow external API (AI services, ERP systems)
+- Processes bulk Jira data (importing hundreds of issues)
+- Runs file parsing or transformation
 
-**Forge DX:**
-- `forge deploy` pushes your code — no Docker, no CI pipeline
-- `forge tunnel` gives real-time local development with hot reload
-- Atlassian handles all tenant lifecycle management (install, uninstall, upgrade)
-- TypeScript is first-class
-- The ecosystem is newer, so fewer community examples
+Connect has no such limit. Your server, your rules.
 
-**Connect DX:**
-- Full control over your tech stack (Python, Java, Ruby — anything)
-- Standard web development patterns (no platform-specific SDK to learn)
-- More mature ecosystem with more open-source examples
-- You manage deployment complexity (Docker, Kubernetes, CI/CD)
+## Developer Experience: Day-to-Day Reality
 
-## Marketplace Review Process
+### Forge DX
 
-Both platforms go through the same Atlassian Marketplace review, but Forge apps have a smoother path:
+Deploying a change is one command: `forge deploy`. No Docker, no CI pipeline, no container registry. For local development, `forge tunnel` gives you real-time hot reload with actual Atlassian data flowing through your local code.
 
-- Forge apps have a **simpler security review** (Atlassian trusts their own runtime)
-- Connect apps require detailed documentation of how you handle tenant data
-- Forge apps can earn the "Forge-powered" badge, which is becoming a marketplace differentiator
+The tradeoff: you're in Atlassian's ecosystem. TypeScript only. The SDK is your interface to everything. The community is smaller (fewer Stack Overflow answers, fewer open-source examples to learn from).
 
-## When to Choose Forge
+### Connect DX
 
-- **New apps with straightforward storage needs** — Forge Storage API handles most use cases
-- **Small teams that don't want infrastructure overhead** — No servers = no DevOps
-- **Security-conscious organizations** — Atlassian's security model is well-audited
-- **Apps with simple server-side logic** — CRUD operations, workflow rules, panel UIs
-- **Cloud-only apps** — Forge doesn't support Jira Data Center
+Full control over your stack. Python, Java, Ruby, Go — whatever your team knows. Standard web development patterns. The Connect framework is essentially "build a web app with a specific auth scheme." That's familiar territory.
 
-## When to Choose Connect
+The cost of that familiarity: you manage deployment complexity — Docker, Kubernetes, CI/CD pipelines, environment management. And unlike Forge, you need to handle tenant lifecycle events (install, uninstall, upgrade) manually.
 
-- **Apps that need a relational database** — Complex queries, joins, large datasets
-- **Apps with heavy compute requirements** — Long-running processes, ML inference
-- **Data Center / Server support needed** — Forge is cloud-only
-- **Existing backend infrastructure** — If you're extending an existing service
-- **Non-JavaScript backends** — Python ML models, Java enterprise systems
-- **High-volume apps** — Forge timeout limits become blockers at scale
+```typescript
+// Forge: calling Jira API — no auth setup needed
+import { requestJira } from "@forge/bridge";
 
-## Our Recommendation in 2025
+const response = await requestJira("/rest/api/3/issue/PROJ-123");
+const issue = await response.json();
+```
 
-Start with Forge. The developer experience has matured significantly, and for 80% of Jira app use cases, the built-in storage and managed runtime are sufficient. You'll ship faster and spend less time on infrastructure.
+```javascript
+// Connect: same call requires JWT setup first
+const jwt = require("atlassian-jwt");
+const token = jwt.encode(payload, sharedSecret);
 
-Move to Connect only when you hit a specific limitation: you need SQL, you need long-running processes, or you need Data Center support.
+const response = await axios.get(
+  `${baseUrl}/rest/api/3/issue/PROJ-123`,
+  { headers: { Authorization: `JWT ${token}` } }
+);
+```
+
+## Marketplace Review
+
+Both platforms go through Atlassian's review process, but Forge has a smoother path:
+
+- **Forge apps** get a simplified security review (Atlassian trusts their own runtime)
+- **Connect apps** require detailed documentation of how you store and protect tenant data
+- Forge apps can earn the **"Forge-powered"** badge — increasingly used by enterprise buyers as a trust signal
+
+## When to Pick Forge
+
+- Building a new app with straightforward storage needs
+- Small team that doesn't want infrastructure overhead
+- Cloud-only deployment (Forge doesn't support Data Center)
+- Apps with simple server-side logic: CRUD, workflow rules, panel UIs
+- You want a streamlined Marketplace security review
+
+## When to Pick Connect
+
+- Your app genuinely needs a relational database
+- Long-running background processes or ML inference
+- You need to support Jira Data Center / Server
+- Extending an existing service with its own backend
+- Non-JavaScript stack (Python ML pipelines, Java enterprise systems)
+- High-volume apps where Forge timeout limits become blockers
+
+## Our Honest Take
+
+We've shipped apps on both. Forge has gotten significantly better in the last 18 months — the DX is genuinely good now, and for most Marketplace app use cases, you'll never hit the storage or timeout ceilings.
+
+Our default for new projects in 2025: **start with Forge**. The developer velocity is higher, the security posture is better out of the box, and you avoid a whole class of infrastructure decisions that don't need to be made yet.
+
+Revisit Connect when you hit a concrete limitation — not before.
 
 ---
 
-If you're building a Jira Marketplace app and want to get the architecture right from day one, [talk to our team](/contact). We've shipped apps on both platforms and can help you avoid the decisions you'll regret later.
+Building a Jira Marketplace app and want to get the architecture right from the start? [Talk to our team](/contact) — we've shipped apps on both platforms and can help you avoid decisions you'll regret at scale.
 
 *Related: [Jira Apps & Integrations at DevNexus](/services/jira-apps)*
