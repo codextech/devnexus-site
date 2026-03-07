@@ -46,8 +46,8 @@ const pillars = [
       "Generative AI, autonomous agents, and voice interfaces that go beyond proof-of-concept. Production AI that cuts costs, automates decisions, and gives your team superpowers.",
     href: "/services/ai-solutions",
     stats: [
-      { value: "40%", label: "Cost Reduction" },
-      { value: "< 3 wk", label: "To Prototype" },
+      { value: "10+", label: "AI Agents in Production" },
+      { value: "< 3 wk", label: "To First Demo" },
       { value: "24/7", label: "Agent Uptime" },
     ],
     features: [

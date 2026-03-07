@@ -58,7 +58,7 @@ export default function HomePage() {
         eyebrow="Web + AI Agency"
         title="Software That Thinks. Interfaces That Convert."
         highlightWord="Thinks."
-        subtitle="We pair beautiful web & mobile products with intelligent AI — so your business doesn't just keep up, it pulls ahead."
+        subtitle="We pair beautiful web & mobile products with intelligent AI — so your business ships faster, scales without friction, and outbuilds the competition."
         primaryCta={{ label: "Start Your Project", href: "/contact" }}
         secondaryCta={{ label: "See Our Work", href: "/work" }}
         socialProof={[

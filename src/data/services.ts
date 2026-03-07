@@ -6,7 +6,7 @@ export const services: ServiceData[] = [
     name: "Web & Mobile Development",
     headline: "Software Built to Ship — Web, Mobile & APIs",
     tagline:
-      "From SaaS platforms to consumer mobile apps — we build JavaScript and Python products that perform at scale. Node.js, Next.js, React Native, and Python backends.",
+      "Most teams don't have an idea problem — they have a delivery problem. We fix that: senior engineers who own the full stack, ship working software every sprint, and never go dark between updates.",
     problem:
       "Your team has a validated idea but not the engineering capacity to build it right the first time. Missed deadlines, scaling issues, and technical debt pile up when the foundation is wrong.",
     deliverables: [

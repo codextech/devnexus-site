@@ -75,7 +75,7 @@ export default function WebAndMobilePage() {
       <ServicePageContent service={service} />
       <PillarContentSection
         title="Next.js, React Native & Node.js Development Services"
-        intro="DevNexus builds production web and mobile applications using Next.js, React Native, Node.js, and TypeScript. We work with startups and product teams who need to ship fast without accumulating technical debt — from focused MVPs to scaled SaaS platforms."
+        intro="Getting a web or mobile product built isn't hard. Getting it built right — on time, without rework, by engineers who stay on the project — is. DevNexus gives startups and product teams a single full-stack team using Next.js, React Native, Node.js, and TypeScript, with working software delivered every two weeks."
         topicClusters={[
           {
             title: "Next.js Web Application Development",
@@ -109,8 +109,8 @@ export default function WebAndMobilePage() {
       />
 
       <CTABanner
-        title="Ready to Build Your Product?"
-        ctaLabel={service.cta}
+        title="Your next product launch starts here."
+        ctaLabel="Get a Free Scoping Call"
       />
     </>
   );

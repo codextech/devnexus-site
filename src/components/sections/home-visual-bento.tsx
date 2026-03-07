@@ -7,9 +7,9 @@ import { Container } from "@/components/ui/container";
 import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
 
 const stats = [
-  { value: "98%", label: "Client retention" },
-  { value: "< 3wk", label: "To first prototype" },
   { value: "50+", label: "Products shipped" },
+  { value: "< 3wk", label: "To first prototype" },
+  { value: "100%", label: "Sprint demos delivered" },
 ];
 
 export function VisualBentoSection() {
@@ -24,8 +24,8 @@ export function VisualBentoSection() {
             What We Build
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight max-w-2xl section-heading-text">
-            Products that perform.{" "}
-            <span className="text-dark-400">Code that endures.</span>
+            Shipped fast.{" "}
+            <span className="text-dark-400">Built to last.</span>
           </h2>
         </motion.div>
 
