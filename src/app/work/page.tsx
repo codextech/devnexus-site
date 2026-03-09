@@ -6,6 +6,8 @@ import { CaseStudyCard } from "@/components/blocks/case-study-card";
 import { CaseStudiesStagger } from "@/components/sections/case-studies-stagger";
 import { getAllCaseStudies } from "@/lib/content";
 import { createMetadata } from "@/lib/metadata";
+import { breadcrumbSchema, itemListSchema } from "@/lib/schema";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = createMetadata({
   title: "Our Work | Case Studies",
@@ -19,6 +21,34 @@ export default function WorkPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", url: SITE.url },
+              { name: "Work", url: `${SITE.url}/work` },
+            ])
+          ),
+        }}
+      />
+      {studies.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              itemListSchema(
+                studies.map((study, i) => ({
+                  position: i + 1,
+                  name: study.title,
+                  url: `${SITE.url}/work/${study.slug}`,
+                }))
+              )
+            ),
+          }}
+        />
+      )}
+
       <Hero
         eyebrow="Our Work"
         title="Real Results From Real Projects"
