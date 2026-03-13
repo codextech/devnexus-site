@@ -267,16 +267,16 @@ export const services: ServiceData[] = [
     name: "Voice AI Agents",
     headline: "Voice AI Agents That Sound Like Your Best Employee",
     tagline:
-      "Phone-based AI agents that handle inbound calls, qualify leads, book appointments, and resolve support tickets — 24/7.",
+      "AI-powered phone agents that handle your calls 24/7 — built on Vapi and ElevenLabs. No hold times, no missed leads, no call center overhead.",
     problem:
-      "Your phone lines are a bottleneck. Customers wait on hold, leads go cold overnight, and staffing a 24/7 call center costs more than the revenue it protects.",
+      "Every call your team misses is a lead that went cold or a customer that churned quietly. Staffing a 24/7 call center means $120,000+ in annual headcount — and you're still not getting consistent, qualified conversations at scale. Meanwhile, your competitors are deploying voice agents that handle hundreds of calls a day without a single hire. The gap between a 9-to-5 phone team and 24/7 AI coverage closes in weeks, not months.",
     deliverables: [
-      "Inbound voice agent design and deployment",
-      "Outbound campaign automation",
-      "Real-time speech-to-text and intent recognition",
-      "CRM and calendar integration",
-      "Call analytics and sentiment dashboards",
-      "Multi-language support",
+      "Inbound voice agent — qualifies leads, answers FAQs, and books appointments in real time",
+      "Outbound campaign automation — run thousands of personalized calls daily without scaling headcount",
+      "CRM and calendar integration — call outcomes sync to HubSpot, Salesforce, or your booking tool automatically",
+      "Smart human escalation — transfers with full call summary and intent so your team closes, not catches up",
+      "Call analytics and conversion dashboards — track resolution rates, sentiment, and intent by volume",
+      "Multi-language support — English, Spanish, French, and more without separate agent deployments",
     ],
     techStack: [
       "Vapi",
@@ -291,39 +291,39 @@ export const services: ServiceData[] = [
       {
         title: "Script Design",
         description:
-          "We design conversation flows, personas, and escalation paths based on your call data.",
+          "We design conversation flows, personas, and escalation paths based on your call data and real customer intent.",
       },
       {
         title: "Voice Build",
         description:
-          "Build the voice agent with natural speech patterns, intent handling, and integrations.",
+          "Build the voice agent with natural speech patterns, intent handling, CRM integrations, and smart escalation logic.",
       },
       {
         title: "Testing",
         description:
-          "Rigorous testing with edge cases, accents, background noise, and adversarial inputs.",
+          "Rigorous testing across edge cases, accents, background noise, and adversarial inputs before any call goes live.",
       },
       {
         title: "Launch & Tune",
         description:
-          "Go live with real calls and continuously improve based on conversation analytics.",
+          "Go live with real calls and continuously improve based on conversation analytics, drop-off points, and intent data.",
       },
     ],
     faqs: [
       {
         question: "How much does a voice AI agent cost?",
         answer:
-          "A focused inbound voice agent (single use case) starts at $12,000-$25,000. Full deployments with CRM integration, multi-scenario handling, and analytics dashboards range from $30,000-$80,000+.",
+          "A focused inbound voice agent (single use case) starts at $12,000–$25,000. Full deployments with CRM integration, multi-scenario handling, and analytics dashboards range from $30,000–$80,000+.",
       },
       {
         question: "How long does it take to build and deploy a voice AI agent?",
         answer:
-          "A focused voice agent goes from scoping to live calls in 4-8 weeks. Complex deployments with multiple call flows, integrations, and multi-language support take 8-16 weeks.",
+          "A focused voice agent goes from scoping to live calls in 4–8 weeks. Complex deployments with multiple call flows, integrations, and multi-language support take 8–16 weeks.",
       },
       {
         question: "What is the difference between IVR and voice AI?",
         answer:
-          "Traditional IVR is rigid — press 1 for sales, press 2 for support. Voice AI understands natural speech, handles open-ended conversations, takes action in real time, and improves with usage. It's a fundamentally different experience.",
+          "Traditional IVR is rigid — press 1 for sales, press 2 for support. Voice AI understands natural speech, handles open-ended conversations, takes action in real time, and improves with usage. It's a fundamentally different caller experience.",
       },
       {
         question: "Do callers know they are talking to AI?",
@@ -338,14 +338,29 @@ export const services: ServiceData[] = [
       {
         question: "Can voice AI agents make outbound calls?",
         answer:
-          "Yes. We build outbound voice agents for lead qualification, appointment reminders, payment follow-up, and survey collection at scale.",
+          "Yes. We build outbound voice agents for lead qualification, appointment reminders, payment follow-up, and survey collection at scale. Our own outbound agent on Vapi runs qualification campaigns for DevNexus.",
+      },
+      {
+        question: "What ROI can I expect from a voice AI agent?",
+        answer:
+          "Most clients recover their build cost within 3–6 months. The math is straightforward: a full-time SDR or support rep costs $50,000–$80,000 annually. A voice agent handles the same call volume at a fraction of that cost — with no sick days, no turnover, and no ramp time.",
+      },
+      {
+        question: "What industries are the best fit for voice AI?",
+        answer:
+          "Real estate (lead qualification and tour scheduling), healthcare (appointment reminders and intake), e-commerce (order status and returns), financial services (payment reminders), and any business handling high call volume with repetitive intent patterns.",
+      },
+      {
+        question: "How do voice agents handle difficult or frustrated callers?",
+        answer:
+          "We design escalation logic based on sentiment signals. If a caller's tone shifts, the agent acknowledges the frustration, offers a human transfer, and passes full call context. The agent never argues, never puts callers on hold indefinitely, and always gives the caller a clear path forward.",
       },
     ],
     cta: "Launch Your Voice Agent",
     relatedCaseStudy: "vapi-voice-ai-outreach-agent",
-    metaTitle: "Voice AI Agent Development | Phone AI for Sales & Support | DevNexus",
+    metaTitle: "Voice AI Agent Development Company | Vapi & ElevenLabs Experts | DevNexus",
     metaDescription:
-      "Custom voice AI agents that handle inbound and outbound calls 24/7. Lead qualification, appointment booking, and support automation — built on Vapi, ElevenLabs, and Twilio.",
+      "We build custom voice AI agents that qualify leads, book appointments, and handle support calls 24/7 — deployed in 4–8 weeks. Built on Vapi, ElevenLabs, and Twilio. No call center headcount needed.",
   },
   {
     slug: "jira-apps",
