@@ -1254,6 +1254,13 @@ html.light .story-quote-glass {
   color: #64748b;
 }
 
+/* ── Bento heading ── */
+.bento-heading-primary { color: #ffffff; }
+.bento-heading-muted   { color: #475569; }
+
+html.light .bento-heading-primary { color: #0f172a !important; }
+html.light .bento-heading-muted   { color: #94a3b8 !important; }
+
 /* ── Showcase cards ── */
 .bento-showcase-card {
   border: 1px solid rgba(255, 255, 255, 0.06);

@@ -51,14 +51,41 @@ export function VisualBentoSection() {
 
       <Container className="relative z-10">
         {/* Heading */}
-        <motion.div {...fadeUp} className="mb-12 md:mb-16">
-          <p className="text-xs font-semibold tracking-[0.18em] uppercase text-brand-blue mb-3">
-            What We Build
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight max-w-2xl section-heading-text">
-            Shipped fast.{" "}
-            <span className="text-dark-400">Built to last.</span>
+        <motion.div {...fadeUp} className="mb-14 md:mb-20">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px w-10 bg-brand-blue" />
+            <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-blue">
+              What We Build
+            </p>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] max-w-3xl">
+            <motion.span
+              className="bento-heading-primary inline-block"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Shipped fast.
+            </motion.span>{" "}
+            <motion.span
+              className="bento-heading-muted inline-block"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+            >
+              Built to last.
+            </motion.span>
           </h2>
+          <motion.div
+            className="mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            style={{ transformOrigin: "left" }}
+          />
         </motion.div>
 
         {/* Showcase grid — 3 clean cards */}
