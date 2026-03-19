@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { CaseStudyCard } from "@/components/blocks/case-study-card";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import { staggerContainer } from "@/lib/animations";
 import type { CaseStudyMeta } from "@/types/content";
 
@@ -89,11 +90,28 @@ export function CaseStudiesSection() {
           ))}
         </motion.div>
 
-        <div className="mt-12 text-center">
-          <Button href="/work" variant="outline">
-            View All Case Studies
-          </Button>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          className="mt-14 md:mt-20 flex justify-center"
+        >
+          <div className="case-studies-cta-strip rounded-2xl px-8 py-7 md:px-12 md:py-8 flex flex-col sm:flex-row items-center gap-5 sm:gap-8 max-w-xl w-full">
+            <div className="flex-1 text-center sm:text-left">
+              <p className="text-sm font-bold case-studies-cta-title">
+                Want to see more results?
+              </p>
+              <p className="text-xs case-studies-cta-sub mt-1">
+                Explore every project with full metrics &amp; tech stack.
+              </p>
+            </div>
+            <Button href="/work" variant="primary" size="lg" className="shrink-0 group">
+              View All Case Studies
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </div>
+        </motion.div>
       </Container>
     </section>
   );

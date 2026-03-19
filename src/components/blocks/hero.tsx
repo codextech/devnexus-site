@@ -7,6 +7,19 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+/* ── Reduced motion hook ── */
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return reduced;
+}
+
 /* ── AI typewriter title ── */
 
 type Segment = { text: string; isHighlight: boolean };
@@ -27,10 +40,12 @@ function TypewriterTitle({
   title,
   highlightWord,
   startDelay = 0.7,
+  lineBreakAfterHighlight = false,
 }: {
   title: string;
   highlightWord?: string;
   startDelay?: number;
+  lineBreakAfterHighlight?: boolean;
 }) {
   const [cursorDone, setCursorDone] = useState(false);
   const segments = useMemo(
@@ -55,6 +70,7 @@ function TypewriterTitle({
   }, [typingEnd]);
 
   let idx = 0;
+  let passedHighlight = false;
 
   return (
     <>
@@ -62,19 +78,26 @@ function TypewriterTitle({
         if (seg.isHighlight) {
           const delay = charDelays[idx];
           idx += seg.text.length;
+          passedHighlight = true;
           return (
-            <span
-              key={si}
-              className="gradient-text hero-char"
-              style={{ animationDelay: `${delay.toFixed(3)}s` }}
-            >
-              {seg.text}
-            </span>
+            <Fragment key={si}>
+              <span
+                className="gradient-text hero-char"
+                style={{ animationDelay: `${delay.toFixed(3)}s` }}
+              >
+                {seg.text}
+              </span>
+              {lineBreakAfterHighlight && <br />}
+            </Fragment>
           );
         }
-        const chars = seg.text.split("").map((char) => {
+
+        const isAfterHighlight = lineBreakAfterHighlight && passedHighlight;
+        const chars = seg.text.split("").map((char, ci) => {
           const delay = charDelays[idx];
           idx++;
+          // Skip leading space on second line
+          if (isAfterHighlight && ci === 0 && char === " ") return null;
           return (
             <span
               key={idx}
@@ -85,6 +108,14 @@ function TypewriterTitle({
             </span>
           );
         });
+
+        if (isAfterHighlight) {
+          return (
+            <span key={si} className="font-bold">
+              {chars}
+            </span>
+          );
+        }
         return <Fragment key={si}>{chars}</Fragment>;
       })}
       <motion.span
@@ -122,6 +153,7 @@ export function Hero({
   socialProof,
 }: HeroProps) {
   const isHomepage = variant === "homepage";
+  const shouldReduce = usePrefersReducedMotion();
 
   const renderTitle = () => {
     if (!highlightWord) return title;
@@ -141,124 +173,114 @@ export function Hero({
       className={cn(
         "relative overflow-hidden",
         isHomepage
-          ? "hero-bg pt-36 pb-28 md:pt-48 md:pb-40 min-h-[94vh] flex items-center"
-          : "hero-bg-page pt-32 pb-16 md:pt-40 md:pb-20 border-b border-white/5",
+          ? "hero-veil min-h-screen flex items-center pt-36 pb-32 md:pt-48 md:pb-44"
+          : "hero-bg-page pt-36 pb-20 md:pt-44 md:pb-24",
         className
       )}
     >
       {isHomepage && (
         <>
-          {/* Deep space gradient base */}
-          <div className="absolute inset-0 hero-cosmos" />
-
-          {/* Star field */}
-          <div className="absolute inset-0 hero-stars" />
-
-          {/* Central radial pulse */}
+          {/* ── Diagonal wipe reveal ── */}
           <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full hero-radial-pulse"
-            animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
+            className="absolute inset-0"
+            initial={
+              shouldReduce
+                ? false
+                : { clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" }
+            }
+            animate={{
+              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+            }}
+            transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
+          >
+            {/* Sky-to-indigo gradient base */}
+            <div className="absolute inset-0 hero-veil-gradient" />
 
-          {/* Aurora mesh — slow-drifting gradient orbs */}
-          <div className="absolute inset-0 overflow-hidden">
+            {/* Aurora blob — left, purple/magenta glow */}
             <motion.div
-              className="absolute w-[700px] h-[700px] rounded-full hero-orb-blue"
-              animate={{
-                x: ["-10%", "5%", "-10%"],
-                y: ["-15%", "5%", "-15%"],
-                scale: [1, 1.15, 1],
-              }}
-              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-              style={{ top: "-20%", left: "10%" }}
-            />
-            <motion.div
-              className="absolute w-[600px] h-[600px] rounded-full hero-orb-cyan"
-              animate={{
-                x: ["5%", "-8%", "5%"],
-                y: ["0%", "-12%", "0%"],
-                scale: [1.1, 0.95, 1.1],
-              }}
-              transition={{ duration: 24, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-              style={{ top: "10%", right: "-5%" }}
-            />
-            <motion.div
-              className="absolute w-[500px] h-[500px] rounded-full hero-orb-purple"
-              animate={{
-                x: ["0%", "10%", "0%"],
-                y: ["5%", "-8%", "5%"],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 4 }}
-              style={{ bottom: "-10%", left: "30%" }}
-            />
-            {/* Extra indigo accent orb */}
-            <motion.div
-              className="absolute w-[400px] h-[400px] rounded-full hero-orb-indigo"
-              animate={{
-                x: ["-5%", "8%", "-5%"],
-                y: ["0%", "10%", "0%"],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 6 }}
-              style={{ top: "30%", left: "55%" }}
-            />
-          </div>
-
-          {/* Animated horizontal light beam */}
-          <motion.div
-            className="absolute top-[38%] left-0 right-0 h-px hero-beam"
-            animate={{ opacity: [0, 0.5, 0], scaleX: [0.3, 1, 0.3] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          />
-          <motion.div
-            className="absolute top-[62%] left-0 right-0 h-px hero-beam"
-            animate={{ opacity: [0, 0.3, 0], scaleX: [0.4, 1, 0.4] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          />
-
-          {/* Floating particles */}
-          {[
-            { x: "12%", y: "22%", dur: 14, del: 0, size: 3 },
-            { x: "78%", y: "18%", dur: 18, del: 2, size: 2 },
-            { x: "25%", y: "72%", dur: 16, del: 4, size: 2.5 },
-            { x: "85%", y: "65%", dur: 20, del: 1, size: 2 },
-            { x: "50%", y: "30%", dur: 15, del: 3, size: 3.5 },
-            { x: "65%", y: "80%", dur: 17, del: 5, size: 2 },
-          ].map((p, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full hero-particle"
-              style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
-              animate={{
-                y: [0, -20, 0],
-                opacity: [0.2, 0.7, 0.2],
-              }}
+              className="absolute hero-aurora-blob"
+              style={{ left: "-5%", top: "15%", width: 600, height: 600 }}
+              animate={
+                shouldReduce
+                  ? {}
+                  : {
+                      y: [-25, 25, -25],
+                      x: [-10, 15, -10],
+                      scale: [1, 1.05, 1],
+                    }
+              }
               transition={{
-                duration: p.dur,
+                duration: 7,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: p.del,
               }}
             />
-          ))}
 
-          {/* Corner accent lines */}
-          <div className="absolute top-1/2 left-0 w-px h-48 bg-gradient-to-b from-transparent via-brand-blue/10 to-transparent" />
-          <div className="absolute top-1/3 right-0 w-px h-64 bg-gradient-to-b from-transparent via-brand-cyan/8 to-transparent" />
+            {/* Data dot grid — right */}
+            <div className="absolute right-0 top-0 w-[55%] h-full hero-dot-grid" />
+
+            {/* Dark silhouette — center bottom */}
+            <div className="absolute bottom-0 left-0 right-0 h-[55%] hero-silhouette" />
+          </motion.div>
+
+          {/* ── Floating stats — bottom left ── */}
+          <motion.div
+            className="absolute bottom-14 left-8 md:left-16 z-20 hidden md:flex items-center gap-4"
+            initial={shouldReduce ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: shouldReduce ? 0 : 1.4, duration: 0.6 }}
+          >
+            <span className="text-5xl lg:text-6xl font-bold hero-stat-number">
+              50+
+            </span>
+            <div className="w-px h-10 bg-white/30" />
+            <span className="text-[11px] uppercase tracking-[0.2em] leading-tight hero-stat-label">
+              products
+              <br />
+              shipped
+            </span>
+          </motion.div>
+
+          {/* ── Floating stats — bottom right ── */}
+          <motion.div
+            className="absolute bottom-14 right-8 md:right-16 z-20 hidden md:flex items-center gap-4"
+            initial={shouldReduce ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: shouldReduce ? 0 : 1.6, duration: 0.6 }}
+          >
+            <span className="text-5xl lg:text-6xl font-bold hero-stat-number">
+              98%
+            </span>
+            <div className="w-px h-10 bg-white/30" />
+            <span className="text-[11px] uppercase tracking-[0.2em] leading-tight hero-stat-label">
+              client
+              <br />
+              satisfaction
+            </span>
+          </motion.div>
         </>
       )}
 
       {!isHomepage && (
-        <div className="absolute inset-0 section-gradient" />
+        <>
+          <div className="absolute inset-0 hero-page-gradient" />
+          {/* Subtle ambient glow */}
+          <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-brand-blue/[0.04] blur-[120px] pointer-events-none" />
+          <div className="absolute -right-20 top-0 w-[300px] h-[300px] rounded-full bg-brand-cyan/[0.03] blur-[100px] pointer-events-none" />
+          {/* Bottom divider line */}
+          <div className="absolute bottom-0 left-0 right-0 h-px hero-page-divider" />
+        </>
       )}
 
       <Container className="relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={shouldReduce ? false : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 0.8,
+            delay: isHomepage ? 0.3 : 0,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className={cn(
             "max-w-4xl",
             isHomepage ? "mx-auto text-center" : "text-left"
@@ -266,53 +288,71 @@ export function Hero({
         >
           {eyebrow && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={shouldReduce ? false : { opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-              className={cn("mb-8", isHomepage && "flex justify-center")}
+              transition={{ delay: isHomepage ? 0.4 : 0.1, duration: 0.5 }}
+              className={cn("mb-6", isHomepage && "flex justify-center")}
             >
-              <span className="hero-eyebrow inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-semibold tracking-widest uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-blue animate-pulse" />
-                {eyebrow}
-              </span>
+              {isHomepage ? (
+                <span
+                  className={cn(
+                    "inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-semibold tracking-widest uppercase",
+                    "hero-eyebrow"
+                  )}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-brand-blue" />
+                  {eyebrow}
+                </span>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <div className="h-px w-8 bg-brand-blue" />
+                  <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-blue">
+                    {eyebrow}
+                  </span>
+                </div>
+              )}
             </motion.div>
           )}
 
           <h1
             className={cn(
-              "font-bold tracking-tight leading-[1.05] hero-title-text",
+              "tracking-tight leading-[1.05]",
               isHomepage
-                ? "text-[2.5rem] md:text-6xl lg:text-[5rem]"
-                : "text-3xl md:text-4xl lg:text-5xl"
+                ? "font-bold text-[2.5rem] md:text-6xl lg:text-[5rem] hero-title-text"
+                : "font-bold text-3xl md:text-4xl lg:text-5xl hero-title-text"
             )}
           >
             {isHomepage ? (
-              <TypewriterTitle title={title} highlightWord={highlightWord} />
+              <TypewriterTitle
+                title={title}
+                highlightWord={highlightWord}
+                lineBreakAfterHighlight
+              />
             ) : (
               renderTitle()
             )}
           </h1>
 
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={shouldReduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.25, duration: 0.6 }}
+            transition={{ delay: isHomepage ? 0.6 : 0.2, duration: 0.6 }}
             className={cn(
-              "mt-7 leading-relaxed hero-subtitle-text",
+              "mt-5 leading-relaxed",
               isHomepage
-                ? "text-lg md:text-xl mx-auto max-w-2xl"
-                : "text-base md:text-lg max-w-2xl"
+                ? "text-lg md:text-xl mx-auto max-w-2xl hero-subtitle-text"
+                : "text-base md:text-lg max-w-xl hero-subtitle-text"
             )}
           >
             {subtitle}
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={shouldReduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
+            transition={{ delay: isHomepage ? 0.75 : 0.35, duration: 0.5 }}
             className={cn(
-              "mt-12 flex flex-col sm:flex-row gap-4",
+              "mt-10 flex flex-col sm:flex-row gap-4",
               isHomepage ? "justify-center" : "justify-start"
             )}
           >
@@ -338,16 +378,19 @@ export function Hero({
 
           {isHomepage && socialProof && socialProof.length > 0 && (
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={shouldReduce ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.7 }}
+              transition={{ delay: 0.95, duration: 0.7 }}
               className="mt-20 md:mt-24"
             >
               <div className="flex flex-col sm:flex-row items-center justify-center gap-x-8 gap-y-4">
                 {socialProof.map((item) => (
                   <span key={item} className="flex items-center gap-2.5">
                     <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand-blue/10">
-                      <Check className="w-3 h-3 text-brand-blue" strokeWidth={3} />
+                      <Check
+                        className="w-3 h-3 text-brand-blue"
+                        strokeWidth={3}
+                      />
                     </span>
                     <span className="text-sm hero-proof-text font-medium">
                       {item}

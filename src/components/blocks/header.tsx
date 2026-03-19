@@ -83,7 +83,10 @@ export function Header() {
   };
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-dark-950/80 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/10"
@@ -322,6 +325,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

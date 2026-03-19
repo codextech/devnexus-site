@@ -1,73 +1,93 @@
 "use client";
 
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 import { Target, Shield, Zap, Heart } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { staggerContainer, staggerItem } from "@/lib/animations";
 
 const values = [
   {
     icon: Target,
     title: "Outcomes Over Output",
     description:
-      "We don't bill for busy work. Every sprint is measured by what it ships to your users — not how many hours we log.",
+      "Every sprint is measured by what it ships to your users — not how many hours we log.",
   },
   {
     icon: Shield,
     title: "No Black Boxes",
     description:
-      "You get a working demo every two weeks, a shared Slack channel, and full visibility into every architectural decision.",
+      "Working demos every two weeks. Shared Slack. Full visibility into every decision.",
   },
   {
     icon: Zap,
     title: "Speed Without Shortcuts",
     description:
-      "We move fast because we've done this before — not because we skip testing, security, or documentation.",
+      "We move fast because we've done this before — not because we skip testing or docs.",
   },
   {
     icon: Heart,
     title: "Built for the Long Run",
     description:
-      "We're not optimizing for a quick handoff. We build codebases your next hire can understand and your team can maintain.",
+      "Codebases your next hire can understand and your team can maintain.",
   },
 ];
 
 export function AboutValues() {
-  return (
-    <section className="py-16 md:py-24 lg:py-32 relative border-y border-white/5">
-      <div className="absolute inset-0 bg-dark-900/30" />
-      <Container className="relative z-10">
-        <SectionHeading
-          eyebrow="Our Values"
-          title="How We Operate"
-          subtitle="Four principles that show up in every line of code, every client call, and every deadline."
-        />
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-        <motion.div
-          {...staggerContainer}
-          className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
-        >
-          {values.map((item) => (
-            <motion.div
-              key={item.title}
-              {...staggerItem}
-              className="flex gap-4 p-6 rounded-2xl glass-card"
-            >
-              <div className="w-12 h-12 rounded-xl bg-brand-blue/10 flex items-center justify-center flex-shrink-0">
-                <item.icon className="w-6 h-6 text-brand-blue" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-1 text-sm text-dark-400 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+  return (
+    <section className="py-20 md:py-32 relative overflow-hidden">
+      <div className="absolute inset-0 about-values-bg" />
+
+      <Container className="relative z-10">
+        <div ref={ref}>
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-14"
+          >
+            <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-blue mb-4">
+              Our Values
+            </p>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold about-title leading-tight">
+              How We Operate
+            </h2>
+          </motion.div>
+
+          {/* Values grid — bento style */}
+          <div className="about-values-wrapper rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              {values.map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  className={`about-value-cell p-7 md:p-9 group ${
+                    i % 2 === 0 ? "about-value-cell-right" : ""
+                  } ${i < 2 ? "about-value-cell-bottom" : ""}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    delay: 0.1 + i * 0.1,
+                    duration: 0.5,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <div className="w-10 h-10 rounded-xl about-value-icon flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                    <item.icon className="w-5 h-5 text-brand-blue" strokeWidth={1.8} />
+                  </div>
+                  <h3 className="text-base md:text-lg font-bold about-title mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm about-body leading-relaxed">
+                    {item.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
       </Container>
     </section>
   );

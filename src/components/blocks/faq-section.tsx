@@ -20,18 +20,18 @@ function FAQAccordion({ question, answer }: FAQItem) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-white/5">
+    <div className="faq-item-border">
       <button
         className="w-full flex items-center justify-between py-5 text-left cursor-pointer group"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
-        <span className="text-base font-medium text-dark-200 group-hover:text-white transition-colors pr-4">
+        <span className="text-base font-medium faq-question-text group-hover:text-brand-blue transition-colors pr-4">
           {question}
         </span>
         <ChevronDown
           className={cn(
-            "w-5 h-5 text-dark-500 flex-shrink-0 transition-transform duration-200",
+            "w-5 h-5 faq-chevron flex-shrink-0 transition-transform duration-200",
             open && "rotate-180"
           )}
         />
@@ -45,7 +45,7 @@ function FAQAccordion({ question, answer }: FAQItem) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-sm text-dark-400 leading-relaxed">
+            <p className="pb-5 text-sm faq-answer-text leading-relaxed">
               {answer}
             </p>
           </motion.div>

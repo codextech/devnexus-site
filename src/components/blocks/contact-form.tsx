@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { motion } from "motion/react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const N8N_FORM_URL = "https://n8n.devnexus.co/webhook/5598b86a-9fdd-4f42-b7a6-40909fab7a7a";
@@ -16,8 +17,8 @@ const serviceOptions = [
 ];
 
 const inputClasses = cn(
-  "w-full px-4 py-3 rounded-xl border border-white/10 bg-dark-800/50",
-  "text-white placeholder:text-dark-500",
+  "w-full px-4 py-3 rounded-xl contact-input",
+  "text-sm",
   "focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue/30",
   "transition-all duration-200"
 );
@@ -61,22 +62,30 @@ export function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="text-center py-12">
-        <h3 className="text-2xl font-semibold text-white">
-          Thanks for reaching out!
+      <motion.div
+        className="text-center py-16"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4, type: "spring" }}
+      >
+        <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-5">
+          <CheckCircle className="w-7 h-7 text-emerald-500" />
+        </div>
+        <h3 className="text-xl md:text-2xl font-bold contact-form-title">
+          Message sent!
         </h3>
-        <p className="mt-2 text-dark-400">
-          We&apos;ll get back to you within 24 hours.
+        <p className="mt-2 text-sm contact-form-sub max-w-sm mx-auto">
+          We&rsquo;ll get back to you within 24 hours with a plan.
         </p>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-dark-300 mb-2">
+          <label htmlFor="name" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
             Name *
           </label>
           <input
@@ -89,7 +98,7 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-dark-300 mb-2">
+          <label htmlFor="email" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
             Email *
           </label>
           <input
@@ -103,10 +112,10 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="company" className="block text-sm font-medium text-dark-300 mb-2">
-            Company Name *
+          <label htmlFor="company" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
+            Company *
           </label>
           <input
             type="text"
@@ -118,8 +127,8 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-dark-300 mb-2">
-            Business Contact Number *
+          <label htmlFor="phone" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
+            Phone *
           </label>
           <input
             type="tel"
@@ -127,14 +136,14 @@ export function ContactForm() {
             name="phone"
             required
             className={inputClasses}
-            placeholder="e.g. 03249429698"
+            placeholder="+1 (555) 000-0000"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="service" className="block text-sm font-medium text-dark-300 mb-2">
-          Service interested in
+        <label htmlFor="service" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
+          Service
         </label>
         <select
           id="service"
@@ -151,14 +160,14 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-dark-300 mb-2">
-          Tell us about your project *
+        <label htmlFor="message" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
+          Project details *
         </label>
         <textarea
           id="message"
           name="message"
           required
-          rows={5}
+          rows={4}
           className={cn(inputClasses, "resize-none")}
           placeholder="What are you looking to build? What problem are you solving?"
         />
@@ -170,9 +179,14 @@ export function ContactForm() {
         </p>
       )}
 
-      <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={status === "loading"}>
+      <button
+        type="submit"
+        disabled={status === "loading"}
+        className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-brand-blue text-white text-sm font-semibold shadow-lg shadow-brand-blue/25 hover:shadow-brand-blue/50 hover:scale-[1.02] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed group cursor-pointer"
+      >
         {status === "loading" ? "Sending..." : "Send Message"}
-      </Button>
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </button>
     </form>
   );
 }
