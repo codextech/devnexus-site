@@ -1894,3 +1894,131 @@ html.light .hero-stat-label {
 html.light .hero-veil .hero-cursor {
   background: #0284c7 !important;
 }
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════ */
+
+.footer-bg {
+  background: #020817;
+}
+
+.footer-top-line {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(2, 169, 247, 0.4) 30%,
+    rgba(6, 182, 212, 0.3) 50%,
+    rgba(2, 169, 247, 0.4) 70%,
+    transparent 100%
+  );
+}
+
+.footer-heading {
+  color: rgba(241, 245, 249, 0.45);
+}
+
+.footer-link {
+  color: rgba(203, 213, 225, 0.7);
+}
+.footer-link:hover {
+  color: #02a9f7;
+}
+
+.footer-description {
+  color: rgba(148, 163, 184, 0.8);
+}
+
+.footer-muted {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+.footer-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  color: rgba(148, 163, 184, 0.6);
+  background: rgba(148, 163, 184, 0.06);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  transition: all 0.25s ease;
+}
+.footer-social-icon:hover {
+  color: #02a9f7;
+  background: rgba(2, 169, 247, 0.08);
+  border-color: rgba(2, 169, 247, 0.2);
+  transform: translateY(-2px);
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid rgba(148, 163, 184, 0.06);
+}
+
+.footer-copyright {
+  color: rgba(148, 163, 184, 0.4);
+}
+
+.footer-status {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+/* ═══ Footer — Light theme ═══ */
+
+html.light .footer-bg {
+  background: #f8fafc !important;
+}
+
+html.light .footer-top-line {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(2, 169, 247, 0.25) 30%,
+    rgba(6, 182, 212, 0.2) 50%,
+    rgba(2, 169, 247, 0.25) 70%,
+    transparent 100%
+  ) !important;
+}
+
+html.light .footer-heading {
+  color: rgba(15, 23, 42, 0.4) !important;
+}
+
+html.light .footer-link {
+  color: #475569 !important;
+}
+html.light .footer-link:hover {
+  color: #02a9f7 !important;
+}
+
+html.light .footer-description {
+  color: #64748b !important;
+}
+
+html.light .footer-muted {
+  color: #94a3b8 !important;
+}
+
+html.light .footer-social-icon {
+  color: #64748b !important;
+  background: rgba(15, 23, 42, 0.04) !important;
+  border-color: rgba(15, 23, 42, 0.06) !important;
+}
+html.light .footer-social-icon:hover {
+  color: #02a9f7 !important;
+  background: rgba(2, 169, 247, 0.06) !important;
+  border-color: rgba(2, 169, 247, 0.15) !important;
+}
+
+html.light .footer-bottom-bar {
+  border-top-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light .footer-copyright {
+  color: #94a3b8 !important;
+}
+
+html.light .footer-status {
+  color: #94a3b8 !important;
+}
