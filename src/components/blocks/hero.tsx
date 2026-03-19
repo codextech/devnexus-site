@@ -1,10 +1,13 @@
 "use client";
 
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+
 import { motion } from "motion/react";
 import { ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { DottedSurface } from "@/components/ui/dotted-surface";
+import { WaveText } from "@/components/ui/wave-text";
 import { cn } from "@/lib/utils";
 
 /* ── Reduced motion hook ── */
@@ -18,113 +21,6 @@ function usePrefersReducedMotion() {
     return () => mq.removeEventListener("change", handler);
   }, []);
   return reduced;
-}
-
-/* ── AI typewriter title ── */
-
-type Segment = { text: string; isHighlight: boolean };
-
-function buildSegments(title: string, hw?: string): Segment[] {
-  if (!hw) return [{ text: title, isHighlight: false }];
-  const i = title.indexOf(hw);
-  if (i === -1) return [{ text: title, isHighlight: false }];
-  const s: Segment[] = [];
-  if (i > 0) s.push({ text: title.slice(0, i), isHighlight: false });
-  s.push({ text: hw, isHighlight: true });
-  const a = title.slice(i + hw.length);
-  if (a) s.push({ text: a, isHighlight: false });
-  return s;
-}
-
-function TypewriterTitle({
-  title,
-  highlightWord,
-  startDelay = 0.7,
-  lineBreakAfterHighlight = false,
-}: {
-  title: string;
-  highlightWord?: string;
-  startDelay?: number;
-  lineBreakAfterHighlight?: boolean;
-}) {
-  const [cursorDone, setCursorDone] = useState(false);
-  const segments = useMemo(
-    () => buildSegments(title, highlightWord),
-    [title, highlightWord]
-  );
-
-  const charDelays = useMemo(() => {
-    let t = startDelay;
-    return title.split("").map((c) => {
-      const pause = c === "." ? 0.1 : c === " " ? 0.02 : 0;
-      t += 0.02 + Math.random() * 0.015 + pause;
-      return t;
-    });
-  }, [title, startDelay]);
-
-  const typingEnd = charDelays[charDelays.length - 1] + 0.35;
-
-  useEffect(() => {
-    const id = setTimeout(() => setCursorDone(true), typingEnd * 1000 + 1200);
-    return () => clearTimeout(id);
-  }, [typingEnd]);
-
-  let idx = 0;
-  let passedHighlight = false;
-
-  return (
-    <>
-      {segments.map((seg, si) => {
-        if (seg.isHighlight) {
-          const delay = charDelays[idx];
-          idx += seg.text.length;
-          passedHighlight = true;
-          return (
-            <Fragment key={si}>
-              <span
-                className="gradient-text hero-char"
-                style={{ animationDelay: `${delay.toFixed(3)}s` }}
-              >
-                {seg.text}
-              </span>
-              {lineBreakAfterHighlight && <br />}
-            </Fragment>
-          );
-        }
-
-        const isAfterHighlight = lineBreakAfterHighlight && passedHighlight;
-        const chars = seg.text.split("").map((char, ci) => {
-          const delay = charDelays[idx];
-          idx++;
-          // Skip leading space on second line
-          if (isAfterHighlight && ci === 0 && char === " ") return null;
-          return (
-            <span
-              key={idx}
-              className="hero-char"
-              style={{ animationDelay: `${delay.toFixed(3)}s` }}
-            >
-              {char}
-            </span>
-          );
-        });
-
-        if (isAfterHighlight) {
-          return (
-            <span key={si} className="font-bold">
-              {chars}
-            </span>
-          );
-        }
-        return <Fragment key={si}>{chars}</Fragment>;
-      })}
-      <motion.span
-        className="hero-cursor"
-        animate={cursorDone ? { opacity: 0 } : undefined}
-        transition={cursorDone ? { duration: 0.4 } : undefined}
-      />
-    </>
-  );
 }
 
 /* ── Hero ── */
@@ -180,48 +76,11 @@ export function Hero({
     >
       {isHomepage && (
         <>
-          {/* ── Diagonal wipe reveal ── */}
-          <motion.div
-            className="absolute inset-0"
-            initial={
-              shouldReduce
-                ? false
-                : { clipPath: "polygon(0 0, 0 0, 0 100%, 0 100%)" }
-            }
-            animate={{
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-            }}
-            transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
-          >
-            {/* Sky-to-indigo gradient base */}
-            <div className="absolute inset-0 hero-veil-gradient" />
-
-            {/* Aurora blob — left, purple/magenta glow */}
-            <motion.div
-              className="absolute hero-aurora-blob"
-              style={{ left: "-5%", top: "15%", width: 600, height: 600 }}
-              animate={
-                shouldReduce
-                  ? {}
-                  : {
-                      y: [-25, 25, -25],
-                      x: [-10, 15, -10],
-                      scale: [1, 1.05, 1],
-                    }
-              }
-              transition={{
-                duration: 7,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Data dot grid — right */}
-            <div className="absolute right-0 top-0 w-[55%] h-full hero-dot-grid" />
-
-            {/* Dark silhouette — center bottom */}
-            <div className="absolute bottom-0 left-0 right-0 h-[55%] hero-silhouette" />
-          </motion.div>
+          {/* ── Dotted surface background ── */}
+          <div className="absolute inset-0 hero-veil-gradient" />
+          <DottedSurface className="z-[1]" />
+          {/* Bottom fade into page */}
+          <div className="absolute bottom-0 left-0 right-0 h-[40%] hero-silhouette z-[2]" />
 
           {/* ── Floating stats — bottom left ── */}
           <motion.div
@@ -322,12 +181,30 @@ export function Hero({
                 : "font-bold text-3xl md:text-4xl lg:text-5xl hero-title-text"
             )}
           >
-            {isHomepage ? (
-              <TypewriterTitle
-                title={title}
-                highlightWord={highlightWord}
-                lineBreakAfterHighlight
-              />
+            {isHomepage && highlightWord ? (
+              (() => {
+                const idx = title.indexOf(highlightWord);
+                if (idx === -1) return <WaveText text={title} />;
+                const before = title.slice(0, idx);
+                const after = title.slice(idx + highlightWord.length).trimStart();
+                return (
+                  <>
+                    {before && <WaveText text={before} />}
+                    <WaveText
+                      text={highlightWord}
+                      charClassName="gradient-text"
+                    />
+                    {after && (
+                      <>
+                        <br />
+                        <WaveText text={after} className="font-bold" />
+                      </>
+                    )}
+                  </>
+                );
+              })()
+            ) : isHomepage ? (
+              <WaveText text={title} />
             ) : (
               renderTitle()
             )}
