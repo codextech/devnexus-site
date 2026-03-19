@@ -174,7 +174,7 @@ export function Hero({
         "relative overflow-hidden",
         isHomepage
           ? "hero-veil min-h-screen flex items-center pt-36 pb-32 md:pt-48 md:pb-44"
-          : "hero-bg-page pt-32 pb-16 md:pt-40 md:pb-20 border-b border-white/5",
+          : "hero-bg-page pt-36 pb-20 md:pt-44 md:pb-24",
         className
       )}
     >
@@ -262,7 +262,14 @@ export function Hero({
       )}
 
       {!isHomepage && (
-        <div className="absolute inset-0 section-gradient" />
+        <>
+          <div className="absolute inset-0 hero-page-gradient" />
+          {/* Subtle ambient glow */}
+          <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-brand-blue/[0.04] blur-[120px] pointer-events-none" />
+          <div className="absolute -right-20 top-0 w-[300px] h-[300px] rounded-full bg-brand-cyan/[0.03] blur-[100px] pointer-events-none" />
+          {/* Bottom divider line */}
+          <div className="absolute bottom-0 left-0 right-0 h-px hero-page-divider" />
+        </>
       )}
 
       <Container className="relative z-10">
@@ -284,22 +291,26 @@ export function Hero({
               initial={shouldReduce ? false : { opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: isHomepage ? 0.4 : 0.1, duration: 0.5 }}
-              className={cn("mb-8", isHomepage && "flex justify-center")}
+              className={cn("mb-6", isHomepage && "flex justify-center")}
             >
-              <span
-                className={cn(
-                  "inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-semibold tracking-widest uppercase",
-                  "hero-eyebrow"
-                )}
-              >
+              {isHomepage ? (
                 <span
                   className={cn(
-                    "w-1.5 h-1.5 rounded-full animate-pulse",
-                    "bg-brand-blue"
+                    "inline-flex items-center gap-2.5 px-5 py-2 rounded-full text-xs font-semibold tracking-widest uppercase",
+                    "hero-eyebrow"
                   )}
-                />
-                {eyebrow}
-              </span>
+                >
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-brand-blue" />
+                  {eyebrow}
+                </span>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <div className="h-px w-8 bg-brand-blue" />
+                  <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-blue">
+                    {eyebrow}
+                  </span>
+                </div>
+              )}
             </motion.div>
           )}
 
@@ -325,12 +336,12 @@ export function Hero({
           <motion.p
             initial={shouldReduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: isHomepage ? 0.6 : 0.25, duration: 0.6 }}
+            transition={{ delay: isHomepage ? 0.6 : 0.2, duration: 0.6 }}
             className={cn(
-              "mt-7 leading-relaxed",
+              "mt-5 leading-relaxed",
               isHomepage
                 ? "text-lg md:text-xl mx-auto max-w-2xl hero-subtitle-text"
-                : "text-base md:text-lg max-w-2xl hero-subtitle-text"
+                : "text-base md:text-lg max-w-xl hero-subtitle-text"
             )}
           >
             {subtitle}
@@ -339,54 +350,29 @@ export function Hero({
           <motion.div
             initial={shouldReduce ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: isHomepage ? 0.75 : 0.4, duration: 0.5 }}
+            transition={{ delay: isHomepage ? 0.75 : 0.35, duration: 0.5 }}
             className={cn(
-              "mt-12 flex flex-col sm:flex-row gap-4",
+              "mt-10 flex flex-col sm:flex-row gap-4",
               isHomepage ? "justify-center" : "justify-start"
             )}
           >
-            {isHomepage ? (
-              <>
-                <Button
-                  href={primaryCta.href}
-                  size="lg"
-                  variant="primary"
-                  className="group"
-                >
-                  {primaryCta.label}
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                {secondaryCta && (
-                  <Button
-                    href={secondaryCta.href}
-                    size="lg"
-                    variant="outline"
-                  >
-                    {secondaryCta.label}
-                  </Button>
-                )}
-              </>
-            ) : (
-              <>
-                <Button
-                  href={primaryCta.href}
-                  size="lg"
-                  variant="primary"
-                  className="group"
-                >
-                  {primaryCta.label}
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                {secondaryCta && (
-                  <Button
-                    href={secondaryCta.href}
-                    size="lg"
-                    variant="outline"
-                  >
-                    {secondaryCta.label}
-                  </Button>
-                )}
-              </>
+            <Button
+              href={primaryCta.href}
+              size="lg"
+              variant="primary"
+              className="group"
+            >
+              {primaryCta.label}
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            {secondaryCta && (
+              <Button
+                href={secondaryCta.href}
+                size="lg"
+                variant="outline"
+              >
+                {secondaryCta.label}
+              </Button>
             )}
           </motion.div>
 

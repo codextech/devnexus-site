@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight, Globe, BrainCircuit, Users } from "lucide-react";
 import { Container } from "@/components/ui/container";
-import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
+import { fadeUp } from "@/lib/animations";
 
 const showcaseCards = [
   {
@@ -50,124 +50,141 @@ export function VisualBentoSection() {
       <div className="absolute inset-0 bg-dark-900/30" />
 
       <Container className="relative z-10">
-        {/* Heading */}
-        <motion.div {...fadeUp} className="mb-14 md:mb-20">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-px w-10 bg-brand-blue" />
-            <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-blue">
-              What We Build
-            </p>
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] max-w-3xl">
-            <motion.span
-              className="bento-heading-primary inline-block"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              Shipped fast.
-            </motion.span>{" "}
-            <motion.span
-              className="bento-heading-muted inline-block"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-            >
-              Built to last.
-            </motion.span>
-          </h2>
-          <motion.div
-            className="mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-brand-blue to-brand-cyan"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ transformOrigin: "left" }}
-          />
-        </motion.div>
+        <motion.div {...fadeUp}>
+          {/* ── Bento wrapper — single cohesive block ── */}
+          <div className="bento-wrapper rounded-2xl overflow-hidden">
 
-        {/* Showcase grid — 3 clean cards */}
-        <motion.div
-          {...staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
-        >
-          {showcaseCards.map((card) => (
-            <motion.div key={card.href} {...staggerItem}>
-              <Link
-                href={card.href}
-                className="group block relative rounded-2xl overflow-hidden h-[420px] md:h-[480px] bento-showcase-card"
-              >
-                {/* Image */}
-                <Image
-                  src={card.image}
-                  alt={card.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+            {/* ── Row 1: Section heading ── */}
+            <div className="bento-cell px-8 py-12 md:px-14 md:py-16 text-center">
+              <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-blue mb-4">
+                What We Build
+              </p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.08]">
+                <span className="bento-heading-primary">Shipped fast.</span>{" "}
+                <span className="bento-heading-muted">Built to last.</span>
+              </h2>
+              <p className="mt-4 text-sm md:text-base bento-subtitle max-w-xl mx-auto leading-relaxed">
+                Full-stack web, mobile, and AI &mdash; built by senior engineers
+                who ship every sprint.
+              </p>
+            </div>
 
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bento-showcase-overlay" />
-
-                {/* Content pinned to bottom — frosted glass panel */}
-                <div className="absolute inset-x-0 bottom-0 p-6 md:p-7 flex flex-col bento-showcase-glass">
-                  {/* Icon + label */}
-                  <div className="flex items-center gap-2.5 mb-3">
-                    <div className="bento-showcase-icon-ring">
+            {/* ── Row 2: Three showcase image cards ── */}
+            <div className="grid grid-cols-1 md:grid-cols-3">
+              {showcaseCards.map((card, i) => (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  className={`bento-cell group relative overflow-hidden h-[300px] md:h-[340px] block ${
+                    i < showcaseCards.length - 1 ? "bento-cell-right" : ""
+                  }`}
+                >
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bento-image-overlay" />
+                  <div className="absolute bottom-0 inset-x-0 p-6">
+                    <div className="flex items-center gap-2 mb-2.5">
                       <card.icon className="w-4 h-4 text-brand-blue" strokeWidth={2} />
-                    </div>
-                    <span className="bento-card-label mb-0">{card.label}</span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="bento-card-image-title text-xl md:text-2xl font-bold leading-snug">
-                    {card.title}
-                  </h3>
-
-                  {/* Body */}
-                  <p className="bento-card-image-body mt-2 text-sm leading-relaxed">
-                    {card.body}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {card.tags.map((tag) => (
-                      <span key={tag} className="bento-showcase-tag">
-                        {tag}
+                      <span className="text-[10px] font-semibold tracking-[0.15em] uppercase text-white/50">
+                        {card.label}
                       </span>
-                    ))}
+                    </div>
+                    <h3 className="text-lg font-bold text-white leading-snug">
+                      {card.title}
+                    </h3>
+                    <p className="text-sm text-white/55 mt-1.5 leading-relaxed line-clamp-2">
+                      {card.body}
+                    </p>
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {card.tags.map((tag) => (
+                        <span key={tag} className="bento-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    {/* Hover arrow */}
+                    <div className="mt-3 flex items-center gap-1.5 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                      <span className="text-xs font-semibold text-brand-blue">Learn more</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-brand-blue group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
+                </Link>
+              ))}
+            </div>
 
-                  {/* Hover arrow */}
-                  <div className="mt-5 flex items-center gap-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                    <span className="text-sm font-semibold text-brand-blue">
-                      Learn more
-                    </span>
-                    <ArrowRight className="w-4 h-4 text-brand-blue group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Stats strip — clean horizontal bar */}
-        <motion.div
-          {...fadeUp}
-          className="mt-10 md:mt-14 bento-stats-strip rounded-2xl p-6 md:p-8"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className={`text-center ${i < stats.length - 1 ? "bento-stats-strip-divider" : ""}`}
-              >
-                <p className="bento-stat-value text-2xl md:text-3xl">{stat.value}</p>
-                <p className="bento-stat-label mt-1">{stat.label}</p>
+            {/* ── Row 3: Testimonial strip ── */}
+            <div className="bento-cell px-8 py-8 md:px-14 md:py-10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10">
+              <div className="flex-1">
+                <span className="text-3xl md:text-4xl font-bold bento-quote-mark leading-none select-none">
+                  &ldquo;
+                </span>
+                <p className="text-base md:text-lg font-medium bento-quote-text leading-relaxed -mt-2">
+                  Speed of execution is critical for scaling startups. DevNexus
+                  rebuilt our entire platform in 8 weeks &mdash; build times went from
+                  months of planning to live demos every sprint.
+                </p>
               </div>
-            ))}
+              <div className="shrink-0 flex items-center gap-4">
+                <div className="text-right">
+                  <p className="text-sm font-semibold bento-quote-author">
+                    Founder
+                  </p>
+                  <p className="text-xs bento-quote-company font-medium">
+                    TopHealth AI
+                  </p>
+                </div>
+                <Link
+                  href="/work"
+                  className="w-10 h-10 rounded-full bento-arrow-btn flex items-center justify-center group"
+                >
+                  <ArrowRight className="w-4 h-4 bento-arrow-icon group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* ── Row 4: Stats + CTA ── */}
+            <div className="grid grid-cols-1 md:grid-cols-3">
+              {/* Stats — 2 cols on desktop */}
+              <div className="bento-cell bento-cell-right p-6 md:p-8 md:col-span-2">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {stats.map((stat) => (
+                    <div key={stat.label}>
+                      <p className="text-2xl md:text-3xl font-bold bento-stat-value">
+                        {stat.value}
+                      </p>
+                      <p className="text-[11px] font-medium bento-stat-label mt-1 uppercase tracking-wide">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CTA — 1 col on desktop */}
+              <div className="bento-cell p-6 md:p-8 flex flex-col justify-center">
+                <h3 className="text-lg md:text-xl font-bold bento-heading-primary leading-snug">
+                  Get started with
+                  <br />
+                  DevNexus.
+                </h3>
+                <p className="text-sm bento-subtitle mt-2">
+                  One conversation is all it takes.
+                </p>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-brand-blue hover:gap-3 transition-all group"
+                >
+                  Book a free call
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
           </div>
         </motion.div>
       </Container>

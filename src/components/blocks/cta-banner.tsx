@@ -80,7 +80,7 @@ export function CTABanner({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
             </span>
             <span className="text-xs font-semibold tracking-widest uppercase text-white/90">
-              Taking new projects
+              From idea to live product
             </span>
           </motion.div>
 
