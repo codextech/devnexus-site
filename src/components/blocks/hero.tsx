@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { WaveText } from "@/components/ui/wave-text";
+import { RetroGrid } from "@/components/ui/retro-grid";
 import { cn } from "@/lib/utils";
 
 /* ── Reduced motion hook ── */
@@ -35,6 +36,7 @@ type HeroProps = {
   className?: string;
   highlightWord?: string;
   socialProof?: string[];
+  background?: React.ReactNode;
 };
 
 export function Hero({
@@ -47,6 +49,7 @@ export function Hero({
   className,
   highlightWord,
   socialProof,
+  background,
 }: HeroProps) {
   const isHomepage = variant === "homepage";
   const shouldReduce = usePrefersReducedMotion();
@@ -123,10 +126,7 @@ export function Hero({
       {!isHomepage && (
         <>
           <div className="absolute inset-0 hero-page-gradient" />
-          {/* Subtle ambient glow */}
-          <div className="absolute -left-32 top-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-brand-blue/[0.04] blur-[120px] pointer-events-none" />
-          <div className="absolute -right-20 top-0 w-[300px] h-[300px] rounded-full bg-brand-cyan/[0.03] blur-[100px] pointer-events-none" />
-          {/* Bottom divider line */}
+          {background ?? <RetroGrid angle={65} className="opacity-40" />}
           <div className="absolute bottom-0 left-0 right-0 h-px hero-page-divider" />
         </>
       )}
