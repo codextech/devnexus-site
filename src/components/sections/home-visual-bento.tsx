@@ -1,15 +1,47 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
-import { Brain, Zap } from "lucide-react";
+import { ArrowRight, Globe, BrainCircuit, Users } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { fadeUp, staggerContainer, staggerItem } from "@/lib/animations";
+
+const showcaseCards = [
+  {
+    label: "Web & Mobile",
+    title: "Full-stack apps that convert",
+    body: "React, Next.js, React Native, Python — pixel-perfect UIs backed by bulletproof APIs.",
+    image: "/images/section/bento-web-mobile.jpg",
+    href: "/services/web-and-mobile",
+    icon: Globe,
+    tags: ["Next.js", "React Native", "Python"],
+  },
+  {
+    label: "AI & Automation",
+    title: "Production AI, not demos",
+    body: "Voice agents, agentic workflows, RAG pipelines — intelligence that ships and scales.",
+    image: "/images/section/bento-ai-solutions.jpg",
+    href: "/services/ai-solutions",
+    icon: BrainCircuit,
+    tags: ["LLM Agents", "Voice AI", "RAG"],
+  },
+  {
+    label: "Your Team",
+    title: "Senior engineers, start to ship",
+    body: "The same expert you meet is the one who builds your product. No hand-offs, no juniors.",
+    image: "/images/section/bento-team.jpg",
+    href: "/about",
+    icon: Users,
+    tags: ["Dedicated Team", "Full Stack", "24/7 Async"],
+  },
+];
 
 const stats = [
   { value: "50+", label: "Products shipped" },
   { value: "< 3wk", label: "To first prototype" },
-  { value: "100%", label: "Sprint demos delivered" },
+  { value: "99%", label: "Client satisfaction" },
+  { value: "24/7", label: "Async communication" },
 ];
 
 export function VisualBentoSection() {
@@ -19,7 +51,7 @@ export function VisualBentoSection() {
 
       <Container className="relative z-10">
         {/* Heading */}
-        <motion.div {...fadeUp} className="mb-10 md:mb-14">
+        <motion.div {...fadeUp} className="mb-12 md:mb-16">
           <p className="text-xs font-semibold tracking-[0.18em] uppercase text-brand-blue mb-3">
             What We Build
           </p>
@@ -29,144 +61,87 @@ export function VisualBentoSection() {
           </h2>
         </motion.div>
 
-        {/* Bento grid */}
+        {/* Showcase grid — 3 clean cards */}
         <motion.div
           {...staggerContainer}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
         >
-          {/* ── Card 1: Product UI — large hero ── */}
-          <motion.div
-            {...staggerItem}
-            className="lg:col-span-7 relative rounded-2xl overflow-hidden h-72 md:h-[420px] lg:h-[460px] group"
-          >
-            <Image
-              src="/images/section/Gemini_Generated_Image_1rdlmj1rdlmj1rdl.png"
-              alt="Web and mobile product UI"
-              fill
-              className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
-              sizes="(max-width: 1024px) 100vw, 58vw"
-            />
-            <div className="absolute inset-0 bento-img-overlay" />
-            <div className="absolute top-0 right-0 w-56 h-56 bg-brand-blue/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-9">
-              <p className="bento-card-label">Web & Mobile</p>
-              <h3 className="bento-card-image-title">
-                Interfaces your users
-                <br className="hidden md:block" /> actually want to use.
-              </h3>
-              <p className="bento-card-image-body mt-2 max-w-sm hidden md:block">
-                From pixel-perfect UIs to rock-solid APIs — we own the full
-                stack.
-              </p>
-            </div>
-          </motion.div>
+          {showcaseCards.map((card) => (
+            <motion.div key={card.href} {...staggerItem}>
+              <Link
+                href={card.href}
+                className="group block relative rounded-2xl overflow-hidden h-[420px] md:h-[480px] bento-showcase-card"
+              >
+                {/* Image */}
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
 
-          {/* ── Card 2: AI capability ── */}
-          <motion.div
-            {...staggerItem}
-            className="lg:col-span-5 relative rounded-2xl overflow-hidden h-64 lg:h-[460px] bento-ai-card"
-          >
-            {/* Decorative glow */}
-            <div className="absolute -top-10 -right-10 w-48 h-48 bg-brand-blue/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-cyan-400/8 rounded-full blur-3xl pointer-events-none" />
-            {/* Subtle grid pattern */}
-            <div className="absolute inset-0 bento-ai-grid" />
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bento-showcase-overlay" />
 
-            <div className="relative z-10 flex flex-col h-full p-6 md:p-8">
-              <div className="bento-ai-icon-ring mb-5">
-                <Brain className="w-5 h-5 text-brand-blue" />
-              </div>
-              <p className="bento-card-label">AI & Automation</p>
-              <h3 className="bento-ai-title mt-1 mb-3">
-                Intelligence built in,
-                <br /> not bolted on.
-              </h3>
-              <p className="bento-ai-body">
-                Voice agents, agentic workflows, LLM integrations —
-                production-grade AI that ships and scales.
-              </p>
-              <div className="mt-auto pt-5 flex flex-wrap gap-2">
-                {["LLM Agents", "Voice AI", "RAG", "Automation"].map((tag) => (
-                  <span key={tag} className="bento-ai-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+                {/* Content pinned to bottom — frosted glass panel */}
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-7 flex flex-col bento-showcase-glass">
+                  {/* Icon + label */}
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <div className="bento-showcase-icon-ring">
+                      <card.icon className="w-4 h-4 text-brand-blue" strokeWidth={2} />
+                    </div>
+                    <span className="bento-card-label mb-0">{card.label}</span>
+                  </div>
 
-          {/* ── Card 3: Team image ── */}
-          <motion.div
-            {...staggerItem}
-            className="lg:col-span-4 relative rounded-2xl overflow-hidden h-64 lg:h-[340px] group"
-          >
-            <Image
-              src="/images/section/Gemini_Generated_Image_be37jtbe37jtbe37.png"
-              alt="Senior DevNexus engineer"
-              fill
-              className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
-              sizes="(max-width: 1024px) 100vw, 33vw"
-            />
-            <div className="absolute inset-0 bento-img-overlay" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <p className="bento-card-label">Senior Engineers</p>
-              <p className="bento-card-image-title text-base md:text-lg font-semibold">
-                The same expert you meet is the one who ships your product.
-              </p>
-            </div>
-          </motion.div>
+                  {/* Title */}
+                  <h3 className="bento-card-image-title text-xl md:text-2xl font-bold leading-snug">
+                    {card.title}
+                  </h3>
 
-          {/* ── Card 4: Track record / stats ── */}
-          <motion.div
-            {...staggerItem}
-            className="lg:col-span-5 glass-card rounded-2xl p-7 md:p-8 flex flex-col justify-between"
-          >
-            <div>
-              <p className="bento-card-label-alt">Track Record</p>
-              <p className="bento-stats-body mt-2">
-                From wireframe to production — full-stack delivery with speed,
-                clarity, and zero hand-off friction.
-              </p>
-            </div>
-            <div className="grid grid-cols-3 gap-4 pt-6 bento-stats-divider">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="bento-stat-value">{stat.value}</p>
-                  <p className="bento-stat-label">{stat.label}</p>
+                  {/* Body */}
+                  <p className="bento-card-image-body mt-2 text-sm leading-relaxed">
+                    {card.body}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {card.tags.map((tag) => (
+                      <span key={tag} className="bento-showcase-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Hover arrow */}
+                  <div className="mt-5 flex items-center gap-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                    <span className="text-sm font-semibold text-brand-blue">
+                      Learn more
+                    </span>
+                    <ArrowRight className="w-4 h-4 text-brand-blue group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-              ))}
-            </div>
-          </motion.div>
+              </Link>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          {/* ── Card 5: Speed / process ── */}
-          <motion.div
-            {...staggerItem}
-            className="lg:col-span-3 bento-speed-card rounded-2xl p-6 md:p-7 flex flex-col justify-between"
-          >
-            <div>
-              <div className="bento-ai-icon-ring mb-4">
-                <Zap className="w-5 h-5 text-brand-blue" />
+        {/* Stats strip — clean horizontal bar */}
+        <motion.div
+          {...fadeUp}
+          className="mt-10 md:mt-14 bento-stats-strip rounded-2xl p-6 md:p-8"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {stats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`text-center ${i < stats.length - 1 ? "bento-stats-strip-divider" : ""}`}
+              >
+                <p className="bento-stat-value text-2xl md:text-3xl">{stat.value}</p>
+                <p className="bento-stat-label mt-1">{stat.label}</p>
               </div>
-              <p className="bento-speed-title">
-                Ship faster than your roadmap.
-              </p>
-              <p className="bento-speed-body mt-2">
-                Tight sprints. Daily async updates. Live previews from day one.
-              </p>
-            </div>
-            <ul className="mt-6 space-y-2.5">
-              {[
-                "Discovery → Spec in 48h",
-                "MVP in 3 weeks",
-                "Iterates on feedback daily",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-brand-blue flex-shrink-0" />
-                  <p className="bento-speed-item">{item}</p>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+            ))}
+          </div>
         </motion.div>
       </Container>
     </section>

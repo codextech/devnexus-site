@@ -39,3 +39,37 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.claude/skills/
+.claude/skills/
+
+# AI agent config folders
+.crush/
+.factory/
+.goose/
+.iflow/
+.junie/
+.kilocode/
+.kiro/
+.kode/
+.mcpjam/
+.mux/
+.neovate/
+.openhands/
+.pi/
+.pochi/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.vibe/
+.windsurf/
+.zencoder/
+.claude/skills/
+.adal/
+.agent/
+.agents/
+.augment/
+.claude/
+.codebuddy/
+.commandcode/
+skills/

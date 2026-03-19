@@ -4,7 +4,7 @@
 @theme inline {
   --color-background: #020817;
   --color-foreground: #f8fafc;
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-geist-mono);
 
   /* Brand Colors */
@@ -142,6 +142,16 @@ html.light .service-card-desc  { color: #475569 !important; }
   background-size: 64px 64px;
 }
 
+/* ── CTA banner button glow ── */
+.cta-banner-btn {
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+.cta-banner-btn:hover {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
 /* ── Animated gradient border ── */
 .gradient-border {
   position: relative;
@@ -229,6 +239,21 @@ html.light .service-card-desc  { color: #475569 !important; }
 .section-gradient-bottom {
   background: radial-gradient(ellipse 80% 50% at 50% 120%, rgba(2, 169, 247, 0.06) 0%, transparent 60%);
 }
+
+/* ── Case Studies CTA strip ── */
+.case-studies-cta-strip {
+  background: rgba(2, 169, 247, 0.04);
+  border: 1px solid rgba(2, 169, 247, 0.10);
+}
+.case-studies-cta-title { color: #ffffff; }
+.case-studies-cta-sub   { color: #64748b; }
+
+html.light .case-studies-cta-strip {
+  background: rgba(2, 169, 247, 0.04) !important;
+  border-color: rgba(2, 169, 247, 0.12) !important;
+}
+html.light .case-studies-cta-title { color: #0f172a !important; }
+html.light .case-studies-cta-sub   { color: #64748b !important; }
 
 /* ── Scroll indicator ── */
 @keyframes scroll-indicator {
@@ -393,128 +418,147 @@ html.light .section-gradient-bottom {
   background: radial-gradient(ellipse 80% 50% at 50% 120%, rgba(2, 169, 247, 0.05) 0%, transparent 60%) !important;
 }
 
-/* ── Ecosystem section — universe background ── */
-.ecosystem-bg {
-  background: radial-gradient(ellipse 120% 80% at 50% 50%, #0a0e1a 0%, #060912 40%, #030508 100%);
+/* ── Ecosystem section — hero-style background ── */
+.eco-veil-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(2,169,247,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 20%, rgba(6,182,212,0.04) 0%, transparent 50%),
+    #020817;
 }
 
-.ecosystem-stars {
-  background-image:
-    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 25% 60%, rgba(255,255,255,0.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 40% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 55% 75%, rgba(2,169,247,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 70% 35%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 85% 55%, rgba(255,255,255,0.45) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 15% 80%, rgba(6,182,212,0.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 50% 45%, rgba(255,255,255,0.25) 0%, transparent 100%),
-    radial-gradient(1px 1px at 30% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 65% 5%, rgba(2,169,247,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 80% 85%, rgba(255,255,255,0.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 5% 50%, rgba(255,255,255,0.25) 0%, transparent 100%),
-    radial-gradient(1px 1px at 45% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 95% 70%, rgba(6,182,212,0.25) 0%, transparent 100%);
+.eco-aurora-blob {
+  background: radial-gradient(circle, rgba(2,169,247,0.25) 0%, rgba(6,182,212,0.14) 35%, transparent 70%);
+  filter: blur(80px);
+  border-radius: 50%;
 }
 
-/* SVG orbit track colours (dark) */
-.orbit-track-inner { stroke: rgba(2,169,247,0.18); }
-.orbit-track-outer { stroke: rgba(6,182,212,0.14); }
+.eco-aurora-blob-cyan {
+  background: radial-gradient(circle, rgba(6,182,212,0.18) 0%, rgba(2,169,247,0.08) 40%, transparent 70%);
+  filter: blur(90px);
+  border-radius: 50%;
+}
+
+.eco-dot-grid {
+  background-image: radial-gradient(circle, rgba(2,169,247,0.45) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.06;
+  mask-image: linear-gradient(135deg, transparent 15%, black 45%, transparent 80%);
+  -webkit-mask-image: linear-gradient(135deg, transparent 15%, black 45%, transparent 80%);
+}
+
+.eco-bottom-fade {
+  background: linear-gradient(to top, rgba(2,8,23,0.4) 0%, rgba(2,8,23,0.15) 40%, transparent 70%);
+}
+
+/* ── Ecosystem: SVG tracks (dark) ── */
+.eco-track-inner { stroke: rgba(2,169,247,0.15); }
+.eco-track-outer { stroke: rgba(6,182,212,0.12); }
+.eco-pulse-ring  { stroke: rgba(2,169,247,0.08); }
 
 /* Node cards (dark) */
-.orbit-node-card-inner {
-  background: rgba(2,169,247,0.12);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(2,169,247,0.22);
-  box-shadow: 0 4px 20px rgba(2,169,247,0.10);
+.eco-node-inner {
+  background: rgba(2,169,247,0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(2,169,247,0.20);
+  box-shadow: 0 4px 20px rgba(2,169,247,0.08);
 }
-.orbit-node-card-inner:hover { background: rgba(2,169,247,0.22); }
+.eco-node-inner:hover {
+  background: rgba(2,169,247,0.20);
+  box-shadow: 0 6px 28px rgba(2,169,247,0.15);
+}
 
-.orbit-node-card-outer {
-  background: rgba(6,182,212,0.10);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(6,182,212,0.18);
-  box-shadow: 0 4px 20px rgba(6,182,212,0.08);
+.eco-node-outer {
+  background: rgba(6,182,212,0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(6,182,212,0.16);
+  box-shadow: 0 4px 20px rgba(6,182,212,0.06);
 }
-.orbit-node-card-outer:hover { background: rgba(6,182,212,0.20); }
+.eco-node-outer:hover {
+  background: rgba(6,182,212,0.18);
+  box-shadow: 0 6px 28px rgba(6,182,212,0.12);
+}
 
 /* Labels (dark) */
-.orbit-label-text { color: rgba(255,255,255,0.5); }
-.ecosystem-hub-text { color: #ffffff; }
+.eco-label    { color: rgba(255,255,255,0.50); }
+.eco-hub-text { color: #ffffff; }
+
+/* Mobile cards (dark) */
+.eco-mobile-line { background: linear-gradient(to bottom, rgba(2,169,247,0.3), rgba(6,182,212,0.1)); }
+
+.eco-mobile-card-inner {
+  background: rgba(2,169,247,0.06);
+  border: 1px solid rgba(2,169,247,0.12);
+}
+.eco-mobile-card-outer {
+  background: rgba(6,182,212,0.05);
+  border: 1px solid rgba(6,182,212,0.10);
+}
 
 /* ═══ Ecosystem — Light theme ═══ */
-html.light .ecosystem-bg {
-  background: radial-gradient(ellipse 120% 80% at 50% 50%, #f0f4ff 0%, #e8edf8 40%, #f5f7fb 100%) !important;
+html.light .eco-veil-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(2,169,247,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 20%, rgba(6,182,212,0.03) 0%, transparent 50%),
+    #f8fafc !important;
 }
 
-html.light .ecosystem-stars {
-  background-image:
-    radial-gradient(1.5px 1.5px at 10% 20%, rgba(2,169,247,0.15) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 40% 15%, rgba(6,182,212,0.12) 0%, transparent 100%),
-    radial-gradient(2px 2px at 55% 75%, rgba(2,169,247,0.12) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 70% 35%, rgba(99,102,241,0.10) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 85% 55%, rgba(2,169,247,0.10) 0%, transparent 100%),
-    radial-gradient(2px 2px at 15% 80%, rgba(6,182,212,0.12) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 65% 5%, rgba(2,169,247,0.10) 0%, transparent 100%) !important;
+html.light .eco-aurora-blob {
+  background: radial-gradient(circle, rgba(2,169,247,0.16) 0%, rgba(6,182,212,0.08) 35%, transparent 70%) !important;
 }
 
-html.light .ecosystem-nebula {
-  opacity: 0.6 !important;
+html.light .eco-aurora-blob-cyan {
+  background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, rgba(2,169,247,0.05) 40%, transparent 70%) !important;
 }
 
-html.light .orbit-track-inner { stroke: rgba(2,169,247,0.30) !important; }
-html.light .orbit-track-outer { stroke: rgba(6,182,212,0.25) !important; }
-
-html.light .orbit-node-card-inner {
-  background: rgba(2,169,247,0.08) !important;
-  border: 1px solid rgba(2,169,247,0.30) !important;
-  box-shadow: 0 4px 20px rgba(2,169,247,0.08) !important;
-}
-html.light .orbit-node-card-inner:hover { background: rgba(2,169,247,0.15) !important; }
-
-html.light .orbit-node-card-outer {
-  background: rgba(6,182,212,0.06) !important;
-  border: 1px solid rgba(6,182,212,0.25) !important;
-  box-shadow: 0 4px 20px rgba(6,182,212,0.06) !important;
-}
-html.light .orbit-node-card-outer:hover { background: rgba(6,182,212,0.12) !important; }
-
-html.light .orbit-label-text { color: #475569 !important; }
-html.light .ecosystem-hub-text { color: #0f172a !important; }
-
-/* ── Ecosystem orbital animations ── */
-@keyframes orbit-cw {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-@keyframes orbit-ccw {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(-360deg); }
+html.light .eco-dot-grid {
+  background-image: radial-gradient(circle, rgba(2,132,199,0.4) 1px, transparent 1px) !important;
+  opacity: 0.08 !important;
 }
 
-.orbit-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border-radius: 50%;
-  transform-origin: center;
+html.light .eco-bottom-fade {
+  background: linear-gradient(to top, rgba(248,250,252,0.4) 0%, rgba(248,250,252,0.15) 40%, transparent 70%) !important;
 }
 
-.orbit-ring-inner {
-  animation: orbit-cw 40s linear infinite;
+html.light .eco-track-inner { stroke: rgba(2,169,247,0.25) !important; }
+html.light .eco-track-outer { stroke: rgba(6,182,212,0.20) !important; }
+html.light .eco-pulse-ring  { stroke: rgba(2,169,247,0.10) !important; }
+
+html.light .eco-node-inner {
+  background: rgba(2,169,247,0.07) !important;
+  border-color: rgba(2,169,247,0.25) !important;
+  box-shadow: 0 4px 20px rgba(2,169,247,0.06) !important;
+}
+html.light .eco-node-inner:hover {
+  background: rgba(2,169,247,0.14) !important;
+  box-shadow: 0 6px 28px rgba(2,169,247,0.10) !important;
 }
 
-.orbit-ring-outer {
-  animation: orbit-ccw 55s linear infinite;
+html.light .eco-node-outer {
+  background: rgba(6,182,212,0.05) !important;
+  border-color: rgba(6,182,212,0.22) !important;
+  box-shadow: 0 4px 20px rgba(6,182,212,0.05) !important;
+}
+html.light .eco-node-outer:hover {
+  background: rgba(6,182,212,0.12) !important;
+  box-shadow: 0 6px 28px rgba(6,182,212,0.08) !important;
 }
 
-/* Counter-rotate children so they stay upright */
-.orbit-node-inner {
-  animation: orbit-ccw 40s linear infinite;
+html.light .eco-label    { color: #475569 !important; }
+html.light .eco-hub-text { color: #0f172a !important; }
+
+html.light .eco-mobile-line {
+  background: linear-gradient(to bottom, rgba(2,169,247,0.2), rgba(6,182,212,0.08)) !important;
 }
 
-.orbit-node-outer {
-  animation: orbit-cw 55s linear infinite;
+html.light .eco-mobile-card-inner {
+  background: rgba(2,169,247,0.04) !important;
+  border-color: rgba(2,169,247,0.15) !important;
+}
+html.light .eco-mobile-card-outer {
+  background: rgba(6,182,212,0.03) !important;
+  border-color: rgba(6,182,212,0.12) !important;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -567,6 +611,28 @@ html.light .ecosystem-hub-text { color: #0f172a !important; }
   color: #cbd5e1;
 }
 
+.pillar-also-pill {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+.pillar-also-pill:hover {
+  background: rgba(2, 169, 247, 0.08);
+  border-color: rgba(2, 169, 247, 0.2);
+  color: #ffffff;
+}
+.pillar-also-pill-arrow { color: #02A9F7; }
+
+.pillar-conversion-strip {
+  background: rgba(2, 169, 247, 0.04);
+  border: 1px solid rgba(2, 169, 247, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.pillar-conversion-status {
+  color: #34d399;
+}
+
 /* ═══════════════════════════════════════════════════════════
    PILLAR CARDS — Light theme
    ═══════════════════════════════════════════════════════════ */
@@ -614,6 +680,26 @@ html.light .pillar-pill {
   background: rgba(0, 0, 0, 0.03) !important;
   border: 1px solid rgba(0, 0, 0, 0.07) !important;
   color: #334155 !important;
+}
+
+html.light .pillar-also-pill {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #334155 !important;
+}
+html.light .pillar-also-pill:hover {
+  background: rgba(2, 169, 247, 0.06) !important;
+  border-color: rgba(2, 169, 247, 0.2) !important;
+  color: #0f172a !important;
+}
+html.light .pillar-also-pill-arrow { color: #02A9F7 !important; }
+
+html.light .pillar-conversion-strip {
+  background: rgba(2, 169, 247, 0.03) !important;
+  border: 1px solid rgba(2, 169, 247, 0.1) !important;
+}
+html.light .pillar-conversion-status {
+  color: #059669 !important;
 }
 
 /* ── Contact form inputs — light theme ── */
@@ -836,18 +922,38 @@ html.light .grayscale-0 .logo-bar-image {
    PROCESS SECTION — Dark theme (default)
    ═══════════════════════════════════════════════════════════ */
 
+/* ── Progress track ── */
+.process-track {
+  background: rgba(255, 255, 255, 0.06);
+}
+.process-track-fill {
+  background: linear-gradient(90deg, #02A9F7, #06b6d4);
+  box-shadow: 0 0 20px rgba(2, 169, 247, 0.3);
+}
+
+/* ── Big step numbers ── */
+.process-big-num {
+  color: rgba(255, 255, 255, 0.06);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
 .process-icon-ring {
   background: rgba(2, 169, 247, 0.06);
   border: 1px solid rgba(2, 169, 247, 0.15);
   transition: border-color 0.3s ease, background 0.3s ease;
 }
-.process-icon-ring:hover {
-  background: rgba(2, 169, 247, 0.12);
-  border-color: rgba(2, 169, 247, 0.3);
-}
 
-.process-connector {
-  background: linear-gradient(90deg, rgba(2, 169, 247, 0.2), rgba(6, 182, 212, 0.12));
+.process-timeline-badge {
+  display: inline-flex;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #02A9F7;
+  background: rgba(2, 169, 247, 0.08);
+  border: 1px solid rgba(2, 169, 247, 0.15);
+  border-radius: 9999px;
 }
 
 .process-title-text { color: #ffffff; }
@@ -857,21 +963,144 @@ html.light .grayscale-0 .logo-bar-image {
    PROCESS SECTION — Light theme
    ═══════════════════════════════════════════════════════════ */
 
+html.light .process-track {
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+html.light .process-track-fill {
+  background: linear-gradient(90deg, #02A9F7, #06b6d4) !important;
+  box-shadow: 0 0 16px rgba(2, 169, 247, 0.2) !important;
+}
+
+html.light .process-big-num {
+  color: rgba(0, 0, 0, 0.05) !important;
+}
+
 html.light .process-icon-ring {
   background: rgba(2, 169, 247, 0.05) !important;
   border: 1px solid rgba(2, 169, 247, 0.14) !important;
 }
-html.light .process-icon-ring:hover {
-  background: rgba(2, 169, 247, 0.1) !important;
-  border-color: rgba(2, 169, 247, 0.28) !important;
-}
 
-html.light .process-connector {
-  background: linear-gradient(90deg, rgba(2, 169, 247, 0.15), rgba(6, 182, 212, 0.1)) !important;
+html.light .process-timeline-badge {
+  background: rgba(2, 169, 247, 0.06) !important;
+  border-color: rgba(2, 169, 247, 0.12) !important;
 }
 
 html.light .process-title-text { color: #0f172a !important; }
 html.light .process-body-text  { color: #475569 !important; }
+
+/* ═══════════════════════════════════════════════════════════
+   SUCCESS STORY — Dark theme (default)
+   ═══════════════════════════════════════════════════════════ */
+
+.story-divider-line {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.08), transparent);
+}
+
+.story-title-text { color: #ffffff; }
+.story-body-text  { color: #94a3b8; }
+.story-cta-text   { color: #ffffff; }
+
+.story-client-badge {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(2, 169, 247, 0.08);
+  border: 1px solid rgba(2, 169, 247, 0.15);
+  color: #e2e8f0;
+}
+
+.story-stat-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.story-stat-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(2, 169, 247, 0.15);
+}
+
+.story-stat-icon-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(2, 169, 247, 0.08);
+  border: 1px solid rgba(2, 169, 247, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.story-stat-value {
+  color: #ffffff;
+  line-height: 1;
+}
+
+.story-stat-label {
+  color: #64748b;
+}
+
+.story-image-card {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.5);
+}
+
+.story-quote-glass {
+  background: rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SUCCESS STORY — Light theme
+   ═══════════════════════════════════════════════════════════ */
+
+html.light .story-section-bg { background: #ffffff !important; }
+
+html.light .story-divider-line {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent) !important;
+}
+
+html.light .story-title-text { color: #0f172a !important; }
+html.light .story-body-text  { color: #475569 !important; }
+html.light .story-cta-text   { color: #0f172a !important; }
+
+html.light .story-client-badge {
+  background: rgba(2, 169, 247, 0.06) !important;
+  border-color: rgba(2, 169, 247, 0.12) !important;
+  color: #0f172a !important;
+}
+
+html.light .story-stat-card {
+  background: rgba(0, 0, 0, 0.015) !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light .story-stat-card:hover {
+  background: rgba(2, 169, 247, 0.03) !important;
+  border-color: rgba(2, 169, 247, 0.12) !important;
+}
+
+html.light .story-stat-icon-ring {
+  background: rgba(2, 169, 247, 0.06) !important;
+  border-color: rgba(2, 169, 247, 0.1) !important;
+}
+
+html.light .story-stat-value { color: #0f172a !important; }
+html.light .story-stat-label { color: #64748b !important; }
+
+html.light .story-image-card {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.12) !important;
+}
+
+html.light .story-quote-glass {
+  background: rgba(2, 6, 23, 0.78) !important;
+  backdrop-filter: blur(20px) saturate(1.5) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.5) !important;
+  border-top-color: rgba(255, 255, 255, 0.12) !important;
+}
 
 /* ═══════════════════════════════════════════════════════════
    BENTO SECTION — Dark theme (default)
@@ -1025,6 +1254,69 @@ html.light .process-body-text  { color: #475569 !important; }
   color: #64748b;
 }
 
+/* ── Showcase cards ── */
+.bento-showcase-card {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.bento-showcase-card:hover {
+  border-color: rgba(2, 169, 247, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(2, 169, 247, 0.06);
+}
+
+.bento-showcase-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(2, 6, 23, 0.7) 0%,
+    rgba(2, 6, 23, 0.3) 45%,
+    transparent 100%
+  );
+}
+
+.bento-showcase-glass {
+  background: rgba(2, 6, 23, 0.55);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bento-showcase-icon-ring {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background: rgba(2, 169, 247, 0.12);
+  border: 1px solid rgba(2, 169, 247, 0.2);
+}
+
+.bento-showcase-tag {
+  display: inline-block;
+  padding: 0.2rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Stats strip ── */
+.bento-stats-strip {
+  background: rgba(15, 29, 50, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+@media (min-width: 768px) {
+  .bento-stats-strip-divider {
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
    BENTO SECTION — Light theme
    ═══════════════════════════════════════════════════════════ */
@@ -1070,3 +1362,161 @@ html.light .bento-speed-card {
 html.light .bento-speed-title { color: #0f172a !important; }
 html.light .bento-speed-body  { color: #475569 !important; }
 html.light .bento-speed-item  { color: #64748b !important; }
+
+html.light .bento-showcase-card {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+html.light .bento-showcase-card:hover {
+  border-color: rgba(2, 169, 247, 0.25) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 40px rgba(2, 169, 247, 0.04) !important;
+}
+
+html.light .bento-showcase-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 45%,
+    transparent 100%
+  ) !important;
+}
+
+html.light .bento-showcase-glass {
+  background: rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(16px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html.light .bento-showcase-tag {
+  color: rgba(255, 255, 255, 0.85) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+html.light .bento-stats-strip {
+  background: rgba(248, 250, 252, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
+}
+
+html.light .bento-stat-value {
+  color: #0f172a !important;
+}
+
+html.light .bento-stat-label {
+  color: #475569 !important;
+}
+
+@media (min-width: 768px) {
+  html.light .bento-stats-strip-divider {
+    border-right-color: rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO — VEIL-inspired structure, DevNexus palette
+   ═══════════════════════════════════════════════════════════ */
+
+/* Base: matches site dark-950 with subtle radial warmth */
+.hero-veil-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(2,169,247,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 20%, rgba(6,182,212,0.04) 0%, transparent 50%),
+    #020817;
+}
+
+/* Aurora blob — brand-blue/cyan glow */
+.hero-aurora-blob {
+  background: radial-gradient(
+    circle,
+    rgba(2, 169, 247, 0.30) 0%,
+    rgba(6, 182, 212, 0.18) 35%,
+    transparent 70%
+  );
+  filter: blur(80px);
+  border-radius: 50%;
+}
+
+/* Dot grid — brand-blue data pattern */
+.hero-dot-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(2, 169, 247, 0.5) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  opacity: 0.15;
+  mask-image: linear-gradient(135deg, transparent 10%, black 40%, transparent 75%);
+  -webkit-mask-image: linear-gradient(135deg, transparent 10%, black 40%, transparent 75%);
+}
+
+/* Dark silhouette — abstract shape at center-bottom */
+.hero-silhouette {
+  background: linear-gradient(
+    to top,
+    rgba(2, 8, 23, 0.5) 0%,
+    rgba(2, 8, 23, 0.2) 40%,
+    transparent 70%
+  );
+  clip-path: ellipse(75% 55% at 50% 100%);
+}
+
+/* Floating stat numbers */
+.hero-stat-number {
+  color: #ffffff;
+}
+.hero-stat-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Hero cursor on gradient bg */
+.hero-veil .hero-cursor {
+  background: #02A9F7;
+}
+
+/* ═══ VEIL Hero — Light theme ═══ */
+
+html.light .hero-veil-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(2,169,247,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 20%, rgba(6,182,212,0.03) 0%, transparent 50%),
+    #f8fafc !important;
+}
+
+html.light .hero-aurora-blob {
+  background: radial-gradient(
+    circle,
+    rgba(2, 169, 247, 0.20) 0%,
+    rgba(6, 182, 212, 0.12) 35%,
+    transparent 70%
+  ) !important;
+}
+
+html.light .hero-dot-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(2, 132, 199, 0.4) 1px,
+    transparent 1px
+  ) !important;
+  opacity: 0.12 !important;
+}
+
+html.light .hero-silhouette {
+  background: linear-gradient(
+    to top,
+    rgba(248, 250, 252, 0.5) 0%,
+    rgba(248, 250, 252, 0.2) 40%,
+    transparent 70%
+  ) !important;
+}
+
+html.light .hero-stat-number {
+  color: #0f172a !important;
+}
+html.light .hero-stat-label {
+  color: #475569 !important;
+}
+
+html.light .hero-veil .hero-cursor {
+  background: #0284c7 !important;
+}
