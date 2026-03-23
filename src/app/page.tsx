@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 import { createMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createMetadata({
-  title: "Full-Service Software Development Company | Web, Mobile & AI | DevNexus",
+  title: "Full-Service Software Development Company | Web, Mobile & AI",
   description:
     "DevNexus is a full-service software development company specializing in JavaScript, Node.js, Python, AI solutions, and mobile apps. From web platforms to agentic AI workflows — we build software that scales.",
   path: "/",

@@ -85,7 +85,7 @@ export const services: ServiceData[] = [
     cta: "Start Your Project",
     relatedCaseStudy: "agilepulse-jira-apps",
     metaTitle:
-      "Next.js & React Native Development Agency | Web and Mobile Apps | DevNexus",
+      "Next.js & React Native Development Agency | Web and Mobile Apps",
     metaDescription:
       "Next.js web app and React Native mobile development agency. We build full-stack products with Node.js, TypeScript, and PostgreSQL — from startup MVP to production-scale SaaS.",
   },
@@ -172,7 +172,7 @@ export const services: ServiceData[] = [
     ],
     cta: "Discuss Your AI Strategy",
     relatedCaseStudy: "tophealth-patient-intake",
-    metaTitle: "RAG Pipeline & LLM Integration Development | Custom AI Solutions | DevNexus",
+    metaTitle: "RAG Pipeline & LLM Integration Development | Custom AI Solutions",
     metaDescription:
       "RAG pipeline development with LangChain and LlamaIndex. LLM integration for OpenAI, Anthropic, and AWS Bedrock. Custom AI automation and document intelligence — production-ready, not just demos.",
   },
@@ -258,7 +258,7 @@ export const services: ServiceData[] = [
     cta: "Build Your AI Agents",
     relatedCaseStudy: "vapi-voice-ai-outreach-agent",
     metaTitle:
-      "Agentic AI Development Company | Autonomous Workflow Agents | DevNexus",
+      "Agentic AI Development Company | Autonomous Workflow Agents",
     metaDescription:
       "Build autonomous AI agents that execute multi-step workflows, call APIs, and make decisions — without a human in every loop. Multi-agent orchestration built for production.",
   },
@@ -358,7 +358,7 @@ export const services: ServiceData[] = [
     ],
     cta: "Launch Your Voice Agent",
     relatedCaseStudy: "vapi-voice-ai-outreach-agent",
-    metaTitle: "Voice AI Agent Development Company | Vapi & ElevenLabs Experts | DevNexus",
+    metaTitle: "Voice AI Agent Development Company | Vapi & ElevenLabs Experts",
     metaDescription:
       "We build custom voice AI agents that qualify leads, book appointments, and handle support calls 24/7 — deployed in 4–8 weeks. Built on Vapi, ElevenLabs, and Twilio. No call center headcount needed.",
   },
@@ -443,7 +443,7 @@ export const services: ServiceData[] = [
     cta: "Get Your Jira App Built",
     relatedCaseStudy: "agilepulse-jira-apps",
     metaTitle:
-      "Jira App Development Company | Atlassian Forge & Marketplace | DevNexus",
+      "Jira App Development Company | Atlassian Forge & Marketplace",
     metaDescription:
       "Custom Jira apps built on Atlassian Forge — Marketplace-certified, Cloud and Data Center ready. Workflow automation, integrations, and private apps for your team.",
   },

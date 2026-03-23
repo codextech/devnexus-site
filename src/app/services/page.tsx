@@ -8,7 +8,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = createMetadata({
-  title: "Software Development Services | Web, Mobile, AI & Jira | DevNexus",
+  title: "Software Development Services | Web, Mobile, AI & Jira",
   description:
     "Web & mobile development, AI solutions, agentic workflows, voice AI agents, and Jira integrations. Five practice areas, one team.",
   path: "/services",

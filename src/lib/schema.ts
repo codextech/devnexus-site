@@ -7,7 +7,7 @@ export function organizationSchema() {
     name: SITE.name,
     url: SITE.url,
     logo: `${SITE.url}/images/logo.svg`,
-    sameAs: [SITE.social.linkedin, SITE.social.github, SITE.social.x],
+    sameAs: [SITE.social.linkedin, SITE.social.github, SITE.social.x].filter(Boolean),
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
@@ -111,7 +111,7 @@ export function professionalServiceSchema() {
     logo: `${SITE.url}/images/logo.svg`,
     email: SITE.email,
     description:
-      "DevNexus is an AI-first software development agency specializing in Next.js web apps, agentic AI workflows, voice AI agents, and Jira app development.",
+      "DevNexus is a full-service software development company specializing in JavaScript, Node.js, Python, web & mobile apps, AI solutions, agentic workflows, voice AI agents, and Jira app development.",
     sameAs: [SITE.social.linkedin, SITE.social.x],
     areaServed: "Worldwide",
     serviceType: [
