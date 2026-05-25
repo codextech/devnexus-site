@@ -19,6 +19,7 @@ export type BlogPostMeta = {
   excerpt: string;
   author: string;
   publishedAt: string;
+  updatedAt?: string;
   readTime: string;
   tags: string[];
   image: string;

@@ -31,7 +31,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogPosts = getAllBlogPosts().map((post) => ({
     url: `${SITE.url}/blog/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
+    // Use updatedAt if present, otherwise fall back to publishedAt
+    // This ensures recently updated posts signal freshness to Googlebot
+    lastModified: new Date(post.updatedAt || post.publishedAt),
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));

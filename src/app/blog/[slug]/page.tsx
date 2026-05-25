@@ -56,6 +56,7 @@ export default async function BlogPostPage({ params }: Props) {
               description: frontmatter.excerpt,
               url: `${SITE.url}/blog/${slug}`,
               publishedAt: frontmatter.publishedAt,
+              modifiedAt: frontmatter.updatedAt,
               image: frontmatter.image ? `${SITE.url}${frontmatter.image}` : undefined,
             })
           ),
