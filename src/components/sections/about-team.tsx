@@ -1,114 +1,91 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
-import { motion, useInView } from "motion/react";
+import { motion } from "motion/react";
 import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { fadeUp } from "@/lib/animations";
 
 export function AboutTeam() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section className="py-20 md:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 about-team-bg" />
+    <section className="border-t border-border bg-bg py-24 md:py-32">
+      <Container>
+        <motion.div {...fadeUp} className="mb-12">
+          <div className="mb-5">
+            <Eyebrow label="The team" />
+          </div>
+          <h2 className="max-w-2xl font-display text-2xl font-bold leading-tight tracking-[-0.02em] text-fg md:text-3xl lg:text-4xl">
+            Engineers, not account managers
+          </h2>
+          <p className="mt-3 max-w-xl leading-relaxed text-fg-muted">
+            Small by design. Every person you work with is a senior engineer
+            who&rsquo;s shipped production software.
+          </p>
+        </motion.div>
 
-      <Container className="relative z-10">
-        <div ref={ref}>
-          {/* Header */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+          {/* Large image */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
+            {...fadeUp}
+            className="group relative h-[280px] overflow-hidden rounded-[14px] border border-border md:col-span-7 md:h-[400px]"
           >
-            <div className="flex items-center gap-3 mb-5">
-              <div className="h-px w-8 bg-brand-blue" />
-              <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-blue">
-                The Team
-              </span>
+            <Image
+              src="/images/team/Gemini_Generated_Image_8enz948enz948enz.png"
+              alt="DevNexus engineer at work"
+              fill
+              sizes="(max-width: 768px) 100vw, 58vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            <div className="absolute bottom-5 left-6">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/60">
+                Deep in the build
+              </p>
+              <p className="mt-1 text-sm font-medium text-white/90">
+                Senior engineers who own the outcome
+              </p>
             </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold about-title leading-tight max-w-2xl">
-              Engineers, Not Account Managers
-            </h2>
-            <p className="mt-3 text-sm md:text-base about-body max-w-xl leading-relaxed">
-              Small by design. Every person you work with is a senior engineer
-              who&rsquo;s shipped production software.
-            </p>
           </motion.div>
 
-          {/* Image grid — asymmetric bento */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-            {/* Large image — spans 7 cols */}
+          {/* Right column */}
+          <div className="flex flex-col gap-4 md:col-span-5">
             <motion.div
-              className="md:col-span-7 relative rounded-2xl overflow-hidden about-image-card h-[280px] md:h-[400px] group"
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              {...fadeUp}
+              className="group relative h-[200px] overflow-hidden rounded-[14px] border border-border md:flex-1"
             >
               <Image
-                src="/images/team/Gemini_Generated_Image_8enz948enz948enz.png"
-                alt="DevNexus engineer at work"
+                src="/images/team/Gemini_Generated_Image_lesspdlesspdless.png"
+                alt="DevNexus team collaborating"
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                sizes="(max-width: 768px) 100vw, 58vw"
+                sizes="(max-width: 768px) 100vw, 42vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               />
-              <div className="absolute inset-0 about-image-overlay" />
-              <div className="absolute bottom-5 left-6">
-                <p className="text-xs font-semibold text-white/60 uppercase tracking-[0.15em]">
-                  Deep in the build
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <div className="absolute bottom-4 left-5">
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/60">
+                  Collaboration
                 </p>
-                <p className="text-sm font-medium text-white/90 mt-1">
-                  Senior engineers who own the outcome
+                <p className="mt-1 text-sm font-medium text-white/90">
+                  Working through hard problems together
                 </p>
               </div>
             </motion.div>
 
-            {/* Stacked right — 5 cols */}
-            <div className="md:col-span-5 flex flex-col gap-4">
-              <motion.div
-                className="relative rounded-2xl overflow-hidden about-image-card h-[200px] md:flex-1 group"
-                initial={{ opacity: 0, x: 30 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.25, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Image
-                  src="/images/team/Gemini_Generated_Image_lesspdlesspdless.png"
-                  alt="DevNexus team collaborating"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  sizes="(max-width: 768px) 100vw, 42vw"
-                />
-                <div className="absolute inset-0 about-image-overlay" />
-                <div className="absolute bottom-4 left-5">
-                  <p className="text-xs font-semibold text-white/60 uppercase tracking-[0.15em]">
-                    Collaboration
-                  </p>
-                  <p className="text-sm font-medium text-white/90 mt-1">
-                    Working through hard problems together
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Info card */}
-              <motion.div
-                className="about-info-card rounded-2xl p-6 md:p-7 flex flex-col justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.35, duration: 0.5 }}
-              >
-                <p className="text-lg md:text-xl font-bold about-title leading-snug">
-                  No handoffs.
-                  <br />
-                  No juniors.
-                  <br />
-                  <span className="text-brand-blue">No surprises.</span>
-                </p>
-                <p className="mt-3 text-xs about-body leading-relaxed">
-                  The same expert you meet is the one who builds your product.
-                </p>
-              </motion.div>
-            </div>
+            <motion.div
+              {...fadeUp}
+              className="flex flex-col justify-center rounded-[14px] border border-border bg-surface p-6 md:p-7"
+            >
+              <p className="font-display text-lg font-bold leading-snug text-fg md:text-xl">
+                No handoffs.
+                <br />
+                No juniors.
+                <br />
+                <span className="text-blue">No surprises.</span>
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-fg-muted">
+                The same expert you meet is the one who builds your product.
+              </p>
+            </motion.div>
           </div>
         </div>
       </Container>
