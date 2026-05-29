@@ -30,7 +30,7 @@ export function AboutTeam() {
             className="group relative h-[280px] overflow-hidden rounded-[14px] border border-border md:col-span-7 md:h-[400px]"
           >
             <Image
-              src="/images/team/Gemini_Generated_Image_8enz948enz948enz.png"
+              src="/images/team/team-build.jpg"
               alt="DevNexus engineer at work"
               fill
               sizes="(max-width: 768px) 100vw, 58vw"
@@ -54,7 +54,7 @@ export function AboutTeam() {
               className="group relative h-[200px] overflow-hidden rounded-[14px] border border-border md:flex-1"
             >
               <Image
-                src="/images/team/Gemini_Generated_Image_lesspdlesspdless.png"
+                src="/images/team/team-collab.jpg"
                 alt="DevNexus team collaborating"
                 fill
                 sizes="(max-width: 768px) 100vw, 42vw"
