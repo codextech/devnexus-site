@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Geist_Mono } from "next/font/google";
+import { DM_Sans, Geist_Mono, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import { Header } from "@/components/blocks/header";
 import { Footer } from "@/components/blocks/footer";
@@ -16,6 +16,12 @@ const dmSans = DM_Sans({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["500", "700"],
 });
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
@@ -76,7 +82,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${dmSans.variable} ${geistMono.variable} antialiased`}
+        className={`${dmSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
       >
         {/* Prevent flash of wrong theme — runs synchronously before first paint */}
         <script

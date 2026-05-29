@@ -2,10 +2,14 @@
 
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { fadeUp } from "@/lib/animations";
+import { fadeUp, fadeIn, clipReveal } from "@/lib/animations";
+import { Eyebrow } from "./eyebrow";
 
 type SectionHeadingProps = {
+  /** Mono label text, e.g. "SELECTED WORK" */
   eyebrow?: string;
+  /** Optional numeric prefix, e.g. "03" */
+  index?: string;
   title: string;
   subtitle?: string;
   align?: "left" | "center";
@@ -14,33 +18,39 @@ type SectionHeadingProps = {
 
 export function SectionHeading({
   eyebrow,
+  index,
   title,
   subtitle,
   align = "center",
   className,
 }: SectionHeadingProps) {
   return (
-    <motion.div
-      {...fadeUp}
+    <div
       className={cn(
         "max-w-3xl",
         align === "center" ? "mx-auto text-center" : "text-left",
-        className
+        className,
       )}
     >
-      {eyebrow && (
-        <p className="text-xs font-semibold tracking-[0.2em] uppercase text-brand-blue mb-4">
-          {eyebrow}
-        </p>
-      )}
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1] section-heading-text">
+      {eyebrow ? (
+        <motion.div {...fadeIn} className="mb-5">
+          <Eyebrow index={index} label={eyebrow} />
+        </motion.div>
+      ) : null}
+      <motion.h2
+        {...clipReveal}
+        className="font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] text-fg md:text-4xl lg:text-5xl"
+      >
         {title}
-      </h2>
-      {subtitle && (
-        <p className="mt-5 text-base md:text-lg text-dark-400 leading-relaxed">
+      </motion.h2>
+      {subtitle ? (
+        <motion.p
+          {...fadeUp}
+          className="mt-5 text-base leading-relaxed text-fg-muted md:text-lg"
+        >
           {subtitle}
-        </p>
-      )}
-    </motion.div>
+        </motion.p>
+      ) : null}
+    </div>
   );
 }

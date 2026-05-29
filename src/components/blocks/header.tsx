@@ -21,55 +21,19 @@ import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
-const serviceDropdownItems = [
-  {
-    label: "Web & Mobile Development",
-    description: "Node.js, React, Next.js, React Native — production-grade apps",
-    href: "/services/web-and-mobile",
-    icon: Globe,
-  },
-  {
-    label: "AI Solutions",
-    description: "RAG pipelines, automation & analytics dashboards",
-    href: "/services/ai-solutions",
-    icon: BrainCircuit,
-  },
-  {
-    label: "Agentic AI Workflows",
-    description: "Multi-agent orchestration for complex processes",
-    href: "/services/agentic-ai",
-    icon: Bot,
-  },
-  {
-    label: "Voice AI Agents",
-    description: "Conversational phone AI for sales & support",
-    href: "/services/voice-ai",
-    icon: Phone,
-  },
-  {
-    label: "Jira Marketplace Apps",
-    description: "Atlassian Forge apps & marketplace development",
-    href: "/services/jira-apps",
-    icon: Puzzle,
-  },
+const serviceItems = [
+  { label: "Web & Mobile Development", code: "WEB · MOBILE", href: "/services/web-and-mobile", icon: Globe },
+  { label: "AI Solutions", code: "RAG · AUTOMATION", href: "/services/ai-solutions", icon: BrainCircuit },
+  { label: "Agentic AI Workflows", code: "AGENTS", href: "/services/agentic-ai", icon: Bot },
+  { label: "Voice AI Agents", code: "VOICE", href: "/services/voice-ai", icon: Phone },
+  { label: "Jira Apps & Integrations", code: "ATLASSIAN", href: "/services/jira-apps", icon: Puzzle },
 ];
 
-interface NavItem {
-  label: string;
-  href: string;
-  isDropdown?: boolean;
-}
-
-const navItems: NavItem[] = [
-  { label: "Services", href: "/services", isDropdown: true },
+const navLinks = [
+  { label: "Work", href: "/work" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Blog", href: "/blog" },
 ];
-
-function isActiveRoute(pathname: string, href: string): boolean {
-  if (href === "/services") return pathname.startsWith("/services");
-  return pathname === href;
-}
 
 export function Header() {
   const pathname = usePathname();
@@ -82,16 +46,14 @@ export function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setServicesOpen(false);
       }
     }
@@ -99,238 +61,184 @@ export function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setServicesOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => setServicesOpen(false), 200);
-  };
+  const servicesActive = pathname.startsWith("/services");
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
         scrolled
-          ? "header-scrolled"
-          : "bg-transparent",
+          ? "border-b border-border bg-bg/80 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent",
       )}
     >
       <Container>
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex h-16 items-center justify-between md:h-[72px]">
           {/* Logo */}
-          <Link href="/" className="relative h-12 w-50 flex-shrink-0">
+          <Link href="/" className="relative h-9 w-44 flex-shrink-0">
             <Image
               src="/images/logo-word.svg"
               alt="DevNexus"
               fill
-              className="object-contain object-left logo-dark-mode"
+              className="logo-dark-mode object-contain object-left"
               priority
             />
             <Image
               src="/images/DevNexus-dark-logo.png"
               alt="DevNexus"
               fill
-              className="object-contain object-left logo-light-mode"
+              className="logo-light-mode object-contain object-left"
               priority
             />
           </Link>
 
-          {/* ── Desktop: Tubelight Nav ── */}
-          <nav className="hidden lg:flex items-center gap-3">
-            {/* Pill container */}
-            <div className="flex items-center gap-0.5 tubelight-pill py-1 px-1 rounded-full">
-              {navItems.map((item) => {
-                const isActive = isActiveRoute(pathname, item.href);
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-1 lg:flex">
+            {/* Services dropdown */}
+            <div
+              ref={dropdownRef}
+              className="relative"
+              onMouseEnter={() => {
+                if (timeoutRef.current) clearTimeout(timeoutRef.current);
+                setServicesOpen(true);
+              }}
+              onMouseLeave={() => {
+                timeoutRef.current = setTimeout(() => setServicesOpen(false), 180);
+              }}
+            >
+              <Link
+                href="/services"
+                className={cn(
+                  "relative flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors",
+                  servicesActive ? "text-fg" : "text-fg-muted hover:text-fg",
+                )}
+              >
+                Services
+                <ChevronDown
+                  className={cn("h-3.5 w-3.5 transition-transform duration-200", servicesOpen && "rotate-180")}
+                />
+                {servicesActive ? (
+                  <motion.span
+                    layoutId="nav-tick"
+                    className="absolute -bottom-px left-3 right-3 h-px bg-blue"
+                  />
+                ) : null}
+              </Link>
 
-                if (item.isDropdown) {
-                  return (
-                    <div
-                      key={item.label}
-                      ref={dropdownRef}
-                      className="relative"
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      <button
-                        onClick={() => setServicesOpen(!servicesOpen)}
-                        className={cn(
-                          "relative flex items-center gap-1.5 px-5 py-2 text-sm font-semibold rounded-full transition-colors duration-200 cursor-pointer",
-                          "tubelight-link",
-                          isActive && "tubelight-link-active",
-                        )}
-                      >
-                        <span>{item.label}</span>
-                        <ChevronDown
-                          className={cn(
-                            "w-3.5 h-3.5 transition-transform duration-200",
-                            servicesOpen && "rotate-180",
-                          )}
-                        />
-                        {isActive && (
-                          <motion.div
-                            layoutId="tubelight"
-                            className="absolute inset-0 w-full tubelight-active-bg rounded-full -z-10"
-                            initial={false}
-                            transition={{
-                              type: "spring",
-                              stiffness: 350,
-                              damping: 30,
-                            }}
-                          >
-                            {/* Lamp glow bar */}
-                            <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-brand-blue rounded-t-full">
-                              <div className="absolute w-12 h-6 bg-brand-blue/20 rounded-full blur-md -top-2 -left-2" />
-                              <div className="absolute w-8 h-6 bg-brand-blue/20 rounded-full blur-md -top-1" />
-                              <div className="absolute w-4 h-4 bg-brand-blue/20 rounded-full blur-sm top-0 left-2" />
-                            </div>
-                          </motion.div>
-                        )}
-                      </button>
-
-                      {/* Services Dropdown */}
-                      <AnimatePresence>
-                        {servicesOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                            transition={{ duration: 0.15, ease: "easeOut" }}
-                            className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[420px] rounded-2xl header-dropdown border shadow-2xl shadow-black/40 overflow-hidden"
-                          >
-                            <div className="p-2">
-                              {serviceDropdownItems.map((dropItem) => (
-                                <Link
-                                  key={dropItem.href}
-                                  href={dropItem.href}
-                                  onClick={() => setServicesOpen(false)}
-                                  className="group flex items-start gap-4 p-3 rounded-xl header-dropdown-item transition-colors duration-200"
-                                >
-                                  <div className="mt-0.5 w-9 h-9 rounded-lg bg-brand-blue/10 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-blue/20 transition-colors">
-                                    <dropItem.icon className="w-4.5 h-4.5 text-brand-blue" />
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-medium header-dropdown-label transition-colors">
-                                      {dropItem.label}
-                                    </p>
-                                    <p className="text-xs header-dropdown-desc mt-0.5 leading-relaxed">
-                                      {dropItem.description}
-                                    </p>
-                                  </div>
-                                </Link>
-                              ))}
-                            </div>
-
-                            <div className="header-dropdown-footer p-3">
-                              <Link
-                                href="/services"
-                                onClick={() => setServicesOpen(false)}
-                                className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium header-dropdown-all transition-colors"
-                              >
-                                View all services
-                                <ArrowRight className="w-3.5 h-3.5" />
-                              </Link>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={cn(
-                      "relative px-5 py-2 text-sm font-semibold rounded-full transition-colors duration-200",
-                      "tubelight-link",
-                      isActive && "tubelight-link-active",
-                    )}
+              <AnimatePresence>
+                {servicesOpen ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute left-1/2 top-full w-[380px] -translate-x-1/2 pt-3"
                   >
-                    <span>{item.label}</span>
-                    {isActive && (
-                      <motion.div
-                        layoutId="tubelight"
-                        className="absolute inset-0 w-full tubelight-active-bg rounded-full -z-10"
-                        initial={false}
-                        transition={{
-                          type: "spring",
-                          stiffness: 350,
-                          damping: 30,
-                        }}
+                    <div className="overflow-hidden rounded-[14px] border border-border bg-surface shadow-xl shadow-black/20">
+                      <div className="p-2">
+                        {serviceItems.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setServicesOpen(false)}
+                            className="group flex items-center gap-3 rounded-[10px] px-3 py-2.5 transition-colors hover:bg-surface-2"
+                          >
+                            <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[8px] border border-border text-fg-muted transition-colors group-hover:border-border-hi group-hover:text-blue">
+                              <item.icon className="h-4 w-4" />
+                            </span>
+                            <span className="min-w-0">
+                              <span className="block text-sm font-medium text-fg">{item.label}</span>
+                              <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.12em] text-fg-faint">
+                                {item.code}
+                              </span>
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                      <Link
+                        href="/services"
+                        onClick={() => setServicesOpen(false)}
+                        className="flex items-center justify-between border-t border-border px-5 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-fg-faint transition-colors hover:text-blue"
                       >
-                        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-brand-blue rounded-t-full">
-                          <div className="absolute w-12 h-6 bg-brand-blue/20 rounded-full blur-md -top-2 -left-2" />
-                          <div className="absolute w-8 h-6 bg-brand-blue/20 rounded-full blur-md -top-1" />
-                          <div className="absolute w-4 h-4 bg-brand-blue/20 rounded-full blur-sm top-0 left-2" />
-                        </div>
-                      </motion.div>
-                    )}
-                  </Link>
-                );
-              })}
+                        View all services
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
             </div>
 
-            {/* Right side: theme toggle + CTA */}
+            {navLinks.map((item) => {
+              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "relative px-3 py-2 text-sm font-medium transition-colors",
+                    active ? "text-fg" : "text-fg-muted hover:text-fg",
+                  )}
+                >
+                  {item.label}
+                  {active ? (
+                    <motion.span
+                      layoutId="nav-tick"
+                      className="absolute -bottom-px left-3 right-3 h-px bg-blue"
+                    />
+                  ) : null}
+                </Link>
+              );
+            })}
+
             <div className="ml-2 flex items-center gap-2">
               <ThemeToggle />
               <Button href="/contact" size="sm">
-                Book a Call
+                Book a call
               </Button>
             </div>
           </nav>
 
-          {/* Mobile: theme toggle + hamburger */}
-          <div className="lg:hidden flex items-center gap-1">
+          {/* Mobile controls */}
+          <div className="flex items-center gap-1 lg:hidden">
             <ThemeToggle />
             <button
-              className="p-2 header-mobile-toggle rounded-lg transition-colors cursor-pointer"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] text-fg-muted transition-colors hover:text-fg"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
       </Container>
 
-      {/* Mobile Nav */}
+      {/* Mobile sheet */}
       <AnimatePresence>
-        {mobileOpen && (
+        {mobileOpen ? (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="lg:hidden header-mobile-menu overflow-hidden"
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-b border-border bg-bg lg:hidden"
           >
             <Container>
-              <nav className="py-4 flex flex-col gap-0.5">
-                {/* Services accordion */}
+              <nav className="flex flex-col py-4">
                 <button
                   onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                  className={cn(
-                    "flex items-center justify-between w-full text-base font-medium py-3 px-4 rounded-xl transition-colors cursor-pointer",
-                    "header-mobile-link",
-                    pathname.startsWith("/services") && "header-mobile-link-active",
-                  )}
+                  className="flex items-center justify-between py-3 text-base font-medium text-fg"
                 >
-                  <span className="flex items-center gap-2">Services</span>
+                  <span className="flex items-center gap-3">
+                    <span className="font-mono text-[11px] text-fg-faint">01</span>
+                    Services
+                  </span>
                   <ChevronDown
-                    className={cn(
-                      "w-4 h-4 header-mobile-chevron transition-transform duration-200",
-                      mobileServicesOpen && "rotate-180",
-                    )}
+                    className={cn("h-4 w-4 text-fg-faint transition-transform", mobileServicesOpen && "rotate-180")}
                   />
                 </button>
-
                 <AnimatePresence>
-                  {mobileServicesOpen && (
+                  {mobileServicesOpen ? (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
@@ -338,62 +246,47 @@ export function Header() {
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="pl-4 pb-2 space-y-0.5">
-                        {serviceDropdownItems.map((item) => (
+                      <div className="flex flex-col gap-0.5 border-l border-border pb-2 pl-4">
+                        {serviceItems.map((item) => (
                           <Link
                             key={item.href}
                             href={item.href}
-                            className="flex items-center gap-3 py-2.5 px-4 rounded-lg text-sm header-mobile-sub-link transition-colors"
                             onClick={() => setMobileOpen(false)}
+                            className="flex items-center gap-3 py-2.5 text-sm text-fg-muted transition-colors hover:text-fg"
                           >
-                            <item.icon className="w-4 h-4 text-brand-blue flex-shrink-0" />
+                            <item.icon className="h-4 w-4 flex-shrink-0 text-blue" />
                             {item.label}
                           </Link>
                         ))}
-                        <Link
-                          href="/services"
-                          className="flex items-center gap-3 py-2.5 px-4 rounded-lg text-sm text-brand-blue hover:bg-white/5 transition-colors"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          <ArrowRight className="w-4 h-4 flex-shrink-0" />
-                          View all services
-                        </Link>
                       </div>
                     </motion.div>
-                  )}
+                  ) : null}
                 </AnimatePresence>
 
-                {navItems
-                  .filter((item) => !item.isDropdown)
-                  .map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={cn(
-                        "text-base font-medium transition-colors py-3 px-4 rounded-xl",
-                        "header-mobile-link",
-                        pathname === item.href && "header-mobile-link-active",
-                      )}
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-
-                <div className="pt-4 mt-2 border-t header-mobile-divider">
-                  <Button
-                    href="/contact"
-                    className="w-full"
+                {navLinks.map((item, i) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
                     onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 border-t border-border py-3 text-base font-medium text-fg"
                   >
-                    Book a Call
+                    <span className="font-mono text-[11px] text-fg-faint">
+                      {String(i + 2).padStart(2, "0")}
+                    </span>
+                    {item.label}
+                  </Link>
+                ))}
+
+                <div className="mt-4 border-t border-border pt-4">
+                  <Button href="/contact" className="w-full" onClick={() => setMobileOpen(false)}>
+                    Book a call
                   </Button>
                 </div>
               </nav>
             </Container>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

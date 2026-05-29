@@ -1,12 +1,9 @@
 import { Hero } from "@/components/blocks/hero";
-import { LogoBar } from "@/components/blocks/logo-bar";
+import { LogoRow } from "@/components/blocks/logo-row";
 import { ServicesSection } from "@/components/sections/home-services";
-import { VisualBentoSection } from "@/components/sections/home-visual-bento";
-import { EcosystemSection } from "@/components/sections/home-ecosystem";
-import { CaseStudiesSection } from "@/components/sections/home-case-studies";
-import { SuccessStorySection } from "@/components/sections/home-success-story";
+import { AiLayerSection } from "@/components/sections/home-ai-layer";
+import { SelectedWorkSection } from "@/components/sections/home-selected-work";
 import { ProcessSection } from "@/components/sections/home-process";
-import { WhySection } from "@/components/sections/home-why";
 import { CTABanner } from "@/components/blocks/cta-banner";
 import { websiteSchema, organizationSchema, professionalServiceSchema } from "@/lib/schema";
 import type { Metadata } from "next";
@@ -55,34 +52,29 @@ export default function HomePage() {
 
       <Hero
         variant="homepage"
-        eyebrow="Web + AI Agency"
-        title="Software That Thinks. Interfaces That Convert."
-        highlightWord="Thinks."
-        subtitle="We pair beautiful web & mobile products with intelligent AI — so your business ships faster, scales without friction, and outbuilds the competition."
-        primaryCta={{ label: "Start Your Project", href: "/contact" }}
-        secondaryCta={{ label: "See Our Work", href: "/work" }}
-        socialProof={[
-          "Trusted by funded startups & enterprises",
-          "Transparent weekly demos",
-          "From idea to launch in weeks",
+        eyebrow="SOFTWARE & AI ENGINEERING STUDIO"
+        title="Software that thinks. Shipped every week."
+        highlightWord="Shipped"
+        subtitle="We pair production-grade web & mobile engineering with AI that actually works — agents, voice, and automation that move real metrics. Senior team, weekly demos, no black boxes."
+        primaryCta={{ label: "Book a strategy call", href: "/contact" }}
+        secondaryCta={{ label: "See selected work", href: "/work" }}
+        proofStats={[
+          { value: 3000, suffix: "+", label: "installs shipped" },
+          { value: 340, prefix: "$", suffix: "K", label: "/ yr saved" },
+          { value: 200, suffix: "+", label: "calls / day" },
+          { value: 4.7, decimals: 1, suffix: "★", label: "avg rating" },
         ]}
       />
 
-      <LogoBar />
+      <LogoRow />
 
       <ServicesSection />
 
-      <VisualBentoSection />
+      <AiLayerSection />
+
+      <SelectedWorkSection />
 
       <ProcessSection />
-
-      <SuccessStorySection />
-
-      {/* <EcosystemSection /> */}
-
-      <CaseStudiesSection />
-
-      {/* <WhySection /> */}
 
       <CTABanner />
     </>
