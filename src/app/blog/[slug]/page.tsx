@@ -75,18 +75,16 @@ export default async function BlogPostPage({ params }: Props) {
         }}
       />
 
-      <section className="bg-dark-900 pt-32 pb-16 md:pt-40 md:pb-20 border-b border-white/5 relative">
-        <div className="absolute inset-0 section-gradient" />
+      <section className="relative overflow-hidden border-b border-border bg-bg pt-32 pb-16 md:pt-40 md:pb-20">
         <Container className="relative z-10">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-sm text-dark-500 font-[family-name:var(--font-geist-mono)]">
-              {formatDate(frontmatter.publishedAt)} &middot;{" "}
-              {frontmatter.readTime}
+          <div className="mx-auto max-w-3xl">
+            <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-fg-faint">
+              {formatDate(frontmatter.publishedAt)} &middot; {frontmatter.readTime}
             </p>
-            <h1 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight text-white leading-[1.1]">
+            <h1 className="mt-4 font-display text-3xl font-bold leading-[1.08] tracking-[-0.02em] text-fg md:text-5xl">
               {frontmatter.title}
             </h1>
-            <p className="mt-4 text-base md:text-lg text-dark-400">
+            <p className="mt-4 text-base leading-relaxed text-fg-muted md:text-lg">
               {frontmatter.excerpt}
             </p>
             {frontmatter.tags && frontmatter.tags.length > 0 && (
@@ -94,7 +92,7 @@ export default async function BlogPostPage({ params }: Props) {
                 {frontmatter.tags.map((tag: string) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-xs font-medium rounded-full bg-brand-blue/10 text-brand-blue border border-brand-blue/20"
+                    className="rounded-full border border-border px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] text-fg-muted"
                   >
                     {tag}
                   </span>
@@ -106,14 +104,14 @@ export default async function BlogPostPage({ params }: Props) {
       </section>
 
       {frontmatter.image && (
-        <div className="border-b border-white/5 bg-dark-950">
+        <div className="border-b border-border bg-bg">
           <Container>
-            <div className="max-w-3xl mx-auto -mt-0 py-8">
+            <div className="mx-auto max-w-3xl py-8">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={frontmatter.image}
                 alt={frontmatter.title}
-                className="w-full rounded-xl border border-white/8 object-cover"
+                className="w-full rounded-[14px] border border-border object-cover"
                 style={{ maxHeight: "420px" }}
               />
             </div>
