@@ -1,11 +1,58 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* ─────────────────────────────────────────────────────────────
+   PRECISION INSTRUMENT — semantic design tokens (real CSS vars)
+   Utilities: bg-bg · bg-surface · bg-surface-2 · border-border ·
+   border-border-hi · text-fg · text-fg-muted · text-fg-faint ·
+   bg-blue · text-blue · border-blue · bg-blue-press · bg-blue-tint
+   Light mode = variable swap under html.light (no !important).
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --bg: #0A0A0B;
+  --surface: #131316;
+  --surface-2: #1B1B1F;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hi: rgba(255, 255, 255, 0.16);
+  --text: #FAFAFA;
+  --text-muted: #A1A1A6;
+  --text-faint: #6B6B70;
+  --blue: #02A9F7;
+  --blue-press: #0288C7;
+  --blue-tint: rgba(2, 169, 247, 0.10);
+}
+
+html.light {
+  --bg: #FBFBFA;
+  --surface: #FFFFFF;
+  --surface-2: #F4F4F2;
+  --border: rgba(0, 0, 0, 0.09);
+  --border-hi: rgba(0, 0, 0, 0.16);
+  --text: #0A0A0B;
+  --text-muted: #56565C;
+  --text-faint: #8A8A90;
+}
+
 @theme inline {
-  --color-background: #020817;
-  --color-foreground: #f8fafc;
+  /* Core surfaces → semantic vars (automatically theme-aware) */
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+
+  /* Precision-Instrument semantic palette */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-hi: var(--border-hi);
+  --color-fg: var(--text);
+  --color-fg-muted: var(--text-muted);
+  --color-fg-faint: var(--text-faint);
+  --color-blue: var(--blue);
+  --color-blue-press: var(--blue-press);
+  --color-blue-tint: var(--blue-tint);
 
   /* Brand Colors */
   --color-brand-blue: #02A9F7;
@@ -292,15 +339,13 @@ html.light .logo-light-mode { opacity: 1 !important; pointer-events: auto; }
 /* Tailwind v4 defines --color-white / --color-black in :root.
    Overriding them here affects ALL text-white / bg-white utilities. */
 html.light {
-  --color-background: #f8fafc;
-  --color-foreground: #0f172a;
   /* Tailwind built-in white → dark ink in light mode */
   --color-white: #0f172a;
 }
 
 html.light body {
-  background: #f8fafc !important;
-  color: #0f172a !important;
+  background: var(--bg) !important;
+  color: var(--text) !important;
 }
 
 /* ── CTA banner & brand-blue buttons — restore white ── */
