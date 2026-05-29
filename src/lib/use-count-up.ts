@@ -19,16 +19,14 @@ export function useCountUp(target: number, active: boolean, durationMs = 1100): 
 
   useEffect(() => {
     if (!active) return;
-    if (prefersReducedMotion()) {
-      setValue(target);
-      return;
-    }
 
+    // Reduced motion → 0ms duration → first frame snaps to target.
+    const dur = prefersReducedMotion() ? 0 : durationMs;
     let raf = 0;
     let start = 0;
     const tick = (ts: number) => {
       if (!start) start = ts;
-      const t = Math.min((ts - start) / durationMs, 1);
+      const t = dur === 0 ? 1 : Math.min((ts - start) / dur, 1);
       setValue(target * easeOutExpo(t));
       if (t < 1) raf = requestAnimationFrame(tick);
     };
