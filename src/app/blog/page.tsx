@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Hero } from "@/components/blocks/hero";
 import { CTABanner } from "@/components/blocks/cta-banner";
 import { Container } from "@/components/ui/container";
@@ -57,36 +58,36 @@ export default function BlogPage() {
       <section className="py-16 md:py-24 lg:py-32">
         <Container>
           {posts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-lg text-dark-400">
+            <div className="py-12 text-center">
+              <p className="text-lg text-fg-muted">
                 Blog posts coming soon. In the meantime, check out our{" "}
-                <a
+                <Link
                   href="/work"
-                  className="text-brand-blue hover:text-brand-blue-hover font-medium"
+                  className="font-medium text-blue hover:text-blue-press"
                 >
                   case studies
-                </a>
+                </Link>
                 .
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <a
+                <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="group block p-6 rounded-2xl glass-card transition-all duration-300 hover:scale-[1.02]"
+                  className="group flex h-full flex-col rounded-[14px] border border-border bg-surface p-6 transition-colors hover:border-border-hi"
                 >
-                  <p className="text-xs text-dark-500 font-[family-name:var(--font-geist-mono)]">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.1em] text-fg-faint">
                     {post.publishedAt} &middot; {post.readTime}
                   </p>
-                  <h2 className="mt-2 text-lg font-semibold group-hover:text-brand-blue transition-colors">
+                  <h2 className="mt-3 font-display text-lg font-bold text-fg transition-colors group-hover:text-blue">
                     {post.title}
                   </h2>
-                  <p className="mt-2 text-sm text-dark-400 leading-relaxed">
+                  <p className="mt-2 text-sm leading-relaxed text-fg-muted">
                     {post.excerpt}
                   </p>
-                </a>
+                </Link>
               ))}
             </div>
           )}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { CheckCircle, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const N8N_FORM_URL = "https://n8n.devnexus.co/webhook/5598b86a-9fdd-4f42-b7a6-40909fab7a7a";
@@ -17,11 +18,14 @@ const serviceOptions = [
 ];
 
 const inputClasses = cn(
-  "w-full px-4 py-3 rounded-xl contact-input",
-  "text-sm",
-  "focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue/30",
-  "transition-all duration-200"
+  "w-full rounded-[10px] border border-border bg-surface-2 px-4 py-3 text-sm text-fg",
+  "placeholder:text-fg-faint",
+  "transition-colors duration-200",
+  "focus:border-blue/50 focus:outline-none focus:ring-2 focus:ring-blue/15",
 );
+
+const labelClasses =
+  "mb-2 block font-mono text-[11px] uppercase tracking-[0.12em] text-fg-faint";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -49,12 +53,7 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
-      if (res.ok) {
-        setStatus("success");
-      } else {
-        setStatus("error");
-      }
+      setStatus(res.ok ? "success" : "error");
     } catch {
       setStatus("error");
     }
@@ -63,18 +62,16 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <motion.div
-        className="text-center py-16"
-        initial={{ opacity: 0, scale: 0.95 }}
+        className="py-16 text-center"
+        initial={{ opacity: 0, scale: 0.97 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4, type: "spring" }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="w-14 h-14 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-5">
-          <CheckCircle className="w-7 h-7 text-emerald-500" />
+        <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/10">
+          <CheckCircle className="h-7 w-7 text-emerald-500" />
         </div>
-        <h3 className="text-xl md:text-2xl font-bold contact-form-title">
-          Message sent!
-        </h3>
-        <p className="mt-2 text-sm contact-form-sub max-w-sm mx-auto">
+        <h3 className="font-display text-xl font-bold text-fg md:text-2xl">Message sent!</h3>
+        <p className="mx-auto mt-2 max-w-sm text-sm text-fg-muted">
           We&rsquo;ll get back to you within 24 hours with a plan.
         </p>
       </motion.div>
@@ -83,86 +80,40 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
-            Name *
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            className={inputClasses}
-            placeholder="Your name"
-          />
+          <label htmlFor="name" className={labelClasses}>Name *</label>
+          <input type="text" id="name" name="name" required className={inputClasses} placeholder="Your name" />
         </div>
         <div>
-          <label htmlFor="email" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
-            Email *
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            className={inputClasses}
-            placeholder="you@company.com"
-          />
+          <label htmlFor="email" className={labelClasses}>Email *</label>
+          <input type="email" id="email" name="email" required className={inputClasses} placeholder="you@company.com" />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="company" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
-            Company *
-          </label>
-          <input
-            type="text"
-            id="company"
-            name="company"
-            required
-            className={inputClasses}
-            placeholder="Your company"
-          />
+          <label htmlFor="company" className={labelClasses}>Company *</label>
+          <input type="text" id="company" name="company" required className={inputClasses} placeholder="Your company" />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
-            Phone *
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            required
-            className={inputClasses}
-            placeholder="+1 (555) 000-0000"
-          />
+          <label htmlFor="phone" className={labelClasses}>Phone *</label>
+          <input type="tel" id="phone" name="phone" required className={inputClasses} placeholder="+1 (555) 000-0000" />
         </div>
       </div>
 
       <div>
-        <label htmlFor="service" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
-          Service
-        </label>
-        <select
-          id="service"
-          name="service"
-          className={cn(inputClasses, "appearance-none")}
-        >
+        <label htmlFor="service" className={labelClasses}>Service</label>
+        <select id="service" name="service" className={cn(inputClasses, "appearance-none")} defaultValue="">
           <option value="">Select a service</option>
           {serviceOptions.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
+            <option key={opt} value={opt}>{opt}</option>
           ))}
         </select>
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-xs font-semibold contact-label mb-2 uppercase tracking-wide">
-          Project details *
-        </label>
+        <label htmlFor="message" className={labelClasses}>Project details *</label>
         <textarea
           id="message"
           name="message"
@@ -173,20 +124,16 @@ export function ContactForm() {
         />
       </div>
 
-      {status === "error" && (
+      {status === "error" ? (
         <p className="text-sm text-red-400">
           Something went wrong. Please try again or email us directly.
         </p>
-      )}
+      ) : null}
 
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-brand-blue text-white text-sm font-semibold shadow-lg shadow-brand-blue/25 hover:shadow-brand-blue/50 hover:scale-[1.02] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed group cursor-pointer"
-      >
-        {status === "loading" ? "Sending..." : "Send Message"}
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-      </button>
+      <Button type="submit" size="lg" variant="primary" disabled={status === "loading"} className="group">
+        {status === "loading" ? "Sending..." : "Send message"}
+        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+      </Button>
     </form>
   );
 }
