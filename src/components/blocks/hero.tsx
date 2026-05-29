@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Metric } from "@/components/ui/metric";
 import { BlueprintGrid } from "@/components/ui/blueprint-grid";
+import { HeroVisual } from "@/components/blocks/hero-visual";
 import { clipReveal, fadeUp, fadeIn } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 
@@ -66,9 +67,10 @@ export function Hero({
           className,
         )}
       >
-        <BlueprintGrid focus="50% 42%" />
+        <BlueprintGrid focus="26% 42%" />
         <Container className="relative z-10">
-          <div className="max-w-4xl">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+            <div>
             {eyebrow ? (
               <motion.div {...fadeIn}>
                 <Eyebrow label={eyebrow} />
@@ -102,6 +104,11 @@ export function Hero({
                 </Button>
               ) : null}
             </motion.div>
+            </div>
+
+            <div className="lg:pl-2">
+              <HeroVisual />
+            </div>
           </div>
 
           {proofStats && proofStats.length > 0 ? (
