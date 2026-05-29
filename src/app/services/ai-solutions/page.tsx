@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/blocks/hero";
 import { CTABanner } from "@/components/blocks/cta-banner";
+import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { AgentDiagram } from "@/components/blocks/agent-diagram";
 import { ServicePageContent } from "@/components/sections/service-page-content";
 import { PillarContentSection } from "@/components/sections/pillar-content";
 import { getServiceBySlug } from "@/data/services";
@@ -74,6 +77,20 @@ export default function AISolutionsPage() {
         primaryCta={{ label: service.cta, href: "/contact" }}
         secondaryCta={{ label: "See Our Work", href: "/work" }}
       />
+
+      <section className="border-t border-border bg-bg py-20 md:py-28">
+        <Container>
+          <div className="mb-10">
+            <Eyebrow label="How it works" />
+            <h2 className="mt-4 max-w-2xl font-display text-2xl font-bold tracking-[-0.02em] text-fg md:text-3xl">
+              AI that plugs into your stack — and acts
+            </h2>
+          </div>
+          <div className="rounded-[14px] border border-border bg-surface p-8 md:p-12">
+            <AgentDiagram className="w-full" />
+          </div>
+        </Container>
+      </section>
 
       <ServicePageContent service={service} />
       <PillarContentSection

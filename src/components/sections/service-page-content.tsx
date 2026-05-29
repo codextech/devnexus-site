@@ -3,14 +3,12 @@
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
 import { CheckCircle, ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { TechStackRow } from "@/components/blocks/tech-stack-row";
 import { FAQSection } from "@/components/blocks/faq-section";
+import { EASE } from "@/lib/animations";
 import type { ServiceData } from "@/types/services";
-
-/* ── Animated process step with connecting line ── */
 
 function ProcessStep({
   number,
@@ -29,159 +27,104 @@ function ProcessStep({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 22 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ delay, duration: 0.5, ease: EASE }}
       className="relative"
     >
-      {/* Connecting line to next step */}
-      {!isLast && (
+      {!isLast ? (
         <motion.div
-          className="hidden lg:block absolute top-5 left-[calc(100%+0.5rem)] w-[calc(100%-1rem)] h-px svc-process-line"
+          className="absolute left-[calc(100%+0.25rem)] top-5 hidden h-px w-[calc(100%-0.5rem)] origin-left bg-border lg:block"
           initial={{ scaleX: 0 }}
           animate={isInView ? { scaleX: 1 } : {}}
-          transition={{ delay: delay + 0.3, duration: 0.6, ease: "easeOut" }}
-          style={{ transformOrigin: "left" }}
+          transition={{ delay: delay + 0.25, duration: 0.6, ease: EASE }}
         />
-      )}
+      ) : null}
 
-      <div className="svc-process-card rounded-2xl p-6 md:p-7 h-full group">
-        {/* Number */}
-        <motion.div
-          className="w-10 h-10 rounded-xl svc-process-number flex items-center justify-center mb-5"
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={isInView ? { scale: 1, opacity: 1 } : {}}
-          transition={{
-            delay: delay + 0.1,
-            duration: 0.4,
-            type: "spring",
-            stiffness: 200,
-          }}
-        >
-          <span className="text-sm font-bold text-brand-blue">
+      <div className="h-full rounded-[14px] border border-border bg-surface p-6 transition-colors hover:border-border-hi md:p-7">
+        <span className="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-border">
+          <span className="font-mono text-sm font-medium text-blue">
             {String(number).padStart(2, "0")}
           </span>
-        </motion.div>
-
-        <h3 className="text-base md:text-lg font-bold svc-pg-title mb-2">
-          {title}
-        </h3>
-        <p className="text-sm svc-pg-muted leading-relaxed">{description}</p>
+        </span>
+        <h3 className="font-display text-base font-bold text-fg md:text-lg">{title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-fg-muted">{description}</p>
       </div>
     </motion.div>
   );
 }
 
-/* ── Main content ── */
-
 export function ServicePageContent({ service }: { service: ServiceData }) {
   const problemRef = useRef<HTMLDivElement>(null);
   const deliverablesRef = useRef<HTMLDivElement>(null);
   const processRef = useRef<HTMLDivElement>(null);
-
   const problemInView = useInView(problemRef, { once: true, margin: "-80px" });
-  const deliverablesInView = useInView(deliverablesRef, {
-    once: true,
-    margin: "-80px",
-  });
-  const processInView = useInView(processRef, {
-    once: true,
-    margin: "-80px",
-  });
+  const deliverablesInView = useInView(deliverablesRef, { once: true, margin: "-80px" });
+  const processInView = useInView(processRef, { once: true, margin: "-80px" });
 
   return (
     <>
-      {/* ══════════════ Problem & Approach ══════════════ */}
-      <section className="py-20 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 svc-pg-section-bg" />
-        <div className="absolute -right-32 top-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-brand-blue/[0.03] blur-[120px] pointer-events-none" />
-
-        <Container className="relative z-10">
+      {/* Problem & approach */}
+      <section className="bg-bg py-20 md:py-28">
+        <Container>
           <div ref={problemRef} className="max-w-5xl">
-            {/* Eyebrow */}
             <motion.div
-              className="flex items-center gap-3 mb-8"
-              initial={{ opacity: 0, x: -20 }}
+              className="mb-8 flex items-center gap-3"
+              initial={{ opacity: 0, x: -16 }}
               animate={problemInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, ease: EASE }}
             >
-              <div className="h-px w-8 bg-brand-blue" />
-              <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-blue">
-                The Challenge
+              <span className="h-px w-6 bg-border-hi" />
+              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-faint">
+                The challenge
               </span>
             </motion.div>
 
-            {/* Problem statement — large, impactful typography */}
             <motion.blockquote
-              className="text-xl md:text-2xl lg:text-3xl font-semibold svc-pg-title leading-[1.35] max-w-3xl"
-              initial={{ opacity: 0, y: 20 }}
+              className="max-w-3xl font-display text-xl font-semibold leading-[1.35] tracking-[-0.01em] text-fg md:text-2xl lg:text-3xl"
+              initial={{ opacity: 0, y: 18 }}
               animate={problemInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.15, duration: 0.6 }}
+              transition={{ delay: 0.12, duration: 0.6, ease: EASE }}
             >
               {service.problem}
             </motion.blockquote>
 
-            {/* Approach indicator */}
             <motion.div
               className="mt-10 flex items-center gap-4"
               initial={{ opacity: 0, y: 12 }}
               animate={problemInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.35, duration: 0.5 }}
+              transition={{ delay: 0.3, duration: 0.5, ease: EASE }}
             >
-              <div className="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center">
-                <ArrowRight className="w-4 h-4 text-brand-blue" />
-              </div>
-              <p className="text-sm svc-pg-muted max-w-lg leading-relaxed">
-                We solve this with a focused, sprint-based approach &mdash;
-                senior engineers who own the outcome from day one.
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-blue">
+                <ArrowRight className="h-4 w-4" />
+              </span>
+              <p className="max-w-lg text-sm leading-relaxed text-fg-muted">
+                We solve this with a focused, sprint-based approach — senior
+                engineers who own the outcome from day one.
               </p>
             </motion.div>
           </div>
         </Container>
       </section>
 
-      {/* ══════════════ Deliverables ══════════════ */}
-      <section className="py-20 md:py-32 relative">
-        <div className="absolute inset-0 svc-pg-alt-bg" />
-        <Container className="relative z-10">
+      {/* Deliverables */}
+      <section className="border-t border-border bg-bg py-20 md:py-28">
+        <Container>
           <div ref={deliverablesRef}>
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={deliverablesInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="mb-12"
-            >
-              <SectionHeading
-                eyebrow="Deliverables"
-                title="What You Get"
-                align="left"
-              />
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl">
+            <SectionHeading eyebrow="Deliverables" title="What you get" align="left" className="mb-12" />
+            <div className="grid max-w-4xl grid-cols-1 gap-4 md:grid-cols-2">
               {service.deliverables.map((item, i) => (
                 <motion.div
                   key={item}
-                  className="svc-deliverable-card rounded-xl p-5 flex items-start gap-4 group"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={
-                    deliverablesInView ? { opacity: 1, y: 0 } : {}
-                  }
-                  transition={{
-                    delay: 0.1 + i * 0.08,
-                    duration: 0.4,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                  className="flex items-start gap-4 rounded-[12px] border border-border bg-surface p-5 transition-colors hover:border-border-hi"
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={deliverablesInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.06 * i, duration: 0.4, ease: EASE }}
                 >
-                  <div className="w-8 h-8 rounded-lg svc-deliverable-icon flex items-center justify-center shrink-0 mt-0.5">
-                    <CheckCircle
-                      className="w-4 h-4 text-brand-blue"
-                      strokeWidth={2}
-                    />
-                  </div>
-                  <span className="text-sm svc-pg-body leading-relaxed font-medium">
-                    {item}
+                  <span className="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-[8px] border border-border text-blue">
+                    <CheckCircle className="h-4 w-4" strokeWidth={2} />
                   </span>
+                  <span className="text-sm font-medium leading-relaxed text-fg">{item}</span>
                 </motion.div>
               ))}
             </div>
@@ -189,17 +132,12 @@ export function ServicePageContent({ service }: { service: ServiceData }) {
         </Container>
       </section>
 
-      {/* ══════════════ Tech Stack ══════════════ */}
-      <section className="py-16 md:py-24 relative">
-        <div className="absolute inset-0 svc-pg-section-bg" />
-        <Container className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
+      {/* Tech stack */}
+      <section className="bg-bg py-16 md:py-20">
+        <Container>
+          <div className="flex flex-col gap-8 md:flex-row md:items-center md:gap-16">
             <div className="shrink-0">
-              <SectionHeading
-                eyebrow="Stack"
-                title="Built With"
-                align="left"
-              />
+              <SectionHeading eyebrow="Stack" title="Built with" align="left" />
             </div>
             <div className="flex-1">
               <TechStackRow items={service.techStack} />
@@ -208,27 +146,17 @@ export function ServicePageContent({ service }: { service: ServiceData }) {
         </Container>
       </section>
 
-      {/* ══════════════ Process ══════════════ */}
-      <section className="py-20 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 svc-pg-alt-bg" />
-        <div className="absolute -left-32 bottom-0 w-[500px] h-[500px] rounded-full bg-brand-cyan/[0.02] blur-[120px] pointer-events-none" />
-
-        <Container className="relative z-10">
+      {/* Process */}
+      <section className="border-t border-border bg-bg py-20 md:py-28">
+        <Container>
           <div ref={processRef}>
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={processInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="text-center mb-14"
-            >
-              <SectionHeading
-                eyebrow="How We Work"
-                title="From Kickoff to Launch"
-                align="center"
-              />
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <SectionHeading
+              eyebrow="How we work"
+              title="From kickoff to launch"
+              align="center"
+              className="mb-14"
+            />
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
               {service.process.map((step, i) => (
                 <ProcessStep
                   key={step.title}
@@ -236,7 +164,7 @@ export function ServicePageContent({ service }: { service: ServiceData }) {
                   title={step.title}
                   description={step.description}
                   isLast={i === service.process.length - 1}
-                  delay={0.15 + i * 0.12}
+                  delay={0.12 * i}
                   isInView={processInView}
                 />
               ))}
@@ -245,16 +173,10 @@ export function ServicePageContent({ service }: { service: ServiceData }) {
         </Container>
       </section>
 
-      {/* ══════════════ FAQ ══════════════ */}
-      <section className="py-20 md:py-32 relative">
-        <div className="absolute inset-0 svc-pg-section-bg" />
-        <Container className="relative z-10">
-          <SectionHeading
-            eyebrow="FAQ"
-            title="Common Questions"
-            align="center"
-            className="mb-14"
-          />
+      {/* FAQ */}
+      <section className="bg-bg py-20 md:py-28">
+        <Container>
+          <SectionHeading eyebrow="FAQ" title="Common questions" align="center" className="mb-14" />
           <FAQSection items={service.faqs} />
         </Container>
       </section>
