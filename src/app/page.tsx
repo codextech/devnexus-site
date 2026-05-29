@@ -1,12 +1,9 @@
 import { Hero } from "@/components/blocks/hero";
-import { LogoBar } from "@/components/blocks/logo-bar";
+import { LogoRow } from "@/components/blocks/logo-row";
 import { ServicesSection } from "@/components/sections/home-services";
-import { VisualBentoSection } from "@/components/sections/home-visual-bento";
-import { EcosystemSection } from "@/components/sections/home-ecosystem";
-import { CaseStudiesSection } from "@/components/sections/home-case-studies";
-import { SuccessStorySection } from "@/components/sections/home-success-story";
+import { AiLayerSection } from "@/components/sections/home-ai-layer";
+import { SelectedWorkSection } from "@/components/sections/home-selected-work";
 import { ProcessSection } from "@/components/sections/home-process";
-import { WhySection } from "@/components/sections/home-why";
 import { CTABanner } from "@/components/blocks/cta-banner";
 import { websiteSchema, organizationSchema, professionalServiceSchema } from "@/lib/schema";
 import type { Metadata } from "next";
@@ -69,21 +66,15 @@ export default function HomePage() {
         ]}
       />
 
-      <LogoBar />
+      <LogoRow />
 
       <ServicesSection />
 
-      <VisualBentoSection />
+      <AiLayerSection />
+
+      <SelectedWorkSection />
 
       <ProcessSection />
-
-      <SuccessStorySection />
-
-      {/* <EcosystemSection /> */}
-
-      <CaseStudiesSection />
-
-      {/* <WhySection /> */}
 
       <CTABanner />
     </>
