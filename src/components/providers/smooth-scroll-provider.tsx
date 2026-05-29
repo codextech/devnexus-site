@@ -6,31 +6,37 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
 
-// Cubic-bezier solver matching the site's EASE [0.16, 1, 0.3, 1]
-// (see src/lib/animations.ts) so Lenis scroll momentum is cohesive with the
-// Framer Motion reveals. Note: motion v12 does not export cubicBezier, so the
-// algorithm is implemented inline. All values tunable here. ReactLenis drives
-// requestAnimationFrame itself (autoRaf defaults to true), so no manual loop.
-function sampleCurveX(t: number, p1x: number, p2x: number) {
-  return ((1 - 3 * p2x + 3 * p1x) * t + (3 * p2x - 6 * p1x)) * t + 3 * p1x * t;
-}
-function solveCubicBezierT(x: number, p1x: number, p2x: number) {
-  let t = x;
-  for (let i = 0; i < 8; i++) {
-    const dx = sampleCurveX(t, p1x, p2x) - x;
-    if (Math.abs(dx) < 1e-7) break;
-    const derivative = (1 - 3 * p2x + 3 * p1x) * (3 * t * t) + (3 * p2x - 6 * p1x) * (2 * t) + 3 * p1x;
-    if (Math.abs(derivative) < 1e-7) break;
-    t -= dx / derivative;
-  }
-  return t;
-}
+// Cubic-bezier easing via the WebKit UnitBezier algorithm. motion v12 does not
+// publicly export cubicBezier, so it is implemented inline here. The curve
+// [0.16, 1, 0.3, 1] matches the site's EASE (src/lib/animations.ts) so Lenis
+// scroll momentum stays cohesive with the Framer Motion reveals.
 function cubicBezier(p1x: number, p1y: number, p2x: number, p2y: number) {
-  return (t: number) => {
-    if (t === 0 || t === 1) return t;
-    const st = solveCubicBezierT(t, p1x, p2x);
-    return ((1 - 3 * p2y + 3 * p1y) * st + (3 * p2y - 6 * p1y)) * st + 3 * p1y * st;
+  // Polynomial coefficients for control points P0=(0,0) … P3=(1,1).
+  const cx = 3 * p1x;
+  const bx = 3 * (p2x - p1x) - cx;
+  const ax = 1 - cx - bx;
+  const cy = 3 * p1y;
+  const by = 3 * (p2y - p1y) - cy;
+  const ay = 1 - cy - by;
+
+  const sampleX = (t: number) => ((ax * t + bx) * t + cx) * t;
+  const sampleY = (t: number) => ((ay * t + by) * t + cy) * t;
+  const sampleDerivativeX = (t: number) => (3 * ax * t + 2 * bx) * t + cx;
+
+  // Newton-Raphson: find the parametric t for a given x (elapsed time).
+  const solveForT = (x: number) => {
+    let t = x;
+    for (let i = 0; i < 8; i++) {
+      const dx = sampleX(t) - x;
+      if (Math.abs(dx) < 1e-6) return t;
+      const d = sampleDerivativeX(t);
+      if (Math.abs(d) < 1e-6) break;
+      t -= dx / d;
+    }
+    return t;
   };
+
+  return (t: number) => (t <= 0 ? 0 : t >= 1 ? 1 : sampleY(solveForT(t)));
 }
 
 const lenisOptions = {
