@@ -91,7 +91,7 @@ export function HeroVisual() {
               />
               <div className="relative aspect-[5/6]">
                 <Image
-                  src="/images/hero/abstract-3d-b.jpg"
+                  src="/images/hero/hero-3d.jpg"
                   alt="DevNexus — software and AI engineering"
                   fill
                   priority
