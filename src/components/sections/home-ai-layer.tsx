@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Metric } from "@/components/ui/metric";
 import { Button } from "@/components/ui/button";
-import { AgentDiagram } from "@/components/blocks/agent-diagram";
+import { AgentCore } from "@/components/ai-layer/agent-core";
 import { fadeUp } from "@/lib/animations";
 
 const capabilities = [
@@ -28,12 +28,12 @@ export function AiLayerSection() {
         />
 
         <div className="mt-12 grid gap-5 lg:grid-cols-[1.25fr_1fr]">
-          {/* Animated diagram */}
+          {/* Live 3D agent core (falls back to the labeled flow diagram) */}
           <motion.div
             {...fadeUp}
             className="flex items-center justify-center rounded-[14px] border border-border bg-surface p-8 md:p-12"
           >
-            <AgentDiagram className="w-full" />
+            <AgentCore />
           </motion.div>
 
           {/* Capabilities + proof */}

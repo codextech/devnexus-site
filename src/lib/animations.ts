@@ -17,10 +17,13 @@ export const fadeIn = {
   transition: { duration: 0.5, ease: EASE },
 } as const;
 
-// Headline reveal — text wipes up from behind a mask.
+// Headline reveal. Uses opacity + y (not clip-path): animating `clip-path` via
+// whileInView silently fails on mobile, leaving headings stuck clipped/invisible
+// while plain transform/opacity reveals (fadeUp) work everywhere. Reliability
+// over the wipe flourish — headings must always appear.
 export const clipReveal = {
-  initial: { clipPath: "inset(0 0 100% 0)", y: 10, opacity: 0.6 },
-  whileInView: { clipPath: "inset(0 0 0% 0)", y: 0, opacity: 1 },
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
   transition: { duration: 0.7, ease: EASE },
 } as const;

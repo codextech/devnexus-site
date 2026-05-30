@@ -95,12 +95,20 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 :focus-visible {
   outline: 2px solid var(--color-brand-blue);
   outline-offset: 2px;
+}
+
+/* ── Custom cursor: hide native pointer only while the JS cursor is mounted ──
+   Class is added by CustomCursor on desktop fine-pointer + motion-allowed only.
+   !important is required to beat Tailwind's cursor-* utilities. */
+html.cursor-active,
+html.cursor-active * {
+  cursor: none !important;
 }
 
 /* ── Gradient blob backgrounds ── */
