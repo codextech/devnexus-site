@@ -2,7 +2,7 @@ import { Hero } from "@/components/blocks/hero";
 import { LogoRow } from "@/components/blocks/logo-row";
 import { ServicesSection } from "@/components/sections/home-services";
 import { AiLayerSection } from "@/components/sections/home-ai-layer";
-import { SelectedWorkSection } from "@/components/sections/home-selected-work";
+import { SelectedWorkCinematic } from "@/components/sections/home-selected-work-cinematic";
 import { ProcessSection } from "@/components/sections/home-process";
 import { CTABanner } from "@/components/blocks/cta-banner";
 import { websiteSchema, organizationSchema, professionalServiceSchema } from "@/lib/schema";
@@ -72,7 +72,7 @@ export default function HomePage() {
 
       <AiLayerSection />
 
-      <SelectedWorkSection />
+      <SelectedWorkCinematic />
 
       <ProcessSection />
 
