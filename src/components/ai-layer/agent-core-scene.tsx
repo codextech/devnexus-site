@@ -35,7 +35,7 @@ export function AgentCoreScene() {
       const a = (i / n) * Math.PI * 2 - Math.PI / 2; // start at top
       const z = Math.sin(i * 1.7) * 0.5;
       const pos = new THREE.Vector3(Math.cos(a) * RADIUS, Math.sin(a) * RADIUS, z);
-      return { ...it, pos, labelPos: pos.clone().multiplyScalar(1.16) };
+      return { ...it, pos, labelPos: pos.clone().multiplyScalar(1.1) };
     });
   }, []);
 
@@ -142,12 +142,14 @@ export function AgentCoreScene() {
               />
             </mesh>
             <Html position={node.labelPos} center zIndexRange={[15, 0]}>
-              <button
-                type="button"
+              {/* Decorative: the accessible narrative lives in the diagram
+                  fallback. Hover (mouse only) reveals the description. */}
+              <div
+                aria-hidden="true"
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
-                className={`flex cursor-default flex-col items-center gap-0.5 rounded-[10px] border px-2.5 py-1 text-center backdrop-blur transition-colors ${
-                  isHot ? "max-w-[200px]" : "max-w-[150px]"
+                className={`flex flex-col items-center gap-0.5 rounded-[10px] border px-2.5 py-1 text-center backdrop-blur transition-colors ${
+                  isHot ? "max-w-[176px]" : "max-w-[150px]"
                 } ${
                   isHot
                     ? "border-blue/60 bg-bg/90 text-blue"
@@ -162,7 +164,7 @@ export function AgentCoreScene() {
                     {node.desc}
                   </span>
                 ) : null}
-              </button>
+              </div>
             </Html>
           </group>
         );

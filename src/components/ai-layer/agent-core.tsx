@@ -24,7 +24,7 @@ export function AgentCore() {
   if (!enabled || isMobile) return <AgentDiagram className="w-full" />;
 
   return (
-    <div className="relative aspect-[5/4] w-full">
+    <div className="relative aspect-[5/4] w-full overflow-hidden rounded-[10px]">
       <AgentCoreCanvas />
     </div>
   );
