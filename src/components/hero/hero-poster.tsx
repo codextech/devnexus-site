@@ -3,7 +3,7 @@ import Image from "next/image";
 /**
  * Static poster for the hero panel. Shown during SSR / canvas load, and as the
  * graceful fallback when WebGL is unavailable or the user prefers reduced motion.
- * (This is the render the live neural scene animates.)
+ * (The live neural scene visually echoes this poster.)
  */
 export function HeroPoster() {
   return (

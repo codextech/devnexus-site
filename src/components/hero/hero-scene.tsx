@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useReducedMotion } from "motion/react";
 import { HeroPoster } from "./hero-poster";
 
@@ -12,40 +12,51 @@ const NeuralCanvas = dynamic(() => import("./neural-canvas"), {
   loading: () => <HeroPoster />,
 });
 
-function hasWebGL() {
-  try {
-    const canvas = document.createElement("canvas");
-    return !!(
-      window.WebGLRenderingContext &&
-      (canvas.getContext("webgl2") || canvas.getContext("webgl"))
-    );
-  } catch {
-    return false;
-  }
+const MOBILE_QUERY = "(pointer: coarse), (max-width: 768px)";
+
+function subscribeMobile(onChange: () => void) {
+  const mq = window.matchMedia(MOBILE_QUERY);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
 }
+function getMobile() {
+  return window.matchMedia(MOBILE_QUERY).matches;
+}
+
+// WebGL support doesn't change within a session — compute once and cache so the
+// useSyncExternalStore snapshot stays referentially stable across renders.
+let webglSupport: boolean | null = null;
+function getWebGL() {
+  if (webglSupport === null) {
+    try {
+      const canvas = document.createElement("canvas");
+      webglSupport = !!(
+        window.WebGLRenderingContext &&
+        (canvas.getContext("webgl2") || canvas.getContext("webgl"))
+      );
+    } catch {
+      webglSupport = false;
+    }
+  }
+  return webglSupport;
+}
+const noSubscribe = () => () => {};
+const serverFalse = () => false;
 
 /**
  * Decides what fills the hero panel:
  *  - reduced-motion / no-WebGL / SSR → static poster (no canvas)
  *  - otherwise → live neural canvas, with a lighter node count on mobile.
+ *
+ * Inputs are read via hooks / useSyncExternalStore (no setState-in-effect), so
+ * it's SSR-safe (server → poster) and re-evaluates if the viewport crosses the
+ * mobile breakpoint at runtime.
  */
 export function HeroScene() {
   const reduce = useReducedMotion();
-  const [enabled, setEnabled] = useState(false);
-  const [count, setCount] = useState(140);
+  const isMobile = useSyncExternalStore(subscribeMobile, getMobile, serverFalse);
+  const webglOk = useSyncExternalStore(noSubscribe, getWebGL, serverFalse);
 
-  useEffect(() => {
-    if (reduce) {
-      setEnabled(false);
-      return;
-    }
-    const mobile =
-      window.matchMedia("(pointer: coarse)").matches ||
-      window.matchMedia("(max-width: 768px)").matches;
-    setCount(mobile ? 80 : 140);
-    setEnabled(hasWebGL());
-  }, [reduce]);
-
-  if (!enabled) return <HeroPoster />;
-  return <NeuralCanvas count={count} />;
+  if (reduce || !webglOk) return <HeroPoster />;
+  return <NeuralCanvas count={isMobile ? 80 : 140} />;
 }
