@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Header } from "@/components/blocks/header";
 import { Footer } from "@/components/blocks/footer";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 import { ThemeProvider } from "@/lib/theme-context";
 import { SITE } from "@/lib/constants";
 import { organizationSchema } from "@/lib/schema";
@@ -136,6 +137,7 @@ export default function RootLayout({
         />
         <ThemeProvider>
           <SmoothScrollProvider>
+            <CustomCursor />
             <Header />
             <main>{children}</main>
             <Footer />
