@@ -88,8 +88,14 @@ export function Hero({
             >
               {subtitle}
             </motion.p>
-            <motion.div {...fadeUp} className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Button href={primaryCta.href} size="lg" variant="primary" magnetic className="group">
+            <motion.div {...fadeUp} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button
+                href={primaryCta.href}
+                size="lg"
+                variant="primary"
+                magnetic
+                className="group w-full justify-center sm:w-auto"
+              >
                 {primaryCta.label}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
@@ -97,7 +103,7 @@ export function Hero({
                 <Button
                   href={secondaryCta.href}
                   variant="link"
-                  className="group/btn px-2 text-[15px]"
+                  className="group/btn w-full justify-center px-2 text-[15px] sm:w-auto sm:justify-start"
                 >
                   {secondaryCta.label}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />

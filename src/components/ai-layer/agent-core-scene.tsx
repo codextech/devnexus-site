@@ -21,7 +21,7 @@ const INTEGRATIONS = [
 
 const RADIUS = 1.9;
 
-export function AgentCoreScene() {
+export function AgentCoreScene({ compact = false }: { compact?: boolean }) {
   const group = useRef<THREE.Group>(null);
   const core = useRef<THREE.Mesh>(null);
   const pulses = useRef<(THREE.Mesh | null)[]>([]);
@@ -148,15 +148,19 @@ export function AgentCoreScene() {
                 aria-hidden="true"
                 onMouseEnter={() => setHovered(i)}
                 onMouseLeave={() => setHovered(null)}
-                className={`flex flex-col items-center gap-0.5 rounded-[10px] border px-2.5 py-1 text-center backdrop-blur transition-colors ${
-                  isHot ? "max-w-[176px]" : "max-w-[150px]"
-                } ${
+                className={`flex flex-col items-center gap-0.5 rounded-[10px] border text-center backdrop-blur transition-colors ${
+                  compact ? "px-2 py-0.5" : "px-2.5 py-1"
+                } ${isHot ? "max-w-[176px]" : "max-w-[150px]"} ${
                   isHot
                     ? "border-blue/60 bg-bg/90 text-blue"
                     : "border-blue/20 bg-bg/70 text-fg"
                 }`}
               >
-                <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.12em]">
+                <span
+                  className={`whitespace-nowrap font-mono uppercase tracking-[0.12em] ${
+                    compact ? "text-[9px]" : "text-[10px]"
+                  }`}
+                >
                   {node.label}
                 </span>
                 {isHot ? (

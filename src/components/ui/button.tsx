@@ -86,7 +86,7 @@ export function Button({
 
   return (
     <motion.div
-      className="inline-flex"
+      className="inline-flex w-full sm:w-auto"
       style={{ x: mag.x, y: mag.y }}
       onMouseMove={mag.onMouseMove}
       onMouseLeave={mag.onMouseLeave}
