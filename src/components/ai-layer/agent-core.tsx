@@ -12,19 +12,20 @@ const AgentCoreCanvas = dynamic(() => import("./agent-core-canvas"), {
 });
 
 /**
- * AI-layer centerpiece. With WebGL + motion allowed → a live 3D "agent core"
- * orchestrating orbiting tool nodes. Under reduced-motion / no-WebGL / SSR →
- * the existing labeled flow diagram (Your stack → Agent → Outcome), so the
- * narrative is never lost for accessibility.
+ * AI-layer centerpiece. On a desktop pointer with WebGL + motion allowed → a
+ * live, labeled, hover-interactive 3D "agent core" orchestrating your stack.
+ * On touch / reduced-motion / no-WebGL / SSR → the labeled flow diagram
+ * (Your stack → Agent → Outcome), which is clearer without hover and on small
+ * screens. Either way the narrative is explicit and accessible.
  */
 export function AgentCore() {
   const { enabled, isMobile } = use3DCapabilities();
 
-  if (!enabled) return <AgentDiagram className="w-full" />;
+  if (!enabled || isMobile) return <AgentDiagram className="w-full" />;
 
   return (
     <div className="relative aspect-[5/4] w-full">
-      <AgentCoreCanvas nodes={isMobile ? 4 : 6} />
+      <AgentCoreCanvas />
     </div>
   );
 }

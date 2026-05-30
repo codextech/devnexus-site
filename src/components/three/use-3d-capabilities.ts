@@ -21,10 +21,10 @@ function getWebGL() {
   if (webglSupport === null) {
     try {
       const canvas = document.createElement("canvas");
-      webglSupport = !!(
-        window.WebGLRenderingContext &&
-        (canvas.getContext("webgl2") || canvas.getContext("webgl"))
-      );
+      const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+      webglSupport = !!(window.WebGLRenderingContext && gl);
+      // Release the probe context immediately — we only needed to detect support.
+      gl?.getExtension("WEBGL_lose_context")?.loseContext();
     } catch {
       webglSupport = false;
     }

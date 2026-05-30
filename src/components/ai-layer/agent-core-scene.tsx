@@ -1,85 +1,85 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
+import { Html } from "@react-three/drei";
 import * as THREE from "three";
 
 const BLUE = new THREE.Color("#02A9F7");
 const CYAN = new THREE.Color("#22d3ee");
 const ORIGIN = new Float32Array([0, 0, 0]);
 
-// Tool nodes wrap the central agent core on an even (Fibonacci) sphere; each is
-// linked to the core, and a data-pulse travels along that link toward the core
-// (data flowing into the agent). The group rotates rigidly, so links stay valid.
-function buildCore(nodes: number) {
-  const tools: THREE.Vector3[] = [];
-  const radius = 2.2;
-  const golden = Math.PI * (1 + Math.sqrt(5));
-  for (let i = 0; i < nodes; i++) {
-    const phi = Math.acos(1 - (2 * (i + 0.5)) / nodes);
-    const theta = golden * (i + 0.5);
-    tools.push(
-      new THREE.Vector3(
-        radius * Math.sin(phi) * Math.cos(theta),
-        radius * Math.cos(phi),
-        radius * Math.sin(phi) * Math.sin(theta),
-      ),
-    );
-  }
-  const linePoints = new Float32Array(nodes * 2 * 3);
-  const toolPoints = new Float32Array(nodes * 3);
-  tools.forEach((t, i) => {
-    linePoints.set([0, 0, 0, t.x, t.y, t.z], i * 6);
-    toolPoints.set([t.x, t.y, t.z], i * 3);
-  });
-  return { tools, linePoints, toolPoints };
-}
+// The integrations an agent orchestrates — grounded in DevNexus's actual stack.
+const INTEGRATIONS = [
+  { label: "CRM", desc: "Reads & updates customer records" },
+  { label: "Database", desc: "Queries your production data" },
+  { label: "Voice AI", desc: "Handles calls — books & qualifies" },
+  { label: "Docs · RAG", desc: "Retrieves context from your knowledge base" },
+  { label: "Tools · APIs", desc: "Calls internal & third-party APIs" },
+  { label: "Approvals", desc: "Escalates risky actions to a human" },
+] as const;
 
-export function AgentCoreScene({ nodes = 6 }: { nodes?: number }) {
+const RADIUS = 1.9;
+
+export function AgentCoreScene() {
   const group = useRef<THREE.Group>(null);
   const core = useRef<THREE.Mesh>(null);
   const pulses = useRef<(THREE.Mesh | null)[]>([]);
+  const [hovered, setHovered] = useState<number | null>(null);
 
-  const { tools, linePoints, toolPoints } = useMemo(
-    () => buildCore(nodes),
-    [nodes],
-  );
+  // Hub-and-spoke layout: nodes ring the core in the view plane (readable for
+  // labels) with subtle z-depth so it still reads as 3D under parallax.
+  const layout = useMemo(() => {
+    const n = INTEGRATIONS.length;
+    return INTEGRATIONS.map((it, i) => {
+      const a = (i / n) * Math.PI * 2 - Math.PI / 2; // start at top
+      const z = Math.sin(i * 1.7) * 0.5;
+      const pos = new THREE.Vector3(Math.cos(a) * RADIUS, Math.sin(a) * RADIUS, z);
+      return { ...it, pos, labelPos: pos.clone().multiplyScalar(1.16) };
+    });
+  }, []);
+
+  const linePoints = useMemo(() => {
+    const arr = new Float32Array(layout.length * 2 * 3);
+    layout.forEach((node, i) => {
+      arr.set([0, 0, 0, node.pos.x, node.pos.y, node.pos.z], i * 6);
+    });
+    return arr;
+  }, [layout]);
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
 
     const g = group.current;
     if (g) {
-      g.rotation.y += delta * 0.12;
-      g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, state.pointer.y * 0.2, 0.04);
-      g.position.x = THREE.MathUtils.lerp(g.position.x, state.pointer.x * 0.3, 0.04);
+      // Gentle parallax tilt toward the pointer — no full spin, so labels stay
+      // readable. Eases back to rest when the pointer leaves.
+      g.rotation.x = THREE.MathUtils.lerp(g.rotation.x, state.pointer.y * 0.18, 0.05);
+      g.rotation.y = THREE.MathUtils.lerp(g.rotation.y, state.pointer.x * 0.25, 0.05);
     }
 
     const c = core.current;
     if (c) {
-      c.scale.setScalar(1 + Math.sin(t * 1.6) * 0.06); // gentle breathing
-      c.rotation.y += delta * 0.4;
-      c.rotation.x += delta * 0.18;
+      c.scale.setScalar(1 + Math.sin(t * 1.6) * 0.05); // breathing
+      c.rotation.y += delta * 0.35;
+      c.rotation.x += delta * 0.15;
     }
 
-    // Pulses travel from each tool node toward the core (phase 0→1).
-    for (let i = 0; i < tools.length; i++) {
+    // Data pulses travel from each node toward the core (data flowing in).
+    for (let i = 0; i < layout.length; i++) {
       const m = pulses.current[i];
       if (!m) continue;
-      const phase = (t * 0.6 + i / tools.length) % 1;
-      m.position.set(
-        tools[i].x * (1 - phase),
-        tools[i].y * (1 - phase),
-        tools[i].z * (1 - phase),
-      );
+      const phase = (t * 0.55 + i / layout.length) % 1;
+      const p = layout[i].pos;
+      m.position.set(p.x * (1 - phase), p.y * (1 - phase), p.z * (1 - phase));
     }
   });
 
   return (
     <group ref={group}>
-      {/* Agent core — rotating wireframe + bright additive center */}
+      {/* Agent core — wireframe brain + bright additive center + label badge */}
       <mesh ref={core}>
-        <icosahedronGeometry args={[0.9, 1]} />
+        <icosahedronGeometry args={[0.72, 1]} />
         <meshBasicMaterial color={BLUE} wireframe transparent opacity={0.5} />
       </mesh>
       <points>
@@ -87,7 +87,7 @@ export function AgentCoreScene({ nodes = 6 }: { nodes?: number }) {
           <bufferAttribute attach="attributes-position" args={[ORIGIN, 3]} />
         </bufferGeometry>
         <pointsMaterial
-          size={0.55}
+          size={0.5}
           color={CYAN}
           transparent
           opacity={0.9}
@@ -96,8 +96,16 @@ export function AgentCoreScene({ nodes = 6 }: { nodes?: number }) {
           blending={THREE.AdditiveBlending}
         />
       </points>
+      <Html position={[0, 0, 0]} center zIndexRange={[20, 0]}>
+        <div className="pointer-events-none select-none whitespace-nowrap rounded-full border border-blue/50 bg-bg/80 px-3 py-1.5 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-blue backdrop-blur">
+          AI Agent
+          <span className="mt-0.5 block text-[9px] tracking-[0.1em] text-fg-faint">
+            reasons · decides · acts
+          </span>
+        </div>
+      </Html>
 
-      {/* Links core → tools */}
+      {/* Links core → integrations */}
       <lineSegments>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[linePoints, 3]} />
@@ -111,31 +119,64 @@ export function AgentCoreScene({ nodes = 6 }: { nodes?: number }) {
         />
       </lineSegments>
 
-      {/* Tool nodes */}
-      <points>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[toolPoints, 3]} />
-        </bufferGeometry>
-        <pointsMaterial
-          size={0.24}
-          color={BLUE}
-          transparent
-          opacity={0.95}
-          sizeAttenuation
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
-      </points>
+      {/* Integration nodes — each labeled + hover-to-reveal */}
+      {layout.map((node, i) => {
+        const isHot = hovered === i;
+        return (
+          <group key={node.label}>
+            <mesh
+              position={node.pos}
+              scale={isHot ? 1.5 : 1}
+              onPointerOver={(e) => {
+                e.stopPropagation();
+                setHovered(i);
+              }}
+              onPointerOut={() => setHovered(null)}
+            >
+              <sphereGeometry args={[0.16, 16, 16]} />
+              <meshBasicMaterial
+                color={isHot ? CYAN : BLUE}
+                transparent
+                opacity={isHot ? 1 : 0.85}
+                toneMapped={false}
+              />
+            </mesh>
+            <Html position={node.labelPos} center zIndexRange={[15, 0]}>
+              <button
+                type="button"
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+                className={`flex cursor-default flex-col items-center gap-0.5 rounded-[10px] border px-2.5 py-1 text-center backdrop-blur transition-colors ${
+                  isHot ? "max-w-[200px]" : "max-w-[150px]"
+                } ${
+                  isHot
+                    ? "border-blue/60 bg-bg/90 text-blue"
+                    : "border-blue/20 bg-bg/70 text-fg"
+                }`}
+              >
+                <span className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.12em]">
+                  {node.label}
+                </span>
+                {isHot ? (
+                  <span className="text-[10px] leading-snug text-fg-muted">
+                    {node.desc}
+                  </span>
+                ) : null}
+              </button>
+            </Html>
+          </group>
+        );
+      })}
 
-      {/* Data pulses flowing toward the core (one small mesh per link) */}
-      {tools.map((_, i) => (
+      {/* Data pulses */}
+      {layout.map((node, i) => (
         <mesh
-          key={i}
+          key={`pulse-${node.label}`}
           ref={(el) => {
             pulses.current[i] = el;
           }}
         >
-          <sphereGeometry args={[0.075, 8, 8]} />
+          <sphereGeometry args={[0.07, 8, 8]} />
           <meshBasicMaterial
             color={CYAN}
             transparent
