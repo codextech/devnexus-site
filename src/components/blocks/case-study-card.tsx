@@ -16,6 +16,7 @@ export function CaseStudyCard({ study }: CaseStudyCardProps) {
     <motion.div {...staggerItem}>
       <Link
         href={`/work/${study.slug}`}
+        data-cursor="view"
         className="group block rounded-2xl overflow-hidden glass-card transition-all duration-300 hover:scale-[1.02]"
       >
 

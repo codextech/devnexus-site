@@ -44,6 +44,7 @@ export function SelectedWorkSection() {
         <motion.div {...fadeUp} className="mt-12">
           <Link
             href="/work/tophealth-patient-intake"
+            data-cursor="view"
             className="group grid overflow-hidden rounded-[14px] border border-border bg-surface transition-colors hover:border-border-hi lg:grid-cols-2"
           >
             <div className="relative aspect-[16/11] overflow-hidden lg:aspect-auto lg:h-full lg:min-h-[440px]">
@@ -102,6 +103,7 @@ export function SelectedWorkSection() {
             <motion.div key={c.href} {...fadeUp}>
               <Link
                 href={c.href}
+                data-cursor="view"
                 className="group flex h-full flex-col overflow-hidden rounded-[14px] border border-border bg-surface transition-colors hover:border-border-hi"
               >
                 <div className="relative aspect-[16/9] overflow-hidden">
