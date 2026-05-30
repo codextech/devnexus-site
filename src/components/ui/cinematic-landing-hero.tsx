@@ -222,15 +222,17 @@ export function CinematicHero({ className }: { className?: string }) {
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className={cn(
-        "relative w-full h-screen overflow-hidden flex items-center justify-center bg-bg text-fg font-sans antialiased",
-        className,
-      )}
-      style={{ perspective: "1500px" }}
-    >
-      <style dangerouslySetInnerHTML={{ __html: INJECTED_STYLES }} />
+    // Stable outer wrapper that React owns. GSAP's pin reparents the inner
+    // container into a pin-spacer; keeping a wrapper React always removes
+    // (whose parent GSAP never touches) avoids the "removeChild: not a child"
+    // crash on route change.
+    <div className={cn("relative", className)}>
+      <div
+        ref={containerRef}
+        className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-bg font-sans text-fg antialiased"
+        style={{ perspective: "1500px" }}
+      >
+        <style dangerouslySetInnerHTML={{ __html: INJECTED_STYLES }} />
       <div className="cine-film-grain" aria-hidden="true" />
       <div className="cine-bg-grid pointer-events-none absolute inset-0 z-0 opacity-50" aria-hidden="true" />
 
@@ -359,6 +361,7 @@ export function CinematicHero({ className }: { className?: string }) {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
