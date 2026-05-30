@@ -123,7 +123,7 @@ export function SelectedWorkSection() {
                   <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-fg-faint">
                     {c.meta}
                   </span>
-                  <h4 className="mt-2 font-display text-lg font-medium text-fg transition-colors group-hover:text-fg">
+                  <h4 className="mt-2 font-display text-lg font-medium text-fg transition-colors group-hover:text-blue">
                     {c.title}
                   </h4>
                   <div className="mt-4 flex flex-wrap gap-2">

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 import {
   motion,
   useMotionTemplate,
@@ -39,9 +40,14 @@ export function InteractiveCard({
   const glowY = useTransform(my, (v) => `${v * 100}%`);
   const glow = useMotionTemplate`radial-gradient(420px circle at ${glowX} ${glowY}, rgba(2,169,247,0.13), transparent 60%)`;
 
+  // Cache the rect on enter so pointermove doesn't force a layout read each frame.
+  const rectRef = useRef<DOMRect | null>(null);
+  const onEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    rectRef.current = e.currentTarget.getBoundingClientRect();
+  };
   const onMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (reduce) return;
-    const rect = e.currentTarget.getBoundingClientRect();
+    const rect = rectRef.current ?? e.currentTarget.getBoundingClientRect();
     mx.set((e.clientX - rect.left) / rect.width);
     my.set((e.clientY - rect.top) / rect.height);
   };
@@ -61,9 +67,10 @@ export function InteractiveCard({
         <Link
           href={href}
           data-cursor="view"
+          onMouseEnter={onEnter}
           onMouseMove={onMove}
           onMouseLeave={reset}
-          className={cn("group relative block h-full", className)}
+          className={cn("group relative block h-full overflow-hidden", className)}
         >
           {!reduce ? (
             <motion.span
