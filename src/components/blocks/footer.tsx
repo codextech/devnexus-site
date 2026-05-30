@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
+import {
+  TextHoverEffect,
+  FooterBackgroundGradient,
+} from "@/components/ui/hover-footer";
 import { SITE, FOOTER_LINKS } from "@/lib/constants";
 
 const socials = [
@@ -118,12 +122,13 @@ export function Footer() {
         </div>
       </Container>
 
-      {/* Oversized wordmark baseline */}
-      <div className="overflow-hidden border-t border-border" aria-hidden="true">
+      {/* Interactive oversized wordmark — outline draws in, cursor reveals brand gradient */}
+      <div className="relative overflow-hidden border-t border-border">
+        <FooterBackgroundGradient />
         <Container>
-          <span className="block select-none whitespace-nowrap py-6 font-display text-[18vw] font-bold leading-none tracking-[-0.04em] text-fg/[0.045]">
-            DEVNEXUS
-          </span>
+          <div className="relative z-10 h-[150px] sm:h-[210px] lg:h-[300px]">
+            <TextHoverEffect text="DevNexus" duration={0.25} />
+          </div>
         </Container>
       </div>
 
