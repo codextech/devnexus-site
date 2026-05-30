@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import {
   CURSOR_LABELS,
@@ -14,8 +14,37 @@ import {
 const INTERACTIVE =
   "[data-cursor], a, button, [role='button'], input, textarea, select, label";
 
+// The custom cursor is enabled only on desktop fine-pointer devices when the
+// user hasn't requested reduced motion. Read via useSyncExternalStore so it is
+// SSR-safe (server snapshot → false) and responds live if the user changes
+// either setting (plugs in a mouse, toggles reduced motion).
+const FINE_POINTER = "(pointer: fine)";
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+function subscribeToCapabilities(onChange: () => void) {
+  const fine = window.matchMedia(FINE_POINTER);
+  const reduced = window.matchMedia(REDUCED_MOTION);
+  fine.addEventListener("change", onChange);
+  reduced.addEventListener("change", onChange);
+  return () => {
+    fine.removeEventListener("change", onChange);
+    reduced.removeEventListener("change", onChange);
+  };
+}
+
+function getCursorEnabled() {
+  return (
+    window.matchMedia(FINE_POINTER).matches &&
+    !window.matchMedia(REDUCED_MOTION).matches
+  );
+}
+
 export function CustomCursor() {
-  const [active, setActive] = useState(false);
+  const active = useSyncExternalStore(
+    subscribeToCapabilities,
+    getCursorEnabled,
+    () => false
+  );
   const [variant, setVariant] = useState<CursorVariant>("default");
   const [visible, setVisible] = useState(false);
 
@@ -26,18 +55,13 @@ export function CustomCursor() {
   const ringX = useSpring(x, { stiffness: 350, damping: 28, mass: 0.5 });
   const ringY = useSpring(y, { stiffness: 350, damping: 28, mass: 0.5 });
 
-  // Activation gate: desktop fine pointer AND motion allowed. Decided on the
-  // client so SSR / first render returns null (no hydration drift).
+  // Hide the native pointer only while the custom cursor is active. Cleanup
+  // restores it if the user switches to reduced motion / a coarse pointer.
   useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (!fine || reduce) return;
-    setActive(true);
+    if (!active) return;
     document.documentElement.classList.add("cursor-active");
     return () => document.documentElement.classList.remove("cursor-active");
-  }, []);
+  }, [active]);
 
   // Track pointer movement, hover intent, and window enter/leave via delegation.
   useEffect(() => {
@@ -110,9 +134,15 @@ export function CustomCursor() {
         }}
       >
         {label ? (
-          <span className="font-mono text-[10px] uppercase tracking-[0.12em]">
+          <motion.span
+            key={variant}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.18 }}
+            className="font-mono text-[10px] uppercase tracking-[0.12em]"
+          >
             {label}
-          </span>
+          </motion.span>
         ) : null}
       </motion.div>
     </>
