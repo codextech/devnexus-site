@@ -85,6 +85,14 @@ const INJECTED_STYLES = `
       transform: translateZ(0);
   }
 
+  /* Always-light title for use INSIDE the permanently-dark card (theme tokens
+     flip to dark in light mode and would vanish on the deep-blue card). */
+  .cine-title-light {
+      background: linear-gradient(180deg, #FFFFFF 0%, #c3cee0 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      transform: translateZ(0);
+  }
+
   .cine-wordmark {
       background: linear-gradient(180deg, #FFFFFF 0%, #6f7d96 100%);
       -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
@@ -97,6 +105,19 @@ const INJECTED_STYLES = `
       border: 1px solid rgba(2,169,247,0.10);
       will-change: width, height, transform, border-radius;
   }
+
+  /* The card stays permanently dark in BOTH themes. In light mode the global
+     token swap (--text → near-black, html.light h1–h4 → dark) would otherwise
+     render the card's copy dark-on-dark and make it vanish. Re-pin the text
+     tokens to their dark-theme values for everything inside the card (this also
+     keeps the .cine-title gradient white), and shield the slide headings from
+     the global light-mode heading-darkening rule. */
+  html.light .cine-card {
+      --text: #FAFAFA;
+      --text-muted: #A1A1A6;
+      --text-faint: #6B6B70;
+  }
+  html.light .cine-card h3 { color: #FAFAFA !important; }
 
   .cine-sheen {
       position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 40;
@@ -275,9 +296,9 @@ export function CinematicHero({ className }: { className?: string }) {
                 {/* Left: copy + metric */}
                 <div className="order-2 text-center lg:order-1 lg:text-left">
                   <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-blue">
-                    <span className="text-fg-faint">{p.index} / 0{PROJECTS.length}</span> · {p.tag}
+                    <span className="text-[#9fd2ff]/55">{p.index} / 0{PROJECTS.length}</span> · {p.tag}
                   </p>
-                  <h3 className="mt-4 font-display text-2xl font-bold tracking-tight text-fg md:text-3xl lg:text-[2.5rem] lg:leading-[1.1]">
+                  <h3 className="mt-4 font-display text-2xl font-bold tracking-tight text-[#FAFAFA] md:text-3xl lg:text-[2.5rem] lg:leading-[1.1]">
                     {p.heading}
                   </h3>
                   <p className="mx-auto mt-4 hidden max-w-md text-sm leading-relaxed text-[#cfeaff]/80 md:block lg:mx-0 lg:text-base">
@@ -343,7 +364,7 @@ export function CinematicHero({ className }: { className?: string }) {
           {/* CTA — uses the app's Button so it matches the rest of the site */}
           <div className="cta-wrapper gsap-reveal absolute inset-0 z-30 flex flex-col items-center justify-center px-6 text-center">
             <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.22em] text-fg-faint">Real systems, real numbers</p>
-            <h3 className="cine-title font-display text-4xl font-extrabold tracking-tight md:text-6xl">
+            <h3 className="font-display text-4xl font-extrabold tracking-tight md:text-6xl text-[#FAFAFA]">
               Want results like these?
             </h3>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-fg-muted md:text-lg">
