@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/ui/container";
-import { Badge } from "@/components/ui/badge";
-import { StatCard } from "@/components/ui/stat-card";
+import { CaseStudyHero } from "@/components/blocks/case-study-hero";
 import { TechStackRow } from "@/components/blocks/tech-stack-row";
 import { CTABanner } from "@/components/blocks/cta-banner";
 import { CaseStudyBody } from "@/components/sections/case-study-body";
@@ -74,45 +73,30 @@ export default async function CaseStudyPage({ params }: Props) {
         }}
       />
 
-      {/* Hero */}
-      <section className="bg-dark-900 pt-32 pb-16 md:pt-40 md:pb-24 border-b border-white/5 relative">
-        <div className="absolute inset-0 section-gradient" />
-        <Container className="relative z-10">
-          <div className="max-w-4xl">
-            <div className="flex flex-wrap gap-2 mb-4">
-              <Badge variant="blue">{frontmatter.industry}</Badge>
-              {frontmatter.services.map((s) => (
-                <Badge key={s} variant="neutral">
-                  {s}
-                </Badge>
-              ))}
-            </div>
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white leading-[1.1]">
-              {frontmatter.title}
-            </h1>
-            <p className="mt-4 text-base md:text-lg text-dark-400 leading-relaxed">
-              {frontmatter.excerpt}
-            </p>
-            <div className="mt-6 flex flex-wrap gap-4 text-sm text-dark-500">
-              <span>Client: {frontmatter.client}</span>
-              <span>Duration: {frontmatter.duration}</span>
-              <span>Team: {frontmatter.teamSize}</span>
-            </div>
-          </div>
-        </Container>
-      </section>
+      {/* Hero — Precision Instrument page hero */}
+      <CaseStudyHero
+        industry={frontmatter.industry}
+        services={frontmatter.services}
+        title={frontmatter.title}
+        excerpt={frontmatter.excerpt}
+        client={frontmatter.client}
+        duration={frontmatter.duration}
+        teamSize={frontmatter.teamSize}
+      />
 
-      {/* Metrics */}
-      <section className="py-12 md:py-16 border-b border-white/5 relative">
-        <div className="absolute inset-0 bg-dark-900/30" />
-        <Container className="relative z-10">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      {/* Metrics — instrument readouts */}
+      <section className="bg-bg py-12 md:py-16">
+        <Container>
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[14px] border border-border bg-border sm:grid-cols-3">
             {frontmatter.metrics.map((metric) => (
-              <StatCard
-                key={metric.label}
-                value={metric.value}
-                label={metric.label}
-              />
+              <div key={metric.label} className="bg-bg p-8 text-center">
+                <p className="font-display text-3xl font-bold tracking-[-0.01em] text-fg md:text-4xl">
+                  {metric.value}
+                </p>
+                <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.12em] text-fg-faint">
+                  {metric.label}
+                </p>
+              </div>
             ))}
           </div>
         </Container>
@@ -124,8 +108,8 @@ export default async function CaseStudyPage({ params }: Props) {
           <div className="max-w-3xl mx-auto">
             <CaseStudyBody content={content} />
 
-            <div className="mt-12 pt-8 border-t border-white/5">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-dark-500 mb-4">
+            <div className="mt-12 pt-8 border-t border-border">
+              <h3 className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-fg-faint">
                 Tech Stack
               </h3>
               <TechStackRow items={frontmatter.techStack} />

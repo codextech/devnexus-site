@@ -2,92 +2,130 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import { Check, X } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { fadeUp } from "@/lib/animations";
+import { fadeUp, clipReveal } from "@/lib/animations";
+
+// Contrast is the section's persuasive core: name the buyer's real fear (the
+// agency bait-and-switch) on the left, answer it on the right. Loss-aversion +
+// the value made self-evident by juxtaposition.
+const agencyNorm = [
+  "Account managers relay your messages",
+  "Junior devs do the actual work",
+  "Context lost in handoffs",
+  "You chase status updates",
+];
+const devnexusWay = [
+  "You talk to the engineer building it",
+  "Senior-only — production-proven",
+  "One team, discovery to ship",
+  "Weekly demos, nothing hidden",
+];
 
 export function AboutTeam() {
   return (
     <section className="border-t border-border bg-bg py-24 md:py-32">
       <Container>
-        <motion.div {...fadeUp} className="mb-12">
-          <div className="mb-5">
-            <Eyebrow label="The team" />
-          </div>
-          <h2 className="max-w-2xl font-display text-2xl font-bold leading-tight tracking-[-0.02em] text-fg md:text-3xl lg:text-4xl">
-            Engineers, not account managers
-          </h2>
-          <p className="mt-3 max-w-xl leading-relaxed text-fg-muted">
-            Small by design. Every person you work with is a senior engineer
-            who&rsquo;s shipped production software.
-          </p>
+        {/* Header */}
+        <motion.div {...fadeUp}>
+          <Eyebrow label="The team" />
         </motion.div>
+        <motion.h2
+          {...clipReveal}
+          className="mt-5 max-w-3xl font-display text-3xl font-bold leading-[1.1] tracking-[-0.02em] text-fg md:text-4xl lg:text-[2.75rem]"
+        >
+          Engineers, not account managers
+        </motion.h2>
+        <motion.p
+          {...fadeUp}
+          className="mt-4 max-w-xl leading-relaxed text-fg-muted"
+        >
+          Small by design. Every person you work with is a senior engineer
+          who&rsquo;s shipped production software.
+        </motion.p>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-          {/* Large image */}
+        <div className="mt-12 grid gap-5 lg:grid-cols-12 lg:items-stretch">
+          {/* Contrast — the persuasive centerpiece */}
           <motion.div
             {...fadeUp}
-            className="group relative h-[280px] overflow-hidden rounded-[14px] border border-border md:col-span-7 md:h-[400px]"
+            className="grid gap-4 sm:grid-cols-2 lg:col-span-7"
           >
-            <Image
-              src="/images/team/team-build.jpg"
-              alt="DevNexus engineer at work"
-              fill
-              sizes="(max-width: 768px) 100vw, 58vw"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-            <div className="absolute bottom-5 left-6">
-              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/60">
-                Deep in the build
+            {/* The agency norm — muted, the "before" */}
+            <div className="flex flex-col rounded-[14px] border border-border bg-surface/40 p-7 md:p-8">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-fg-faint">
+                The agency norm
               </p>
-              <p className="mt-1 text-sm font-medium text-white/90">
-                Senior engineers who own the outcome
+              <ul className="mt-6 space-y-4">
+                {agencyNorm.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[15px] leading-snug text-fg-muted"
+                  >
+                    <X className="mt-0.5 h-4 w-4 flex-shrink-0 text-fg-faint" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* The DevNexus way — brand accent, the "after" (visually wins) */}
+            <div className="flex flex-col overflow-hidden rounded-[14px] border border-blue/30 bg-blue-tint p-7 md:p-8">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-blue">
+                The DevNexus way
               </p>
+              <ul className="mt-6 space-y-4">
+                {devnexusWay.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[15px] leading-snug text-fg"
+                  >
+                    <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
 
-          {/* Right column */}
-          <div className="flex flex-col gap-4 md:col-span-5">
-            <motion.div
-              {...fadeUp}
-              className="group relative h-[200px] overflow-hidden rounded-[14px] border border-border md:flex-1"
-            >
-              <Image
-                src="/images/team/team-collab.jpg"
-                alt="DevNexus team collaborating"
-                fill
-                sizes="(max-width: 768px) 100vw, 42vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="absolute bottom-4 left-5">
-                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/60">
-                  Collaboration
-                </p>
-                <p className="mt-1 text-sm font-medium text-white/90">
-                  Working through hard problems together
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              {...fadeUp}
-              className="flex flex-col justify-center rounded-[14px] border border-border bg-surface p-6 md:p-7"
-            >
-              <p className="font-display text-lg font-bold leading-snug text-fg md:text-xl">
-                No handoffs.
-                <br />
-                No juniors.
-                <br />
-                <span className="text-blue">No surprises.</span>
+          {/* Human trust */}
+          <motion.div
+            {...fadeUp}
+            className="group relative min-h-[300px] overflow-hidden rounded-[14px] border border-border lg:col-span-5"
+          >
+            <Image
+              src="/images/team/team-build.jpg"
+              alt="A DevNexus senior engineer deep in the build"
+              fill
+              sizes="(max-width: 1024px) 100vw, 42vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+            <div className="absolute bottom-6 left-6">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/60">
+                Senior engineers
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-fg-muted">
-                The same expert you meet is the one who builds your product.
+              <p className="mt-1 text-base font-medium text-white/90">
+                who own the outcome
               </p>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
+
+        {/* Closing principle — full-width, the line they'll remember */}
+        <motion.div
+          {...fadeUp}
+          className="mt-5 flex flex-col gap-3 rounded-[14px] border border-border bg-surface p-7 md:flex-row md:items-center md:justify-between md:gap-8 md:p-8"
+        >
+          <p className="font-display text-xl font-bold leading-snug text-fg md:text-2xl">
+            No handoffs. No juniors.{" "}
+            <span className="text-blue">No surprises.</span>
+          </p>
+          <p className="max-w-md text-sm leading-relaxed text-fg-muted">
+            The same expert you meet on the first call is the one who writes
+            your code.
+          </p>
+        </motion.div>
       </Container>
     </section>
   );
