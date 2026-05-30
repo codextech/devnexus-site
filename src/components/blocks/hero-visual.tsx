@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { type MouseEvent } from "react";
 import {
   motion,
@@ -10,6 +9,7 @@ import {
   useReducedMotion,
 } from "motion/react";
 import { Metric } from "@/components/ui/metric";
+import { HeroScene } from "@/components/hero/hero-scene";
 import { EASE } from "@/lib/animations";
 
 const spring = { stiffness: 150, damping: 18, mass: 0.4 };
@@ -90,14 +90,7 @@ export function HeroVisual() {
                 style={{ boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.12)" }}
               />
               <div className="relative aspect-[5/6]">
-                <Image
-                  src="/images/hero/hero-3d.jpg"
-                  alt="DevNexus — software and AI engineering"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 90vw, 520px"
-                  className="object-cover"
-                />
+                <HeroScene />
                 {/* sheen + bottom fade */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-blue/10 via-transparent to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-bg/80 to-transparent" />
