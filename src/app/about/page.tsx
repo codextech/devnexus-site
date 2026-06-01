@@ -10,18 +10,18 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = createMetadata({
-  title: "About DevNexus | Expert Software & AI Development Agency",
+  title: "About DevNexus | Senior Engineers Who Ship Production Software",
   description:
-    "DevNexus is an expert-led software agency specializing in Python, JavaScript, AI, and Atlassian solutions. Learn about our team, values, and approach.",
+    "DevNexus is a full-service software development company. Senior engineers, transparent process, real results — specializing in JavaScript, Node.js, Python, AI, and Atlassian.",
   path: "/about",
   keywords: [
-    "software development agency",
+    "software development company",
     "AI development company",
-    "expert software engineers",
-    "Python JavaScript agency",
-    "web development team",
+    "senior software engineers",
+    "full-service software agency",
+    "JavaScript Node.js Python development",
+    "web and mobile development agency",
     "Atlassian development agency",
-    "software agency about",
     "DevNexus team",
   ],
 });
