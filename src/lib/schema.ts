@@ -89,6 +89,49 @@ export function articleSchema(article: {
   };
 }
 
+export function caseStudySchema(study: {
+  title: string;
+  description: string;
+  url: string;
+  client: string;
+  industry: string;
+  services: string[];
+  metrics: { label: string; value: string }[];
+  publishedAt: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CaseStudy",
+    headline: study.title,
+    name: study.title,
+    description: study.description,
+    url: study.url,
+    datePublished: study.publishedAt,
+    author: { "@type": "Organization", name: SITE.name },
+    publisher: {
+      "@type": "Organization",
+      name: SITE.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE.url}/images/logo.svg`,
+      },
+    },
+    about: [
+      { "@type": "Thing", name: study.industry },
+      ...study.services.map((service) => ({ "@type": "Service", name: service })),
+    ],
+    client: {
+      "@type": "Organization",
+      name: study.client,
+    },
+    result: study.metrics.map((metric) => ({
+      "@type": "PropertyValue",
+      name: metric.label,
+      value: metric.value,
+    })),
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",

@@ -7,7 +7,7 @@ import { CTABanner } from "@/components/blocks/cta-banner";
 import { CaseStudyBody } from "@/components/sections/case-study-body";
 import { getAllCaseStudies, getCaseStudyBySlug } from "@/lib/content";
 import { createMetadata } from "@/lib/metadata";
-import { articleSchema, breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, caseStudySchema } from "@/lib/schema";
 import { SITE } from "@/lib/constants";
 
 type Props = {
@@ -51,10 +51,14 @@ export default async function CaseStudyPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            articleSchema({
+            caseStudySchema({
               title: frontmatter.title,
               description: frontmatter.excerpt,
               url: `${SITE.url}/work/${slug}`,
+              client: frontmatter.client,
+              industry: frontmatter.industry,
+              services: frontmatter.services,
+              metrics: frontmatter.metrics,
               publishedAt: frontmatter.publishedAt,
             })
           ),
